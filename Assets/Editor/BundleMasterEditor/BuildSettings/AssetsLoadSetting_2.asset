@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: AssetsLoadSetting_2
   m_EditorClassIdentifier: 
   BuildName: SubBundle
-  BuildIndex: 0
+  BuildIndex: 2
   BundleVariant: bundle
   NameByHash: 0
   AssetPath:
