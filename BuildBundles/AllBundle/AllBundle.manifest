@@ -1,0 +1,22 @@
+ManifestFileVersion: 0
+CRC: 1609585396
+AssetBundleManifest:
+  AssetBundleInfos:
+    Info_0:
+      Name: shader_allbundle
+      Dependencies: {}
+    Info_1:
+      Name: assets_bundles_loginui_prefab.bundle
+      Dependencies:
+        Dependency_0: assets_res_texture_91logo_png.bundle
+    Info_2:
+      Name: assets_bundles_subbundleassets_mister91jiao_prefab.bundle
+      Dependencies:
+        Dependency_0: assets_res_texture_91logo_png.bundle
+    Info_3:
+      Name: assets_scenes_game_unity.bundle
+      Dependencies:
+        Dependency_0: shader_allbundle
+    Info_4:
+      Name: assets_res_texture_91logo_png.bundle
+      Dependencies: {}

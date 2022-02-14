@@ -1,0 +1,20 @@
+ManifestFileVersion: 0
+CRC: 2295948025
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 0214d33651219ec3aa6de793fe186acf
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: fcdaeee34e52c5d728b2ae71a9c5a55b
+HashAppended: 0
+ClassTypes:
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 200
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/Bundles/ShaderVariants.shadervariants
+- Assets/Res/Shader/Loli.shader
+Dependencies: []
