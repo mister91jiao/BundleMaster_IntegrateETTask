@@ -9,9 +9,18 @@ namespace BM
     /// </summary>
     public class AssetLoadTable : ScriptableObject
     {
-        [Header("构建路径")]
-        [Tooltip("构建的资源的所在路径（Assets同级目录下的路径）")] public string BundlePath = "Bundles";
+        [Header("相对构建路径")]
+        [Tooltip("构建的资源的相对路径(Assets同级目录下的路径)")] 
+        public string BundlePath = "BuildBundles";
 
+        [Header("是否启用绝对构建路径")]
+        [Tooltip("启用后使用绝对路径")] 
+        public bool EnableRelativePath = false;
+        
+        [Header("绝对路径")]
+        [Tooltip("自己填的绝对路径")] 
+        public string RelativePath = "";
+        
         /// <summary>
         /// 返回打包路径
         /// </summary>
@@ -19,7 +28,11 @@ namespace BM
         {
             get
             {
-                var path = $"{Application.dataPath}/../{BundlePath}";
+                if (EnableRelativePath)
+                {
+                    return RelativePath;
+                }
+                string path = $"{Application.dataPath}/../{BundlePath}";
                 DirectoryInfo info;
                 if (!Directory.Exists(path))
                 {
@@ -29,7 +42,6 @@ namespace BM
                 {
                     info = new DirectoryInfo(path);
                 }
-
                 return info.FullName;
             }
         }
