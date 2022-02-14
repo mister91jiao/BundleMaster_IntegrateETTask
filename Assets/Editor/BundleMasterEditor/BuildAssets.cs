@@ -41,9 +41,14 @@ namespace BM
                 Build(assetLoadTable, assetsLoadSetting);
                 //索引自动+1
                 assetsLoadSetting.BuildIndex++;
-                EditorUtility.SetDirty(assetsLoadSetting);
-                AssetDatabase.SaveAssets();
             }
+            //保存配置文件
+            foreach (string guid in  AssetDatabase.FindAssets($"t:{nameof(AssetsLoadSetting)}"))
+            {
+                var obj = AssetDatabase.LoadAssetAtPath<AssetsLoadSetting>(AssetDatabase.GUIDToAssetPath(guid));
+                EditorUtility.SetDirty(obj);
+            }
+            AssetDatabase.SaveAssets();
             //打包结束
             AssetLogHelper.Log("打包结束");
         }
@@ -84,6 +89,7 @@ namespace BM
                     File.Copy(filePath, Path.Combine(directoryPath, fileInfo.Name));
                 }
             }
+            AssetLogHelper.Log("已将资源复制到StreamingAssets");
         }
         
         private static void Build(AssetLoadTable assetLoadTable, AssetsLoadSetting assetsLoadSetting)
@@ -108,7 +114,18 @@ namespace BM
                 BuildAssetsTools.GetChildFiles(path, files);
             }
             //添加打包进去的场景
-            SceneAsset[] sceneAssets = assetsLoadSetting.Scene.ToArray();
+            List<SceneAsset> sceneAssetsLst = new List<SceneAsset>();
+            foreach (var path in assetsLoadSetting.ScenePath)
+            {
+                foreach (var asset in AssetDatabase.LoadAllAssetsAtPath(path))
+                {
+                    if (asset is SceneAsset sa)
+                    {
+                        sceneAssetsLst.Add(sa);
+                    }
+                }
+            }
+            var sceneAssets = sceneAssetsLst.ToArray();
             for (int i = 0; i < sceneAssets.Length; i++)
             {
                 SceneAsset sceneAsset = sceneAssets[i];

@@ -26,8 +26,8 @@ namespace BM
         public List<string> AssetPath = new List<string>();
         
         [Header("场景资源")]
-        [Tooltip("需要通过Bundle加载的场景")]
-        public List<SceneAsset> Scene = new List<SceneAsset>();
+        [Tooltip("需要通过Bundle加载的场景的路径")]
+        public List<string> ScenePath = new List<string>();
         
     }
 }
