@@ -31,7 +31,7 @@ namespace BM
                     waitDown.SetResult();
                 };
                 await waitDown;
-                if (webRequest.result != UnityWebRequest.Result.Success)
+                if (!string.IsNullOrEmpty(webRequest.error))
                 {
                     AssetLogHelper.Log("下载Bundle失败 重试\n" + webRequest.error);
                     return null;

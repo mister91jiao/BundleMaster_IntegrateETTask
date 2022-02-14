@@ -15,6 +15,7 @@ namespace BM
         private static string AssetLoadTablePath = "Assets/Editor/BundleMasterEditor/BuildSettings/AssetLoadTable.asset";
         
         [MenuItem("Tools/BuildAsset/创建分包总索引文件")]
+        [MenuItem("Assets/Create/BuildAsset/创建分包总索引文件")]
         public static void CreateBundleTableSetting()
         {
             AssetLoadTable assetLoadTable = ScriptableObject.CreateInstance<AssetLoadTable>();
@@ -22,6 +23,7 @@ namespace BM
         }
         
         [MenuItem("Tools/BuildAsset/创建分包配置文件")]
+        [MenuItem("Assets/Create/BuildAsset/创建分包配置文件")]
         public static void CreateSingleSetting()
         {
             AssetsLoadSetting assetsLoadSetting = ScriptableObject.CreateInstance<AssetsLoadSetting>();
@@ -37,6 +39,10 @@ namespace BM
             {
                 //获取单个Bundle的配置文件
                 Build(assetLoadTable, assetsLoadSetting);
+                //索引自动+1
+                assetsLoadSetting.BuildIndex++;
+                EditorUtility.SetDirty(assetsLoadSetting);
+                AssetDatabase.SaveAssets();
             }
             //打包结束
             AssetLogHelper.Log("打包结束");
