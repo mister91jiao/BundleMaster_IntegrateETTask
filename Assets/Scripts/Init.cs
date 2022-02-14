@@ -7,6 +7,9 @@ using UnityEngine.UI;
 
 public class Init : MonoBehaviour
 {
+    public string url = "http://127.0.0.1/Bundles";
+    public AssetLoadMode mode = AssetLoadMode.Develop;
+    public string nextScene = "Game";
     
     void Start()
     {
@@ -27,8 +30,9 @@ public class Init : MonoBehaviour
     
     private async ETTask CheckHotfix()
     {
-        //重新配置热更目录
-        AssetComponentConfig.HotfixPath = Application.dataPath + "/../HotfixBundles/";
+        //重新配置热更
+        AssetComponentConfig.BundleServerUrl = url;
+        AssetComponentConfig.AssetLoadMode = mode;
         
         AssetComponentConfig.DefaultBundlePackageName = "AllBundle";
         List<string> updatePackageBundle = new List<string>(){AssetComponentConfig.DefaultBundlePackageName, "SubBundle"};
@@ -62,7 +66,7 @@ public class Init : MonoBehaviour
     private async ETTask loadNewScene()
     {
         LoadSceneHandler loadSceneHandler = await AssetComponent.LoadSceneAsync("Assets/Scenes/Game.unity");
-        AsyncOperation operation = SceneManager.LoadSceneAsync("Game");
+        AsyncOperation operation = SceneManager.LoadSceneAsync(nextScene);
         operation.completed += asyncOperation =>
         {
             //同步加载资源(加载分包内的资源)
