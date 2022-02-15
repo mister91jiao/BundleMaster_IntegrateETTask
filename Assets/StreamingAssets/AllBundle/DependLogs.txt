@@ -1,2 +1,2 @@
-<Assets/Res/Texture/91logo.png|8f476ec06769caff1bdc15be521ef3fa.bundle>
+<Assets/Res/Texture/91logo.png|allbundle_Assets_Res_Texture_91logo_png.bundle>
 

@@ -15,7 +15,7 @@ MonoBehaviour:
   BuildName: AllBundle
   BuildIndex: 1
   BundleVariant: bundle
-  NameByHash: 1
+  NameByHash: 0
   AssetPath:
   - Assets/Bundles
   Scene:
