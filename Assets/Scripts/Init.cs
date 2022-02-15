@@ -67,6 +67,9 @@ public class Init : MonoBehaviour
             //同步加载资源(加载分包内的资源)
             LoadHandler<GameObject> loadHandler = AssetComponent.Load<GameObject>("Assets/Bundles/SubBundleAssets/mister91jiao.prefab", "SubBundle");
             GameObject obj = UnityEngine.Object.Instantiate(loadHandler.Asset);
+            
+            LoadHandler<GameObject> loadHandler1 = AssetComponent.Load<GameObject>("Assets/Bundles/SubBundleAssets/mister91jiao.prefab");
+            GameObject obj1 = UnityEngine.Object.Instantiate(loadHandler1.Asset);
         };
     }
 }

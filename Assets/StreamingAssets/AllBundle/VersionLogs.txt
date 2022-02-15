@@ -1,7 +1,7 @@
-2022/2/15 12:51:34|0
-assets_bundles_loginui_prefab.bundle|40998|1483193104
-assets_bundles_subbundleassets_mister91jiao_prefab.bundle|1847624|2171012638
-assets_res_texture_91logo_png.bundle|1712295|2720832937
-assets_scenes_game_unity.bundle|2911131|2158970019
+2022/2/15 14:04:31|1
+8f476ec06769caff1bdc15be521ef3fa.bundle|1712295|2861469390
+c68729ed257d928cf993367e691ecf6c.bundle|1847592|3418648332
+f85938c5c9aa4a890effe18fc1c1ed44.bundle|40998|651597537
+fba18680e874a1594edd9bb868277f43.bundle|2911130|55469498
 shader_allbundle|79168|1595062482
 

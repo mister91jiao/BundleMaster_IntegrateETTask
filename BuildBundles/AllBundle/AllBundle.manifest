@@ -1,22 +1,22 @@
 ManifestFileVersion: 0
-CRC: 3361326110
+CRC: 263092301
 AssetBundleManifest:
   AssetBundleInfos:
     Info_0:
       Name: shader_allbundle
       Dependencies: {}
     Info_1:
-      Name: assets_bundles_loginui_prefab.bundle
+      Name: f85938c5c9aa4a890effe18fc1c1ed44.bundle
       Dependencies:
-        Dependency_0: assets_res_texture_91logo_png.bundle
+        Dependency_0: 8f476ec06769caff1bdc15be521ef3fa.bundle
     Info_2:
-      Name: assets_bundles_subbundleassets_mister91jiao_prefab.bundle
+      Name: c68729ed257d928cf993367e691ecf6c.bundle
       Dependencies:
-        Dependency_0: assets_res_texture_91logo_png.bundle
+        Dependency_0: 8f476ec06769caff1bdc15be521ef3fa.bundle
     Info_3:
-      Name: assets_scenes_game_unity.bundle
+      Name: fba18680e874a1594edd9bb868277f43.bundle
       Dependencies:
         Dependency_0: shader_allbundle
     Info_4:
-      Name: assets_res_texture_91logo_png.bundle
+      Name: 8f476ec06769caff1bdc15be521ef3fa.bundle
       Dependencies: {}
