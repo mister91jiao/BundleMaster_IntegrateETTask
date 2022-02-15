@@ -1,5 +1,7 @@
 <Assets/Bundles/LoginBG.jpg|allbundle_Assets_Bundles_LoginBG_jpg.bundle>
-<Assets/Bundles/LoginUI.prefab|allbundle_Assets_Bundles_LoginUI_prefab.bundle|Assets/Res/Texture/91logo.png|Assets/Bundles/LoginBG.jpg>
+<Assets/Bundles/LoginUI.prefab|allbundle_Assets_Bundles_LoginUI_prefab.bundle|Assets/Res/Texture/91logo.png|Assets/Bundles/xjj.jpg|Assets/Bundles/SubUI.prefab|Assets/Bundles/LoginBG.jpg>
+<Assets/Bundles/SubUI.prefab|allbundle_Assets_Bundles_SubUI_prefab.bundle|Assets/Bundles/xjj.jpg>
+<Assets/Bundles/xjj.jpg|allbundle_Assets_Bundles_xjj_jpg.bundle>
 <Assets/Bundles/SubBundleAssets/mister91jiao.prefab|allbundle_Assets_Bundles_SubBundleAssets_mister91jiao_prefab.bundle|Assets/Res/Texture/91logo.png>
 <Assets/Scenes/Game.unity|allbundle_Assets_Scenes_Game_unity.bundle>
 

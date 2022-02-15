@@ -1,7 +1,9 @@
-2022/2/15 17:28:38|1
+2022/2/15 17:37:28|1
 allbundle_assets_bundles_loginbg_jpg.bundle|5465255|4237090913
-allbundle_assets_bundles_loginui_prefab.bundle|34870|1147952789
+allbundle_assets_bundles_loginui_prefab.bundle|35798|1779471185
 allbundle_assets_bundles_subbundleassets_mister91jiao_prefab.bundle|1847656|2734380775
+allbundle_assets_bundles_subui_prefab.bundle|10352|2529378788
+allbundle_assets_bundles_xjj_jpg.bundle|206308|1404340726
 allbundle_assets_res_texture_91logo_png.bundle|1712311|1883073194
 allbundle_assets_scenes_game_unity.bundle|2911130|281797985
 shader_allbundle|79168|1595062482
