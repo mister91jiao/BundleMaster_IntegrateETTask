@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: AssetLoadTable
   m_EditorClassIdentifier: 
   BundlePath: BuildBundles
-  EnableRelativePath: 1
+  EnableRelativePath: 0
   RelativePath: G:\UnityProject\BundleMaster_IntegrateETTask\BuildBundles
   AssetsLoadSettings:
   - {fileID: 11400000, guid: 0b8c754664ab2214fbfcd1f1a78cf066, type: 2}
