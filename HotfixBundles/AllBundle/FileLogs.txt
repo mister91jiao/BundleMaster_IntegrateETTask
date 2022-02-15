@@ -1,0 +1,5 @@
+<Assets/Bundles/LoginUI.prefab|Assets_Bundles_LoginUI_prefab.bundle|Assets/Res/Texture/91logo.png>
+<Assets/Bundles/SubBundleAssets/mister91jiao.prefab|Assets_Bundles_SubBundleAssets_mister91jiao_prefab.bundle|Assets/Res/Texture/91logo.png>
+<Assets/Scenes/Game.unity|Assets_Scenes_Game_unity.bundle>
+
+
