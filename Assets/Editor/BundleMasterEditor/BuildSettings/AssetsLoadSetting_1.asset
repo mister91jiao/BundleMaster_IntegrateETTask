@@ -16,6 +16,8 @@ MonoBehaviour:
   BuildIndex: 1
   BundleVariant: bundle
   NameByHash: 0
+  EncryptAssets: 0
+  SecretKey: mister91jiao
   AssetPath:
   - Assets/Bundles
   Scene:

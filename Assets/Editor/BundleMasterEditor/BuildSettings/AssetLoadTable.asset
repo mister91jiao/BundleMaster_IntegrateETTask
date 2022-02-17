@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BundlePath: BuildBundles
   EnableRelativePath: 0
-  RelativePath: G:\UnityProject\BundleMaster_IntegrateETTask\BuildBundles
+  RelativePath: G:\UnityProject\Download
+  EncryptPathFolder: EncryptAssets
   InitScene:
   - {fileID: 102900000, guid: 9fc0d4010bbf28b4594072e72b8655ab, type: 3}
   AssetsLoadSettings:

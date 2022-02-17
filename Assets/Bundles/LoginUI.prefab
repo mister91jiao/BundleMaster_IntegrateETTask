@@ -360,6 +360,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6387723016678080456}
     m_Modifications:
+    - target: {fileID: 116369384315817779, guid: 0bdd455578ce1aa4fb09249332fd0a51, type: 3}
+      propertyPath: m_Pivot.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 116369384315817779, guid: 0bdd455578ce1aa4fb09249332fd0a51, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 116369384315817779, guid: 0bdd455578ce1aa4fb09249332fd0a51, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4117401903026756748, guid: 0bdd455578ce1aa4fb09249332fd0a51, type: 3}
       propertyPath: m_Name
       value: SubUI
