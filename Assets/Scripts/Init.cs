@@ -9,6 +9,7 @@ public class Init : MonoBehaviour
 {
     void Start()
     {
+        DontDestroyOnLoad(gameObject);
         Initialization().Coroutine();
     }
     
@@ -16,10 +17,9 @@ public class Init : MonoBehaviour
     {
         AssetComponent.Update();
     }
-
+    
     private async ETTask Initialization()
     {
-        DontDestroyOnLoad(gameObject);
         await CheckHotfix();
         await InitUI();
     }
@@ -70,6 +70,29 @@ public class Init : MonoBehaviour
             
             LoadHandler<GameObject> loadHandler1 = AssetComponent.Load<GameObject>("Assets/Bundles/SubBundleAssets/mister91jiao.prefab");
             GameObject obj1 = UnityEngine.Object.Instantiate(loadHandler1.Asset);
+            
+            ResetUI().Coroutine();
         };
     }
+
+    private async ETTask ResetUI()
+    {
+        Transform uiManagerTf = gameObject.transform.Find("UIManager");
+        //异步加载资源
+        LoadHandler<GameObject> resetUIHandler = await AssetComponent.LoadAsync<GameObject>("Assets/Bundles/ResetUI.prefab");
+        GameObject resetUIObj = UnityEngine.Object.Instantiate(resetUIHandler.Asset, uiManagerTf, false);
+        resetUIObj.transform.Find("Reset").GetComponent<Button>().onClick.AddListener(() =>
+        {
+            GameObject.Destroy(resetUIObj);
+            AssetComponent.UnInitializeAll();
+            
+            AsyncOperation operation = SceneManager.LoadSceneAsync("Init_2");
+            operation.completed += asyncOperation =>
+            {
+                //重新加载资源
+                Initialization().Coroutine();
+            };
+        });
+    }
+    
 }
