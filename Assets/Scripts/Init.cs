@@ -66,7 +66,9 @@ public class Init : MonoBehaviour
         operation.completed += asyncOperation =>
         {
             //同步加载资源(加载分包内的资源)
-            LoadHandler<GameObject> loadHandler = AssetComponent.Load<GameObject>(BPath.Assets_Bundles_SubBundleAssets_mister91jiao__prefab, "SubBundle");
+            //LoadHandler<GameObject> loadHandler = AssetComponent.Load<GameObject>(BPath.Assets_Bundles_SubBundleAssets_mister91jiao__prefab, "SubBundle");
+            BundleRuntimeInfo bundleRuntimeInfo =AssetComponent.GetBundleRuntimeInfo("SubBundle");
+            LoadHandler<GameObject> loadHandler = bundleRuntimeInfo.Load<GameObject>(BPath.Assets_Bundles_SubBundleAssets_mister91jiao__prefab);
             GameObject obj = UnityEngine.Object.Instantiate(loadHandler.Asset);
             
             LoadHandler<GameObject> loadHandler1 = AssetComponent.Load<GameObject>(BPath.Assets_Bundles_SubBundleAssets_mister91jiao__prefab);
