@@ -12,12 +12,10 @@ public class Init : MonoBehaviour
         DontDestroyOnLoad(gameObject);
         Initialization().Coroutine();
     }
-    
     void Update()
     {
         AssetComponent.Update();
     }
-    
     private async ETTask Initialization()
     {
         await CheckHotfix();
@@ -61,6 +59,9 @@ public class Init : MonoBehaviour
     private async ETTask loadNewScene()
     {
         LoadSceneHandler loadSceneHandler = await AssetComponent.LoadSceneAsync("Assets/Scenes/Game.unity");
+        //如果需要获取场景加载进度, 用这种加载方式 loadSceneHandler2.GetProgress() , 注意进度不是线性的
+        // ETTask loadSceneHandlerTask = AssetComponent.LoadSceneAsync(out LoadSceneHandler loadSceneHandler2, "Assets/Scenes/Game.unity");
+        // await loadSceneHandlerTask;
         AsyncOperation operation = SceneManager.LoadSceneAsync("Game");
         operation.completed += asyncOperation =>
         {
