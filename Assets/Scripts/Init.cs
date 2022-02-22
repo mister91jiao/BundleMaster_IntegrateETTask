@@ -42,14 +42,16 @@ public class Init : MonoBehaviour
     private async ETTask InitUI()
     {
         Transform uiManagerTf = gameObject.transform.Find("UIManager");
-        //异步加载资源
         LoadHandler<GameObject> loginUIHandler = await AssetComponent.LoadAsync<GameObject>(BPath.Assets_Bundles_LoginUI__prefab);
+        //异步加载资源
+        //LoadHandler<GameObject> loginUIHandler = await AssetComponent.LoadAsync<GameObject>(BPath.Assets_Bundles_LoginUI__prefab);
         GameObject loginUIObj = UnityEngine.Object.Instantiate(loginUIHandler.Asset, uiManagerTf, false);
         loginUIObj.transform.Find("Login").GetComponent<Button>().onClick.AddListener(() =>
         {
             //卸载资源
             GameObject.Destroy(loginUIObj);
-            loginUIHandler.UnLoad();
+            //loginUIHandler.UnLoad();
+            AssetComponent.UnLoadByPath(BPath.Assets_Bundles_LoginUI__prefab);
             
             LoadNewScene().Coroutine();
         });
