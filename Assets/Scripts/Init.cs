@@ -55,7 +55,6 @@ public class Init : MonoBehaviour
             
             LoadNewScene().Coroutine();
         });
-
     }
 
     private async ETTask LoadNewScene()
