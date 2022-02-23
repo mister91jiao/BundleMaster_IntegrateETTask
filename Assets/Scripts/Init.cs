@@ -42,10 +42,10 @@ public class Init : MonoBehaviour
     private async ETTask InitUI()
     {
         Transform uiManagerTf = gameObject.transform.Find("UIManager");
-        LoadHandler<GameObject> loginUIHandler = await AssetComponent.LoadAsync<GameObject>(BPath.Assets_Bundles_LoginUI__prefab);
+        GameObject loginUIAsset = await AssetComponent.LoadAsync<GameObject>(BPath.Assets_Bundles_LoginUI__prefab);
         //异步加载资源
         //LoadHandler<GameObject> loginUIHandler = await AssetComponent.LoadAsync<GameObject>(BPath.Assets_Bundles_LoginUI__prefab);
-        GameObject loginUIObj = UnityEngine.Object.Instantiate(loginUIHandler.Asset, uiManagerTf, false);
+        GameObject loginUIObj = UnityEngine.Object.Instantiate(loginUIAsset, uiManagerTf, false);
         loginUIObj.transform.Find("Login").GetComponent<Button>().onClick.AddListener(() =>
         {
             //卸载资源
@@ -70,11 +70,11 @@ public class Init : MonoBehaviour
             //同步加载资源(加载分包内的资源)
             //LoadHandler<GameObject> loadHandler = AssetComponent.Load<GameObject>(BPath.Assets_Bundles_SubBundleAssets_mister91jiao__prefab, "SubBundle");
             BundleRuntimeInfo bundleRuntimeInfo = AssetComponent.GetBundleRuntimeInfo("SubBundle");
-            LoadHandler<GameObject> loadHandler = bundleRuntimeInfo.Load<GameObject>(BPath.Assets_Bundles_SubBundleAssets_mister91jiao__prefab);
-            GameObject obj = UnityEngine.Object.Instantiate(loadHandler.Asset);
+            GameObject gameObjectAsset = bundleRuntimeInfo.Load<GameObject>(BPath.Assets_Bundles_SubBundleAssets_mister91jiao__prefab);
+            GameObject obj = UnityEngine.Object.Instantiate(gameObjectAsset);
             
-            LoadHandler<GameObject> loadHandler1 = AssetComponent.Load<GameObject>(BPath.Assets_Bundles_SubBundleAssets_mister91jiao__prefab);
-            GameObject obj1 = UnityEngine.Object.Instantiate(loadHandler1.Asset);
+            GameObject gameObjectAsset1 = AssetComponent.Load<GameObject>(BPath.Assets_Bundles_SubBundleAssets_mister91jiao__prefab);
+            GameObject obj1 = UnityEngine.Object.Instantiate(gameObjectAsset1);
             
             ResetUI().Coroutine();
         };
@@ -84,8 +84,8 @@ public class Init : MonoBehaviour
     {
         Transform uiManagerTf = gameObject.transform.Find("UIManager");
         //异步加载资源
-        LoadHandler<GameObject> resetUIHandler = await AssetComponent.LoadAsync<GameObject>(BPath.Assets_Bundles_ResetUI__prefab);
-        GameObject resetUIObj = UnityEngine.Object.Instantiate(resetUIHandler.Asset, uiManagerTf, false);
+        UnityEngine.Object resetUIAsset = await AssetComponent.LoadAsync(BPath.Assets_Bundles_ResetUI__prefab);
+        GameObject resetUIObj = UnityEngine.Object.Instantiate(resetUIAsset as GameObject, uiManagerTf, false);
         resetUIObj.transform.Find("Reset").GetComponent<Button>().onClick.AddListener(() =>
         {
             GameObject.Destroy(resetUIObj);
