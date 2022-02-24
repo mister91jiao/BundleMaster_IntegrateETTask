@@ -25,7 +25,7 @@ namespace BM
         /// <summary>
         /// 资源服务器的地址
         /// </summary>
-        public static string BundleServerUrl = @"http://192.168.50.157/BundleData/";
+        public static string BundleServerUrl = @"http://192.168.50.5/BundleData/";
 
         /// <summary>
         /// 最大同时下载的资源数量

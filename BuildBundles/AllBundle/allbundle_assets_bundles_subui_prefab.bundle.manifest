@@ -3,7 +3,7 @@ CRC: 2325303094
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 0b2f24fce2113c0b036096e0b9c316bf
+    Hash: d655de0da05f9d7c403d94a4ccb9d2c9
   TypeTreeHash:
     serializedVersion: 2
     Hash: dda481f9c8e84683649c3a3d73eb91cb
@@ -29,4 +29,4 @@ SerializeReferenceClassIdentifiers:
 Assets:
 - Assets/Bundles/SubUI.prefab
 Dependencies:
-- G:/UnityProject/BundleMaster_IntegrateETTask/BuildBundles/AllBundle/allbundle_assets_bundles_xjj_jpg.bundle
+- E:/GITHUB/BundleMaster_IntegrateETTask/BuildBundles/AllBundle/allbundle_assets_bundles_xjj_jpg.bundle
