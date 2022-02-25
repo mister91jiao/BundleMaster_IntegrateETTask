@@ -47,4 +47,4 @@ SerializeReferenceClassIdentifiers: []
 Assets:
 - Assets/Scenes/Game.unity
 Dependencies:
-- E:/GITHUB/BundleMaster_IntegrateETTask/BuildBundles/AllBundle/shader_allbundle
+- G:/UnityProject/BundleMaster_IntegrateETTask/BuildBundles/AllBundle/shader_allbundle

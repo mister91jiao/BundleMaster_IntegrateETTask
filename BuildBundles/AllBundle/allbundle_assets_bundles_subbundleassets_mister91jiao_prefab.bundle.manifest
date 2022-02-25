@@ -31,4 +31,4 @@ SerializeReferenceClassIdentifiers: []
 Assets:
 - Assets/Bundles/SubBundleAssets/mister91jiao.prefab
 Dependencies:
-- E:/GITHUB/BundleMaster_IntegrateETTask/BuildBundles/AllBundle/allbundle_assets_res_texture_91logo_png.bundle
+- G:/UnityProject/BundleMaster_IntegrateETTask/BuildBundles/AllBundle/allbundle_assets_res_texture_91logo_png.bundle

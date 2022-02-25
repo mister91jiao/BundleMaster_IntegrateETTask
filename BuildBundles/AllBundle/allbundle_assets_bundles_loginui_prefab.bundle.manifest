@@ -3,7 +3,7 @@ CRC: 3838764567
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 18ad53edf1b6c3117d87c0939285ced4
+    Hash: 9f59557d61e713be9bf0ed3bf9887d3b
   TypeTreeHash:
     serializedVersion: 2
     Hash: 7bd02f4b646d5fe2d4cf50cb207c424f
@@ -53,6 +53,6 @@ SerializeReferenceClassIdentifiers:
 Assets:
 - Assets/Bundles/LoginUI.prefab
 Dependencies:
-- E:/GITHUB/BundleMaster_IntegrateETTask/BuildBundles/AllBundle/allbundle_assets_bundles_loginbg_jpg.bundle
-- E:/GITHUB/BundleMaster_IntegrateETTask/BuildBundles/AllBundle/allbundle_assets_bundles_subui_prefab.bundle
-- E:/GITHUB/BundleMaster_IntegrateETTask/BuildBundles/AllBundle/allbundle_assets_res_texture_91logo_png.bundle
+- G:/UnityProject/BundleMaster_IntegrateETTask/BuildBundles/AllBundle/allbundle_assets_bundles_loginbg_jpg.bundle
+- G:/UnityProject/BundleMaster_IntegrateETTask/BuildBundles/AllBundle/allbundle_assets_bundles_subui_prefab.bundle
+- G:/UnityProject/BundleMaster_IntegrateETTask/BuildBundles/AllBundle/allbundle_assets_res_texture_91logo_png.bundle
