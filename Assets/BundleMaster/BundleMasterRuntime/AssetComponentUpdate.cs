@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using ET;
 using UnityEngine.Networking;
+using Time = UnityEngine.Time;
 
 namespace BM
 {
@@ -91,9 +92,29 @@ namespace BM
             }
             //创建最后需要返回的数据
             Dictionary<string, long> needUpdateBundles = new Dictionary<string, long>();
-            for (int i = 1; i < remoteVersionData.Length; i++)
+            _checkCount = remoteVersionData.Length - 1;
+            Queue<int> loopQueue = new Queue<int>();
+            int loopSize = 100;
+            for (int i = 0; i < _checkCount / loopSize; i++)
             {
-                await CheckFileCRC(remoteVersionData[i], bundlePackageName, needUpdateBundles);
+                loopQueue.Enqueue(loopSize);
+            }
+            if (_checkCount % loopSize > 0)
+            {
+                loopQueue.Enqueue(_checkCount % loopSize);
+            }
+            int loop = loopQueue.Count;
+            for (int i = 0; i < loop; i++)
+            {
+                _checkCount = loopQueue.Dequeue();
+                int count = _checkCount;
+                ETTask finishTcs = ETTask.Create();
+                for (int j = 0; j < count; j++)
+                {
+                    CheckFileCRC(remoteVersionData[i * loopSize + j + 1], bundlePackageName, needUpdateBundles, finishTcs).Coroutine();
+                }
+                await finishTcs;
+                _checkCount = 0;
             }
             updateBundleDataInfo.PackageNeedUpdateBundlesInfos.Add(bundlePackageName, needUpdateBundles);
             foreach (long needUpdateBundleSize in needUpdateBundles.Values)
@@ -103,25 +124,26 @@ namespace BM
             }
         }
 
-        private static async ETTask CheckFileCRC(string remoteVersionDataLine, string bundlePackageName, Dictionary<string, long> needUpdateBundles)
+        private static int _checkCount = 0;
+
+        private static async ETTask CheckFileCRC(string remoteVersionDataLine, string bundlePackageName, Dictionary<string, long> needUpdateBundles, ETTask finishTcs)
         {
-            if (string.IsNullOrWhiteSpace(remoteVersionDataLine))
+            if (!string.IsNullOrWhiteSpace(remoteVersionDataLine))
             {
-                return;
+                string[] info = remoteVersionDataLine.Split('|');
+                //如果文件不存在直接加入更新
+                string filePath = BundleFileExistPath(bundlePackageName, info[0]);
+                uint fileCRC32 = await VerifyHelper.GetFileCRC32(filePath);
+                //判断是否和远程一样, 不一样直接加入更新
+                if (uint.Parse(info[2]) != fileCRC32)
+                {
+                    needUpdateBundles.Add(info[0], long.Parse(info[1]));
+                }
             }
-            string[] info = remoteVersionDataLine.Split('|');
-            //如果文件不存在直接加入更新
-            string filePath = BundleFileExistPath(bundlePackageName, info[0]);
-            uint fileCRC32 = await VerifyHelper.GetFileCRC32(filePath);
-            if (fileCRC32 == 0)
+            _checkCount--;
+            if (_checkCount <= 0)
             {
-                needUpdateBundles.Add(info[0], long.Parse(info[1]));
-                return;
-            }
-            //判断是否和远程一样, 不一样直接加入更新
-            if (uint.Parse(info[2]) != fileCRC32)
-            {
-                needUpdateBundles.Add(info[0], long.Parse(info[1]));
+                finishTcs.SetResult();
             }
         }
         
