@@ -32,6 +32,7 @@ namespace BM
             ETTask tcs = ETTask.Create(true);
             using (UnityWebRequest webRequest = UnityWebRequest.Get(filePath))
             {
+                webRequest.timeout = 0;
                 UnityWebRequestAsyncOperation weq = webRequest.SendWebRequest();
                 weq.completed += o =>
                 {

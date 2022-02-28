@@ -93,31 +93,35 @@ namespace BM
             Dictionary<string, long> needUpdateBundles = new Dictionary<string, long>();
             for (int i = 1; i < remoteVersionData.Length; i++)
             {
-                string lineStr = remoteVersionData[i];
-                if (string.IsNullOrWhiteSpace(lineStr))
-                {
-                    continue;
-                }
-                string[] info = lineStr.Split('|');
-                //如果文件不存在直接加入更新
-                string filePath = BundleFileExistPath(bundlePackageName, info[0]);
-                uint fileCRC32 = await VerifyHelper.GetFileCRC32(filePath);
-                if (fileCRC32 == 0)
-                {
-                    needUpdateBundles.Add(info[0], long.Parse(info[1]));
-                    continue;
-                }
-                //判断是否和远程一样, 不一样直接加入更新
-                if (uint.Parse(info[2]) != fileCRC32)
-                {
-                    needUpdateBundles.Add(info[0], long.Parse(info[1]));
-                }
+                await CheckFileCRC(remoteVersionData[i], bundlePackageName, needUpdateBundles);
             }
             updateBundleDataInfo.PackageNeedUpdateBundlesInfos.Add(bundlePackageName, needUpdateBundles);
             foreach (long needUpdateBundleSize in needUpdateBundles.Values)
             {
                 updateBundleDataInfo.NeedUpdateSize += needUpdateBundleSize;
                 updateBundleDataInfo.NeedDownLoadBundleCount++;
+            }
+        }
+
+        private static async ETTask CheckFileCRC(string remoteVersionDataLine, string bundlePackageName, Dictionary<string, long> needUpdateBundles)
+        {
+            if (string.IsNullOrWhiteSpace(remoteVersionDataLine))
+            {
+                return;
+            }
+            string[] info = remoteVersionDataLine.Split('|');
+            //如果文件不存在直接加入更新
+            string filePath = BundleFileExistPath(bundlePackageName, info[0]);
+            uint fileCRC32 = await VerifyHelper.GetFileCRC32(filePath);
+            if (fileCRC32 == 0)
+            {
+                needUpdateBundles.Add(info[0], long.Parse(info[1]));
+                return;
+            }
+            //判断是否和远程一样, 不一样直接加入更新
+            if (uint.Parse(info[2]) != fileCRC32)
+            {
+                needUpdateBundles.Add(info[0], long.Parse(info[1]));
             }
         }
         
