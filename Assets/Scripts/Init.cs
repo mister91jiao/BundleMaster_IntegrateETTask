@@ -1,9 +1,11 @@
 using System.Collections.Generic;
+using System.Diagnostics;
 using UnityEngine;
 using ET;
 using BM;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using Debug = UnityEngine.Debug;
 
 public class Init : MonoBehaviour
 {
@@ -26,9 +28,12 @@ public class Init : MonoBehaviour
     {
         //重新配置热更路径
         AssetComponentConfig.HotfixPath = Application.dataPath + "/../HotfixBundles/";
-        
         AssetComponentConfig.DefaultBundlePackageName = "AllBundle";
-        List<string> updatePackageBundle = new List<string>(){AssetComponentConfig.DefaultBundlePackageName, "SubBundle"};
+        Dictionary<string, bool> updatePackageBundle = new Dictionary<string, bool>()
+        {
+            {AssetComponentConfig.DefaultBundlePackageName, false},
+            {"SubBundle", false},
+        };
         UpdateBundleDataInfo updateBundleDataInfo = await AssetComponent.CheckAllBundlePackageUpdate(updatePackageBundle);
         if (updateBundleDataInfo.NeedUpdate)
         {

@@ -39,7 +39,6 @@ namespace BM
                     tcs.SetResult();
                 };
                 await tcs;
-                
 #if UNITY_2020_1_OR_NEWER
                 if (webRequest.result == UnityWebRequest.Result.Success)
 #else
