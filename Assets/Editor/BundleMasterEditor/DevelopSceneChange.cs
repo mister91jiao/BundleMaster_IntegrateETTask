@@ -12,7 +12,7 @@ namespace BM
         /// </summary>
         static DevelopSceneChange() 
         {
-            AssetLoadTable assetLoadTable = AssetDatabase.LoadAssetAtPath<AssetLoadTable>(BuildAssets.AssetLoadTablePath);
+            AssetLoadTable assetLoadTable = AssetDatabase.LoadAssetAtPath<AssetLoadTable>(BundleMasterWindow.AssetLoadTablePath);
             List<AssetsLoadSetting> assetsLoadSettings = assetLoadTable.AssetsLoadSettings;
             Dictionary<string, EditorBuildSettingsScene> editorBuildSettingsScenes = new Dictionary<string, EditorBuildSettingsScene>();
             for (int i = 0; i < assetLoadTable.InitScene.Count; i++)
