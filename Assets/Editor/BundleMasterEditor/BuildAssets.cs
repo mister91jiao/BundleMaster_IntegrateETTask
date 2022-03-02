@@ -9,17 +9,12 @@ namespace BM
 {
     public class BuildAssets : EditorWindow
     {
-        /// <summary>
-        /// 分包配置文件资源目录
-        /// </summary>
-        public static string AssetLoadTablePath = "Assets/Editor/BundleMasterEditor/BuildSettings/AssetLoadTable.asset";
-        
         [MenuItem("Tools/BuildAsset/创建分包总索引文件")]
         //[MenuItem("Assets/Create/BuildAsset/创建分包总索引文件")]
         public static void CreateBundleTableSetting()
         {
             AssetLoadTable assetLoadTable = ScriptableObject.CreateInstance<AssetLoadTable>();
-            AssetDatabase.CreateAsset(assetLoadTable, AssetLoadTablePath);
+            AssetDatabase.CreateAsset(assetLoadTable, BundleMasterWindow.AssetLoadTablePath);
         }
         
         [MenuItem("Tools/BuildAsset/创建分包配置文件")]
@@ -33,7 +28,7 @@ namespace BM
         [MenuItem("Tools/BuildAsset/构建AssetBundle")]
         public static void BuildAllBundle()
         {
-            AssetLoadTable assetLoadTable = AssetDatabase.LoadAssetAtPath<AssetLoadTable>(AssetLoadTablePath);
+            AssetLoadTable assetLoadTable = AssetDatabase.LoadAssetAtPath<AssetLoadTable>(BundleMasterWindow.AssetLoadTablePath);
             List<AssetsLoadSetting> assetsLoadSettings = assetLoadTable.AssetsLoadSettings;
             //开始构建前剔除多余场景
             List<EditorBuildSettingsScene> editorBuildSettingsScenes = new List<EditorBuildSettingsScene>();
@@ -83,7 +78,7 @@ namespace BM
                 Directory.CreateDirectory(Application.streamingAssetsPath);
             }
             DeleteHelper.DeleteDir(Application.streamingAssetsPath);
-            AssetLoadTable assetLoadTable = AssetDatabase.LoadAssetAtPath<AssetLoadTable>(AssetLoadTablePath);
+            AssetLoadTable assetLoadTable = AssetDatabase.LoadAssetAtPath<AssetLoadTable>(BundleMasterWindow.AssetLoadTablePath);
             foreach (AssetsLoadSetting assetsLoadSetting in assetLoadTable.AssetsLoadSettings)
             {
                 string assetPathFolder;

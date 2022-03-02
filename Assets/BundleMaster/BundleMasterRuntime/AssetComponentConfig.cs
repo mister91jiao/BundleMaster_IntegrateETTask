@@ -8,9 +8,14 @@ namespace BM
     public class AssetComponentConfig
     {
         /// <summary>
+        /// 运行时配置文件的路径
+        /// </summary>
+        public static string RuntimeConfigPath = "Assets/Resources/BMConfig.asset";
+        
+        /// <summary>
         /// 加载模式
         /// </summary>
-        public static AssetLoadMode AssetLoadMode = AssetLoadMode.Local;
+        public static AssetLoadMode AssetLoadMode = AssetLoadMode.Build;
         
         /// <summary>
         /// 资源更新目录 Application.dataPath + "/../HotfixBundles/"
