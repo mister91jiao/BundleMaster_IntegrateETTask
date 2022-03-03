@@ -164,7 +164,7 @@ namespace BM
                 GUILayout.BeginHorizontal();
                 GUILayout.Label("--- <入口场景> ----------------------------------------------------------------------------------------------------------------------------------------------------------------", GUILayout.ExpandWidth(false));
                 GUILayout.EndHorizontal();
-                GUILayout.BeginArea(new Rect(_w / 1.5f, 150, 400, 200));
+                GUILayout.BeginArea(new Rect(_w / 1.5f, 175, 400, 200));
                 GUI.color = new Color(0.9921569F, 0.7960784F, 0.509804F);
                 GUILayout.Label("初始场景是不需要打进AssetBundle里的, 这\n里填的初始场景会自动放入 Build Settings 中\n的 Scenes In Build 里。");
                 GUI.color = Color.white;
