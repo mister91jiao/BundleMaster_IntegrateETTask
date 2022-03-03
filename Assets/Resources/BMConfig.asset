@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: BMConfig
   m_EditorClassIdentifier: 
   AssetLoadMode: 0
-  BundleServerUrl: 
+  BundleServerUrl: http://192.168.50.157/BundleData/
   MaxDownLoadCount: 3
   ReDownLoadCount: 0
