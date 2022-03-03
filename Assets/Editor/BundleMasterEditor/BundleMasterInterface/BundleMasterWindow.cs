@@ -20,8 +20,8 @@ namespace BM
 
         private static bool _runtimeConfigLoad = false;
         
-        private static int _w;
-        private static int _h;
+        private static int _w = 960;
+        private static int _h = 740;
         
         /// <summary>
         /// 分包配置文件资源目录
@@ -39,29 +39,34 @@ namespace BM
         public static void Init()
         {
             Debug.LogError("打开界面");
-            if (_instance == null)
-            {
-                _instance = (BundleMasterWindow)EditorWindow.GetWindow(typeof(BundleMasterWindow), true, "BundleMasterEditor", true);
-                _w = Screen.width / 2;
-                _h = Screen.height / 2;
-                _instance.position = new Rect(_w / 2, _h / 2, _w, _h);
-                _instance.maxSize = new Vector2(_w, _h);
-                _instance.minSize = new Vector2(_w, _h);
-                //加载配置文件
-                _bundleMasterRuntimeConfig = AssetDatabase.LoadAssetAtPath<BundleMasterRuntimeConfig>(AssetComponentConfig.RuntimeConfigPath);
-                _runtimeConfigLoad = false;
-                if (_bundleMasterRuntimeConfig != null)
-                {
-                    _runtimeConfigLoad = true;
-                }
-            }
+            Open(true);
         }
         
         Vector2 scrollScenePos = Vector2.zero;
         Vector2 scrollPos = Vector2.zero;
+
+        private static void Open(bool focus)
+        {
+            if (_instance != null)
+            {
+                return;
+            }
+            _instance = (BundleMasterWindow)EditorWindow.GetWindow(typeof(BundleMasterWindow), true, "BundleMasterEditor", focus);
+            _instance.position = new Rect(_w / 2, _h / 2, _w, _h);
+            _instance.maxSize = new Vector2(_w, _h);
+            _instance.minSize = new Vector2(_w, _h);
+            //加载配置文件
+            _bundleMasterRuntimeConfig = AssetDatabase.LoadAssetAtPath<BundleMasterRuntimeConfig>(AssetComponentConfig.RuntimeConfigPath);
+            _runtimeConfigLoad = false;
+            if (_bundleMasterRuntimeConfig != null)
+            {
+                _runtimeConfigLoad = true;
+            }
+        }
         
         public void OnGUI()
         {
+            Open(false);
             if (!_runtimeConfigLoad)
             {
                 GUILayout.BeginArea(new Rect(_w / 4, _h / 8, _w / 2, _h / 4));
@@ -101,8 +106,7 @@ namespace BM
                 _bundleMasterRuntimeConfig.AssetLoadMode = AssetLoadMode.Build;
             }
             GUILayout.EndHorizontal();
-            GUILayout.Space(_h / 32);
-            GUILayout.BeginHorizontal(GUILayout.Height(_h / 16), GUILayout.ExpandHeight(false));
+            GUILayout.BeginHorizontal(GUILayout.ExpandHeight(false));
             GUILayout.Label("资源服务器地址: ", GUILayout.Width(_w / 10), GUILayout.ExpandWidth(false));
             string bundleServerUrl = _bundleMasterRuntimeConfig.BundleServerUrl;
             bundleServerUrl = EditorGUILayout.TextField(bundleServerUrl, GUILayout.MinWidth(_w / 5), GUILayout.ExpandWidth(true));
@@ -150,7 +154,7 @@ namespace BM
             GUILayout.BeginHorizontal();
             GUILayout.Label("--- <入口场景> ----------------------------------------------------------------------------------------------------------------------------------------------------------------", GUILayout.ExpandWidth(false));
             GUILayout.EndHorizontal();
-            GUILayout.BeginArea(new Rect(_w / 1.5f, _h / 3, 400, 200));
+            GUILayout.BeginArea(new Rect(_w / 1.5f, 175, 400, 200));
             GUI.color = new Color(0.9921569F, 0.7960784F, 0.509804F);
             GUILayout.Label("初始场景是不需要打进AssetBundle里的, 这\n里填的初始场景会自动放入 Build Settings 中\n的 Scenes In Build 里。");
             GUI.color = Color.white;
@@ -203,6 +207,106 @@ namespace BM
             EditorGUILayout.EndScrollView();
             GUILayout.EndHorizontal();
             GUILayout.BeginHorizontal();
+            GUILayout.Label("--- <配置索引索引文件信息> ----------------------------------------------------------------------------------------------------------------------------------------------------------------", GUILayout.ExpandWidth(false));
+            GUILayout.EndHorizontal();
+            EditorGUI.BeginDisabledGroup(noTable);
+            GUILayout.BeginHorizontal();
+            GUILayout.Label("相对构建路径文件夹名称[BundlePath]: ", GUILayout.Width(_w / 4.5f), GUILayout.ExpandWidth(false));
+            string bundlePath = "";
+            if (!noTable)
+            {
+                bundlePath = _assetLoadTable.BundlePath;
+            }
+            bundlePath = EditorGUILayout.TextField(bundlePath, GUILayout.Width(_w / 8), GUILayout.ExpandWidth(false));
+            if (!noTable)
+            {
+                if (!string.Equals(_assetLoadTable.BundlePath, bundlePath, StringComparison.Ordinal))
+                {
+                    _assetLoadTable.BundlePath = bundlePath;
+                    needFlush = true;
+                }
+            }
+            GUILayout.Label("是否启用绝对路径: ", GUILayout.Width(_w / 9), GUILayout.ExpandWidth(false));
+            bool enableRelativePath = false;
+            if (!noTable)
+            {
+                enableRelativePath = _assetLoadTable.EnableRelativePath;
+            }
+            bool enableRelativePathChange = EditorGUILayout.Toggle(enableRelativePath, GUILayout.Width(_w / 80), GUILayout.ExpandWidth(false));
+            if (!noTable)
+            {
+                if (enableRelativePath != enableRelativePathChange)
+                {
+                    _assetLoadTable.EnableRelativePath = enableRelativePathChange;
+                    needFlush = true;
+                }
+            }
+            GUILayout.Label("绝对路径: ", GUILayout.Width(_w / 16), GUILayout.ExpandWidth(false));
+            string relativePath = "";
+            if (!noTable)
+            {
+                relativePath = _assetLoadTable.RelativePath;
+            }
+            relativePath = EditorGUILayout.TextField(relativePath, GUILayout.Width(_w / 2.5f), GUILayout.ExpandWidth(false));
+            if (!noTable)
+            {
+                if (!string.Equals(_assetLoadTable.RelativePath, relativePath, StringComparison.Ordinal))
+                {
+                    _assetLoadTable.RelativePath = relativePath;
+                    needFlush = true;
+                }
+            }
+            GUILayout.EndHorizontal();
+            GUILayout.Space(_h / 64);
+            GUILayout.BeginHorizontal();
+            GUILayout.Label("加密文件夹名称: ", GUILayout.Width(_w / 10), GUILayout.ExpandWidth(false));
+            string encryptPathFolder = "";
+            if (!noTable)
+            {
+                encryptPathFolder = _assetLoadTable.EncryptPathFolder;
+            }
+            encryptPathFolder = EditorGUILayout.TextField(encryptPathFolder, GUILayout.Width(_w / 8), GUILayout.ExpandWidth(false));
+            if (!noTable)
+            {
+                if (!string.Equals(_assetLoadTable.EncryptPathFolder, encryptPathFolder, StringComparison.Ordinal))
+                {
+                    _assetLoadTable.EncryptPathFolder = encryptPathFolder;
+                    needFlush = true;
+                }
+            }
+            GUILayout.Label("是否生成路径代码: ", GUILayout.Width(_w / 9), GUILayout.ExpandWidth(false));
+            bool generatePathCode = false;
+            if (!noTable)
+            {
+                generatePathCode = _assetLoadTable.GeneratePathCode;
+            }
+            bool generatePathCodeChange = EditorGUILayout.Toggle(generatePathCode, GUILayout.Width(_w / 80), GUILayout.ExpandWidth(false));
+            if (!noTable)
+            {
+                if (generatePathCode != generatePathCodeChange)
+                {
+                    _assetLoadTable.EnableRelativePath = generatePathCodeChange;
+                    needFlush = true;
+                }
+            }
+            GUILayout.Label("Assets下代码生成路径: ", GUILayout.Width(_w / 7), GUILayout.ExpandWidth(false));
+            string generateCodeScriptPath = "";
+            if (!noTable)
+            {
+                generateCodeScriptPath = _assetLoadTable.GenerateCodeScriptPath;
+            }
+            generateCodeScriptPath = EditorGUILayout.TextField(generateCodeScriptPath, GUILayout.Width(_w / 4), GUILayout.ExpandWidth(false));
+            if (!noTable)
+            {
+                if (!string.Equals(_assetLoadTable.GenerateCodeScriptPath, generateCodeScriptPath, StringComparison.Ordinal))
+                {
+                    _assetLoadTable.GenerateCodeScriptPath = generateCodeScriptPath;
+                    needFlush = true;
+                }
+            }
+            GUILayout.EndHorizontal();
+            EditorGUI.EndDisabledGroup();
+            GUILayout.BeginHorizontal();
             GUILayout.Label("--- <所有分包配置文件> ----------------------------------------------------------------------------------------------------------------------------------------------------------------", GUILayout.ExpandWidth(false));
             GUILayout.EndHorizontal();
             //处理单个分包
@@ -241,19 +345,139 @@ namespace BM
             }
             EditorGUILayout.EndScrollView();
             GUILayout.EndHorizontal();
+            GUILayout.BeginHorizontal();
             GUILayout.Label("--- <选中的分包配置信息> ----------------------------------------------------------------------------------------------------------------------------------------------------------------", GUILayout.ExpandWidth(false));
+            GUILayout.EndHorizontal();
             GUILayout.BeginHorizontal();
             GUILayout.Label("当前选择的分包配置信息文件: ", GUILayout.ExpandWidth(false));
             _selectAssetsLoadSetting = (AssetsLoadSetting)EditorGUILayout.ObjectField(_selectAssetsLoadSetting, typeof(AssetsLoadSetting), true, GUILayout.Width(_w / 3),GUILayout.ExpandHeight(false));
-            GUILayout.Label("\t\t\t\t\t\t", GUILayout.ExpandWidth(false));
+            bool noLoadSetting = _selectAssetsLoadSetting == null;
+            EditorGUI.BeginDisabledGroup(noLoadSetting);
+            GUILayout.Label("分包名: ", GUILayout.Width(_w / 20), GUILayout.ExpandWidth(false));
+            string buildName = "";
+            if (!noLoadSetting)
+            {
+                buildName = _selectAssetsLoadSetting.BuildName;
+            }
+            buildName = EditorGUILayout.TextField(buildName, GUILayout.Width(_w / 8), GUILayout.ExpandWidth(false));
+            if (!noLoadSetting)
+            {
+                if (!string.Equals(_selectAssetsLoadSetting.BuildName, buildName, StringComparison.Ordinal))
+                {
+                    _selectAssetsLoadSetting.BuildName = buildName;
+                    needFlush = true;
+                }
+            }
+            GUILayout.Label("版本索引: ", GUILayout.Width(_w / 17), GUILayout.ExpandWidth(false));
+            int buildIndex = 0;
+            if (!noLoadSetting)
+            {
+                buildIndex = _selectAssetsLoadSetting.BuildIndex;
+            }
+            buildIndex = EditorGUILayout.IntField(buildIndex, GUILayout.Width(_w / 20), GUILayout.ExpandWidth(false));
+            if (!noLoadSetting)
+            {
+                if (buildIndex != _selectAssetsLoadSetting.BuildIndex)
+                {
+                    _selectAssetsLoadSetting.BuildIndex = buildIndex;
+                    needFlush = true;
+                }
+            }
             GUI.color = new Color(0.9921569F, 0.2745098F, 0.282353F);
-            if (GUILayout.Button("删除当前选择的分包配置", GUILayout.Width(_w / 6), GUILayout.ExpandWidth(false)))
+            if (GUILayout.Button("删除当前选择的分包配置"))
             {
                 
             }
             GUI.color = Color.white;
             GUILayout.EndHorizontal();
-
+            GUILayout.BeginHorizontal();
+            GUILayout.Label("AssetBundle后缀: ", GUILayout.Width(_w / 9), GUILayout.ExpandWidth(false));
+            string bundleVariant = "";
+            if (!noLoadSetting)
+            {
+                bundleVariant = _selectAssetsLoadSetting.BundleVariant;
+            }
+            bundleVariant = EditorGUILayout.TextField(bundleVariant, GUILayout.Width(_w / 10), GUILayout.ExpandWidth(false));
+            if (!noLoadSetting)
+            {
+                if (!string.Equals(_selectAssetsLoadSetting.BundleVariant, bundleVariant, StringComparison.Ordinal))
+                {
+                    _selectAssetsLoadSetting.BundleVariant = bundleVariant;
+                    needFlush = true;
+                }
+            }
+            GUILayout.Label("是否启用Hash名:", GUILayout.Width(_w / 10), GUILayout.ExpandWidth(false));
+            bool nameByHash = false;
+            if (!noLoadSetting)
+            {
+                nameByHash = _selectAssetsLoadSetting.NameByHash;
+            }
+            bool nameByHashChange = EditorGUILayout.Toggle(nameByHash, GUILayout.Width(_w / 80), GUILayout.ExpandWidth(false));
+            if (!noLoadSetting)
+            {
+                if (nameByHash != nameByHashChange)
+                {
+                    _selectAssetsLoadSetting.NameByHash = nameByHashChange;
+                    needFlush = true;
+                }
+            }
+            GUILayout.Label("构建选项", GUILayout.Width(_w / 17), GUILayout.ExpandWidth(false));
+            BuildAssetBundleOptions buildAssetBundleOptions = BuildAssetBundleOptions.None;
+            if (!noLoadSetting)
+            {
+                buildAssetBundleOptions = _selectAssetsLoadSetting.BuildAssetBundleOptions;
+            }
+            BuildAssetBundleOptions buildAssetBundleOptionsChange = (BuildAssetBundleOptions)EditorGUILayout.EnumFlagsField(buildAssetBundleOptions, GUILayout.Width(_w / 5), GUILayout.ExpandWidth(false));
+            if (!noLoadSetting)
+            {
+                if (buildAssetBundleOptions != buildAssetBundleOptionsChange)
+                {
+                    _selectAssetsLoadSetting.BuildAssetBundleOptions = buildAssetBundleOptionsChange;
+                    needFlush = true;
+                }
+            }
+            GUILayout.Label("生成加密资源: ", GUILayout.Width(_w / 12), GUILayout.ExpandWidth(false));
+            bool encryptAssets = false;
+            if (!noLoadSetting)
+            {
+                encryptAssets = _selectAssetsLoadSetting.EncryptAssets;
+            }
+            bool encryptAssetsChange = EditorGUILayout.Toggle(encryptAssets, GUILayout.Width(_w / 80), GUILayout.ExpandWidth(false));
+            if (!noLoadSetting)
+            {
+                if (encryptAssets != encryptAssetsChange)
+                {
+                    _selectAssetsLoadSetting.EncryptAssets = encryptAssetsChange;
+                    needFlush = true;
+                }
+            }
+            GUILayout.Label("加密密钥: ", GUILayout.Width(_w / 16), GUILayout.ExpandWidth(false));
+            string secretKey = "";
+            if (!noLoadSetting)
+            {
+                secretKey = _selectAssetsLoadSetting.SecretKey;
+            }
+            secretKey = EditorGUILayout.TextField(secretKey, GUILayout.Width(_w / 6), GUILayout.ExpandWidth(false));
+            if (!noLoadSetting)
+            {
+                if (!string.Equals(_selectAssetsLoadSetting.SecretKey, secretKey, StringComparison.Ordinal))
+                {
+                    _selectAssetsLoadSetting.SecretKey = secretKey;
+                    needFlush = true;
+                }
+            }
+            GUILayout.EndHorizontal();
+            //遍历构建路径
+            if (!noLoadSetting)
+            {
+                GUILayout.BeginHorizontal();
+                
+                
+                
+                GUILayout.EndHorizontal();
+            }
+            
+            
             EditorGUI.EndDisabledGroup();
             if (needFlush)
             {
