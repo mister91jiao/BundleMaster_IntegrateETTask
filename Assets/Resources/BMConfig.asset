@@ -13,6 +13,9 @@ MonoBehaviour:
   m_Name: BMConfig
   m_EditorClassIdentifier: 
   AssetLoadMode: 0
-  BundleServerUrl: http://192.168.50.157/BundleData/
-  MaxDownLoadCount: 3
-  ReDownLoadCount: 0
+  HotfixPath: C:/Users/zyyzy/AppData/LocalLow/DC/BundleMaster_IntegrateET
+  LocalBundlePath: G:/UnityProject/BundleMaster_IntegrateETTask/Assets/StreamingAssets
+  DefaultBundlePackageName: DefaultBundlePackage
+  BundleServerUrl: 
+  MaxDownLoadCount: 8
+  ReDownLoadCount: 3

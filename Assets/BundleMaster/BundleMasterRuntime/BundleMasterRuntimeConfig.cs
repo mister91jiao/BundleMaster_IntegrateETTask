@@ -8,7 +8,7 @@ namespace BM
         /// 加载模式
         /// </summary>
         public AssetLoadMode AssetLoadMode;
-
+        
         /// <summary>
         /// 资源服务器的地址
         /// </summary>
