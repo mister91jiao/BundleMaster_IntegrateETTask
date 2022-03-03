@@ -138,6 +138,9 @@ namespace BM
             }
             GUILayout.EndHorizontal();
             GUILayout.BeginHorizontal();
+            GUILayout.Label("--- <构建AssetBundle配置> ----------------------------------------------------------------------------------------------------------------------------------------------------------------", GUILayout.ExpandWidth(false));
+            GUILayout.EndHorizontal();
+            GUILayout.BeginHorizontal();
             GUILayout.Label("分包配置总索引文件: ", GUILayout.Width(_w / 8), GUILayout.ExpandWidth(false));
             _assetLoadTable =  (AssetLoadTable)EditorGUILayout.ObjectField(_assetLoadTable, typeof(AssetLoadTable), true, GUILayout.Width(_w / 3), GUILayout.ExpandWidth(false));
             bool noTable = _assetLoadTable == null;
