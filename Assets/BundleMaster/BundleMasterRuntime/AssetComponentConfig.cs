@@ -8,15 +8,10 @@ namespace BM
     public class AssetComponentConfig
     {
         /// <summary>
-        /// 运行时配置文件的路径
+        /// 运行时配置
         /// </summary>
-        public static string RuntimeConfigPath = "Assets/Resources/BMConfig.asset";
-        
-        /// <summary>
-        /// 加载模式
-        /// </summary>
-        public static AssetLoadMode AssetLoadMode = AssetLoadMode.Build;
-        
+        private static BundleMasterRuntimeConfig _bmRuntimeConfig = null;
+
         /// <summary>
         /// 资源更新目录 Application.dataPath + "/../HotfixBundles/"
         /// </summary>
@@ -26,26 +21,67 @@ namespace BM
         /// 存放本地Bundle的位置 Application.streamingAssetsPath;
         /// </summary>
         public static string LocalBundlePath = Application.streamingAssetsPath;
-
-        /// <summary>
-        /// 资源服务器的地址
-        /// </summary>
-        public static string BundleServerUrl = @"http://192.168.50.157/BundleData/";
-
-        /// <summary>
-        /// 最大同时下载的资源数量
-        /// </summary>
-        public static int MaxDownLoadCount = 8;
-
-        /// <summary>
-        /// 下载失败最多重试次数
-        /// </summary>
-        public static int ReDownLoadCount = 3;
         
         /// <summary>
         /// 默认加载的Bundle名
         /// </summary>
         public static string DefaultBundlePackageName = "";
+        
+        private static void InitRuntimeConfig()
+        {
+            if (_bmRuntimeConfig == null)
+            {
+                _bmRuntimeConfig = Resources.Load<BundleMasterRuntimeConfig>("BMConfig");
+            }
+        }
+        
+        /// <summary>
+        /// 加载模式
+        /// </summary>
+        public static AssetLoadMode AssetLoadMode
+        {
+            get
+            {
+                InitRuntimeConfig();
+                return _bmRuntimeConfig.AssetLoadMode;
+            }
+        }
 
+        /// <summary>
+        /// 资源服务器的地址 http://192.168.50.157/BundleData/
+        /// </summary>
+        public static string BundleServerUrl
+        {
+            get
+            {
+                InitRuntimeConfig();
+                return _bmRuntimeConfig.BundleServerUrl;
+            }
+        }
+
+        /// <summary>
+        /// 最大同时下载的资源数量
+        /// </summary>
+        public static int MaxDownLoadCount
+        {
+            get
+            {
+                InitRuntimeConfig();
+                return _bmRuntimeConfig.MaxDownLoadCount;
+            }
+        }
+
+        /// <summary>
+        /// 下载失败最多重试次数
+        /// </summary>
+        public static int ReDownLoadCount
+        {
+            get
+            {
+                InitRuntimeConfig();
+                return _bmRuntimeConfig.ReDownLoadCount;
+            }
+        }
+        
     }
 }
