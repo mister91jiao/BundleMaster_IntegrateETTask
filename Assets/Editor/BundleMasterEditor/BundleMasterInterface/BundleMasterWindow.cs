@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using UnityEditor;
-using UnityEditor.VersionControl;
 using UnityEngine;
 
 namespace BM
@@ -53,7 +52,6 @@ namespace BM
         [MenuItem("Tools/BuildAsset/打开配置界面")]
         public static void Init()
         {
-            Debug.LogError("打开界面");
             Open(true);
         }
         
