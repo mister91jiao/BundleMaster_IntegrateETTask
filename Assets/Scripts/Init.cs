@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Diagnostics;
 using UnityEngine;
 using ET;
 using BM;
@@ -47,17 +46,14 @@ public class Init : MonoBehaviour
     private async ETTask InitUI()
     {
         Transform uiManagerTf = gameObject.transform.Find("UIManager");
-        GameObject loginUIAsset = await AssetComponent.LoadAsync<GameObject>(BPath.Assets_Bundles_LoginUI__prefab);
         //异步加载资源
-        //LoadHandler<GameObject> loginUIHandler = await AssetComponent.LoadAsync<GameObject>(BPath.Assets_Bundles_LoginUI__prefab);
+        GameObject loginUIAsset = await AssetComponent.LoadAsync<GameObject>(out LoadHandler loginUIHandler, BPath.Assets_Bundles_LoginUI__prefab);
         GameObject loginUIObj = UnityEngine.Object.Instantiate(loginUIAsset, uiManagerTf, false);
         loginUIObj.transform.Find("Login").GetComponent<Button>().onClick.AddListener(() =>
         {
             //卸载资源
             GameObject.Destroy(loginUIObj);
-            //loginUIHandler.UnLoad();
-            AssetComponent.UnLoadByPath(BPath.Assets_Bundles_LoginUI__prefab);
-            
+            loginUIHandler.UnLoad();
             LoadNewScene().Coroutine();
         });
     }
@@ -72,7 +68,7 @@ public class Init : MonoBehaviour
         operation.completed += asyncOperation =>
         {
             //同步加载资源(加载分包内的资源)
-            //LoadHandler<GameObject> loadHandler = AssetComponent.Load<GameObject>(BPath.Assets_Bundles_SubBundleAssets_mister91jiao__prefab, "SubBundle");
+            //GameObject gameObjectAsset = AssetComponent.Load<GameObject>(BPath.Assets_Bundles_SubBundleAssets_mister91jiao__prefab, "SubBundle");
             BundleRuntimeInfo bundleRuntimeInfo = AssetComponent.GetBundleRuntimeInfo("SubBundle");
             GameObject gameObjectAsset = bundleRuntimeInfo.Load<GameObject>(BPath.Assets_Bundles_SubBundleAssets_mister91jiao__prefab);
             GameObject obj = UnityEngine.Object.Instantiate(gameObjectAsset);
