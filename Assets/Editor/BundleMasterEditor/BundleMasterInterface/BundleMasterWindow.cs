@@ -13,6 +13,11 @@ namespace BM
         private static BundleMasterWindow _instance = null;
 
         /// <summary>
+        /// 自动刷新配置界面
+        /// </summary>
+        private static bool AutoFlush = true;
+        
+        /// <summary>
         /// 运行时配置文件
         /// </summary>
         private static BundleMasterRuntimeConfig _bundleMasterRuntimeConfig = null;
@@ -89,7 +94,6 @@ namespace BM
                 {
                     _bundleMasterRuntimeConfig = ScriptableObject.CreateInstance<BundleMasterRuntimeConfig>();
                     _bundleMasterRuntimeConfig.AssetLoadMode = AssetLoadMode.Develop;
-                    _bundleMasterRuntimeConfig.BundleServerUrl = "";
                     _bundleMasterRuntimeConfig.MaxDownLoadCount = 8;
                     _bundleMasterRuntimeConfig.ReDownLoadCount = 3;
                     if (!Directory.Exists(Path.Combine(Application.dataPath, "Resources")))
@@ -128,14 +132,6 @@ namespace BM
             }
             GUILayout.EndHorizontal();
             GUILayout.BeginHorizontal(GUILayout.ExpandHeight(false));
-            GUILayout.Label("资源服务器地址: ", GUILayout.Width(_w / 10), GUILayout.ExpandWidth(false));
-            string bundleServerUrl = _bundleMasterRuntimeConfig.BundleServerUrl;
-            bundleServerUrl = EditorGUILayout.TextField(bundleServerUrl, GUILayout.MinWidth(_w / 5), GUILayout.ExpandWidth(true));
-            if (!string.Equals(_bundleMasterRuntimeConfig.BundleServerUrl, bundleServerUrl, StringComparison.Ordinal))
-            {
-                _bundleMasterRuntimeConfig.BundleServerUrl = bundleServerUrl;
-                needFlush = true;
-            }
             GUILayout.Label("最大同时下载资源数: ", GUILayout.Width(_w / 8), GUILayout.ExpandWidth(false));
             int maxDownLoadCount = _bundleMasterRuntimeConfig.MaxDownLoadCount;
             maxDownLoadCount = EditorGUILayout.IntField(maxDownLoadCount, GUILayout.Width(_w / 16), GUILayout.ExpandWidth(false));
@@ -151,6 +147,15 @@ namespace BM
             {
                 _bundleMasterRuntimeConfig.ReDownLoadCount = reDownLoadCount;
                 needFlush = true;
+            }
+            AutoFlush = GUILayout.Toggle(AutoFlush, "是否自动应用更新配置界面数据");
+            if (!AutoFlush)
+            {
+                if (GUILayout.Button("应用更新"))
+                {
+                    needFlush = false;
+                    Flush();
+                }
             }
             GUILayout.EndHorizontal();
             GUILayout.BeginHorizontal();
@@ -636,22 +641,27 @@ namespace BM
                 GUILayout.EndHorizontal();
             }
             
-            if (needFlush)
+            if (needFlush && AutoFlush)
             {
-                foreach (string guid in AssetDatabase.FindAssets($"t:{nameof(BundleMasterRuntimeConfig)}"))
-                {
-                    EditorUtility.SetDirty(AssetDatabase.LoadAssetAtPath<BundleMasterRuntimeConfig>(AssetDatabase.GUIDToAssetPath(guid)));
-                }
-                foreach (string guid in AssetDatabase.FindAssets($"t:{nameof(AssetLoadTable)}"))
-                {
-                    EditorUtility.SetDirty(AssetDatabase.LoadAssetAtPath<AssetLoadTable>(AssetDatabase.GUIDToAssetPath(guid)));
-                }
-                foreach (string guid in AssetDatabase.FindAssets($"t:{nameof(AssetsLoadSetting)}"))
-                {
-                    EditorUtility.SetDirty(AssetDatabase.LoadAssetAtPath<AssetsLoadSetting>(AssetDatabase.GUIDToAssetPath(guid)));
-                }
-                AssetDatabase.SaveAssets();
+                Flush();
             }
+        }
+
+        private void Flush()
+        {
+            foreach (string guid in AssetDatabase.FindAssets($"t:{nameof(BundleMasterRuntimeConfig)}"))
+            {
+                EditorUtility.SetDirty(AssetDatabase.LoadAssetAtPath<BundleMasterRuntimeConfig>(AssetDatabase.GUIDToAssetPath(guid)));
+            }
+            foreach (string guid in AssetDatabase.FindAssets($"t:{nameof(AssetLoadTable)}"))
+            {
+                EditorUtility.SetDirty(AssetDatabase.LoadAssetAtPath<AssetLoadTable>(AssetDatabase.GUIDToAssetPath(guid)));
+            }
+            foreach (string guid in AssetDatabase.FindAssets($"t:{nameof(AssetsLoadSetting)}"))
+            {
+                EditorUtility.SetDirty(AssetDatabase.LoadAssetAtPath<AssetsLoadSetting>(AssetDatabase.GUIDToAssetPath(guid)));
+            }
+            AssetDatabase.SaveAssets();
         }
         
         public void OnDestroy()
