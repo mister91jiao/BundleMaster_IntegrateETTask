@@ -16,7 +16,7 @@ namespace BM
             Stopwatch sw = new Stopwatch();
             sw.Start();
             AssetLoadTable assetLoadTable = AssetDatabase.LoadAssetAtPath<AssetLoadTable>(BundleMasterWindow.AssetLoadTablePath);
-            List<AssetsLoadSetting> assetsLoadSettings = assetLoadTable.AssetsLoadSettings;
+            List<AssetsSetting> assetsSettings = assetLoadTable.AssetsSettings;
             //开始构建前剔除多余场景
             List<EditorBuildSettingsScene> editorBuildSettingsScenes = new List<EditorBuildSettingsScene>();
             foreach (SceneAsset sceneAsset in assetLoadTable.InitScene)
@@ -34,10 +34,17 @@ namespace BM
             //记录所有加载路径
             HashSet<string> allAssetLoadPath = new HashSet<string>();
             //构建所有分包
-            foreach (AssetsLoadSetting assetsLoadSetting in assetsLoadSettings)
+            foreach (AssetsSetting assetsSetting in assetsSettings)
             {
-                //获取单个Bundle的配置文件
-                Build(assetLoadTable, assetsLoadSetting, allAssetLoadPath);
+                if (assetsSetting is AssetsLoadSetting)
+                {
+                    //获取单个Bundle的配置文件
+                    Build(assetLoadTable, assetsSetting as AssetsLoadSetting, allAssetLoadPath);
+                }
+                else
+                {
+                    //处理原生资源
+                }
             }
             //生成路径字段代码脚本
             if (assetLoadTable.GeneratePathCode)
@@ -67,7 +74,7 @@ namespace BM
             }
             DeleteHelper.DeleteDir(Application.streamingAssetsPath);
             AssetLoadTable assetLoadTable = AssetDatabase.LoadAssetAtPath<AssetLoadTable>(BundleMasterWindow.AssetLoadTablePath);
-            foreach (AssetsLoadSetting assetsLoadSetting in assetLoadTable.AssetsLoadSettings)
+            foreach (AssetsLoadSetting assetsLoadSetting in assetLoadTable.AssetsSettings)
             {
                 string assetPathFolder;
                 if (assetsLoadSetting.EncryptAssets)
