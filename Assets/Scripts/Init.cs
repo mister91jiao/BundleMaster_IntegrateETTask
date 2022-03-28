@@ -32,6 +32,7 @@ public class Init : MonoBehaviour
         {
             {AssetComponentConfig.DefaultBundlePackageName, false},
             {"SubBundle", false},
+            {"OriginFile", false},
         };
         UpdateBundleDataInfo updateBundleDataInfo = await AssetComponent.CheckAllBundlePackageUpdate(updatePackageBundle);
         if (updateBundleDataInfo.NeedUpdate)
