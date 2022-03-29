@@ -75,10 +75,14 @@ public class Init : MonoBehaviour
             GameObject gameObjectAsset = bundleRuntimeInfo.Load<GameObject>(BPath.Assets_Bundles_SubBundleAssets_mister91jiao__prefab);
             GameObject obj = UnityEngine.Object.Instantiate(gameObjectAsset);
             
-            GameObject gameObjectAsset1 = AssetComponent.Load<GameObject>(BPath.Assets_Bundles_SubBundleAssets_mister91jiao__prefab);
-            GameObject obj1 = UnityEngine.Object.Instantiate(gameObjectAsset1);
-            
-            ResetUI().Coroutine();
+            // GameObject gameObjectAsset1 = AssetComponent.Load<GameObject>(BPath.Assets_Bundles_SubBundleAssets_mister91jiao__prefab);
+            // GameObject obj1 = UnityEngine.Object.Instantiate(gameObjectAsset1);
+            AssetComponent.LoadAsync<GameObject>(out LoadHandler handler, BPath.Assets_Bundles_SubBundleAssets_mister91jiao__prefab).Coroutine();
+            handler.Completed += loadHandler =>
+            {
+                UnityEngine.Object.Instantiate(loadHandler.Asset);
+                ResetUI().Coroutine();
+            };
         };
     }
 
