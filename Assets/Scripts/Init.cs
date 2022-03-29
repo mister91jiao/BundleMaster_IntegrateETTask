@@ -25,8 +25,9 @@ public class Init : MonoBehaviour
     
     private async ETTask CheckHotfix()
     {
-        //重新配置热更路径
+        //重新配置热更路径(开发方便用, 打包移动端需要注释注释)
         AssetComponentConfig.HotfixPath = Application.dataPath + "/../HotfixBundles/";
+        
         AssetComponentConfig.DefaultBundlePackageName = "AllBundle";
         Dictionary<string, bool> updatePackageBundle = new Dictionary<string, bool>()
         {

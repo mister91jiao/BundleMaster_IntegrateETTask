@@ -1,0 +1,37 @@
+ManifestFileVersion: 0
+CRC: 2501409742
+AssetBundleManifest:
+  AssetBundleInfos:
+    Info_0:
+      Name: shader_allbundle
+      Dependencies: {}
+    Info_1:
+      Name: allbundle_assets_bundles_loginbg_jpg.bundle
+      Dependencies: {}
+    Info_2:
+      Name: allbundle_assets_bundles_loginui_prefab.bundle
+      Dependencies:
+        Dependency_0: allbundle_assets_bundles_loginbg_jpg.bundle
+        Dependency_1: allbundle_assets_bundles_subui_prefab.bundle
+        Dependency_2: allbundle_assets_res_texture_91logo_png.bundle
+    Info_3:
+      Name: allbundle_assets_bundles_resetui_prefab.bundle
+      Dependencies: {}
+    Info_4:
+      Name: allbundle_assets_bundles_subui_prefab.bundle
+      Dependencies:
+        Dependency_0: allbundle_assets_bundles_xjj_jpg.bundle
+    Info_5:
+      Name: allbundle_assets_bundles_xjj_jpg.bundle
+      Dependencies: {}
+    Info_6:
+      Name: allbundle_assets_bundles_subbundleassets_mister91jiao_prefab.bundle
+      Dependencies:
+        Dependency_0: allbundle_assets_res_texture_91logo_png.bundle
+    Info_7:
+      Name: allbundle_assets_scenes_game_unity.bundle
+      Dependencies:
+        Dependency_0: shader_allbundle
+    Info_8:
+      Name: allbundle_assets_res_texture_91logo_png.bundle
+      Dependencies: {}
