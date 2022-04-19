@@ -456,8 +456,8 @@ namespace BM
         }
         
     }
-
-
+    
+    
     public class DownLoadTask
     {
         public UpdateBundleDataInfo UpdateBundleDataInfo;
@@ -522,6 +522,7 @@ namespace BM
             UpdateBundleDataInfo.AddCRCFileInfo(PackegName, FileName, VerifyHelper.GetCRC32(data));
             UpdateBundleDataInfo.FinishUpdateSize += data.Length;
             UpdateBundleDataInfo.FinishDownLoadBundleCount++;
+            UpdateBundleDataInfo.OnProgressCallBack?.Invoke(UpdateBundleDataInfo);
             foreach (Queue<DownLoadTask> downLoadTaskQueue in PackageDownLoadTask.Values)
             {
                 if (downLoadTaskQueue.Count > 0)
@@ -536,6 +537,7 @@ namespace BM
                 return;
             }
             UpdateBundleDataInfo.FinishUpdate = true;
+            UpdateBundleDataInfo.OnUpdateCompleteCallBack?.Invoke();
             DownLoadingKey.SetResult();
         }
     }
