@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 1147388857
+CRC: 1922647200
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 57e8d5a1ad148bf6b790b878a65c136d
+    Hash: a6a2847dd42d5fb5cc122e9411ac701b
   TypeTreeHash:
     serializedVersion: 2
     Hash: 7e4e81b586c36fda88ba73180982b3db
@@ -30,4 +30,5 @@ ClassTypes:
 SerializeReferenceClassIdentifiers: []
 Assets:
 - Assets/Bundles/SubBundleAssets/mister91jiao.prefab
-Dependencies: []
+Dependencies:
+- G:/UnityProject/BundleMaster_IntegrateETTask/BuildBundles/SubBundle/shader_subbundle

@@ -1,7 +1,11 @@
 ManifestFileVersion: 0
-CRC: 578996328
+CRC: 2211030353
 AssetBundleManifest:
   AssetBundleInfos:
     Info_0:
-      Name: subbundle_assets_bundles_subbundleassets_mister91jiao_prefab.bundle
+      Name: shader_subbundle
       Dependencies: {}
+    Info_1:
+      Name: subbundle_assets_bundles_subbundleassets_mister91jiao_prefab.bundle
+      Dependencies:
+        Dependency_0: shader_subbundle

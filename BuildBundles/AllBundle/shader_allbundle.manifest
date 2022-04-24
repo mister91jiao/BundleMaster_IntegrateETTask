@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 2295948025
+CRC: 546033846
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 15a3197d6adc834cc76bee02e5f3f9b5
+    Hash: 81442acaabb5d94ca9b783ee501aa9ba
   TypeTreeHash:
     serializedVersion: 2
     Hash: fcdaeee34e52c5d728b2ae71a9c5a55b
@@ -17,4 +17,5 @@ SerializeReferenceClassIdentifiers: []
 Assets:
 - Assets/Bundles/ShaderVariants.shadervariants
 - Assets/Res/Shader/Loli.shader
+- Packages/com.unity.render-pipelines.universal/Shaders/Lit.shader
 Dependencies: []
