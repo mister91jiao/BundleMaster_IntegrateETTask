@@ -22,6 +22,6 @@ MonoBehaviour:
   GeneratePathCode: 0
   GenerateCodeScriptPath: Scripts
   AssetsSettings:
-  - {fileID: 11400000, guid: 2a712031138b7a04dadc225d45963d58, type: 2}
   - {fileID: 11400000, guid: 0b8c754664ab2214fbfcd1f1a78cf066, type: 2}
   - {fileID: 11400000, guid: e86646ac61bb70c45b2c990888d4e2ec, type: 2}
+  - {fileID: 11400000, guid: 2a712031138b7a04dadc225d45963d58, type: 2}
