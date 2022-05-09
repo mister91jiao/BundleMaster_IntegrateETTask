@@ -1,5 +1,5 @@
 <Assets/Bundles/LoginBG.jpg|allbundle_assets_bundles_loginbg_jpg.bundle>
-<Assets/Bundles/LoginUI.prefab|allbundle_assets_bundles_loginui_prefab.bundle|Assets/Res/Texture/91logo.png|Assets/Bundles/xjj.jpg|Assets/Bundles/SubUI.prefab|Assets/Bundles/LoginBG.jpg>
+<Assets/Bundles/LoginUI.prefab|allbundle_assets_bundles_loginui_prefab.bundle|Assets/Bundles/SubUI.prefab|Assets/Res/Texture/91logo.png|Assets/Bundles/xjj.jpg|Assets/Bundles/LoginBG.jpg>
 <Assets/Bundles/ResetUI.prefab|allbundle_assets_bundles_resetui_prefab.bundle>
 <Assets/Bundles/SubUI.prefab|allbundle_assets_bundles_subui_prefab.bundle|Assets/Bundles/xjj.jpg>
 <Assets/Bundles/xjj.jpg|allbundle_assets_bundles_xjj_jpg.bundle>

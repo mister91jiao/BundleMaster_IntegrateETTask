@@ -1,12 +1,12 @@
 ManifestFileVersion: 0
-CRC: 3838764567
+CRC: 2503516680
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: a8e9308cae8bea677582b2e099346b10
+    Hash: 7e2558385e1c5b75b5d03b506fa4cf24
   TypeTreeHash:
     serializedVersion: 2
-    Hash: 6b44d2f0e304c8b3b55fd4f232b53c06
+    Hash: c9c8d79e9bcdbb954e86d579106739c8
 HashAppended: 0
 ClassTypes:
 - Class: 1
@@ -33,23 +33,7 @@ ClassTypes:
   Script: {instanceID: 0}
 - Class: 224
   Script: {instanceID: 0}
-SerializeReferenceClassIdentifiers:
-- AssemblyName: UnityEngine.CoreModule
-  ClassName: UnityEngine.Events.PersistentCallGroup
-- AssemblyName: UnityEngine.UI
-  ClassName: UnityEngine.UI.AnimationTriggers
-- AssemblyName: UnityEngine.UI
-  ClassName: UnityEngine.UI.Button/ButtonClickedEvent
-- AssemblyName: UnityEngine.UI
-  ClassName: UnityEngine.UI.ColorBlock
-- AssemblyName: UnityEngine.UI
-  ClassName: UnityEngine.UI.FontData
-- AssemblyName: UnityEngine.UI
-  ClassName: UnityEngine.UI.MaskableGraphic/CullStateChangedEvent
-- AssemblyName: UnityEngine.UI
-  ClassName: UnityEngine.UI.Navigation
-- AssemblyName: UnityEngine.UI
-  ClassName: UnityEngine.UI.SpriteState
+SerializeReferenceClassIdentifiers: []
 Assets:
 - Assets/Bundles/LoginUI.prefab
 Dependencies:

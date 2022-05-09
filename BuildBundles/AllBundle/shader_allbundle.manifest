@@ -1,12 +1,12 @@
 ManifestFileVersion: 0
-CRC: 2393241162
+CRC: 3186937047
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 81442acaabb5d94ca9b783ee501aa9ba
+    Hash: 01006869d7dee4b4924af3ba1fd8a38f
   TypeTreeHash:
     serializedVersion: 2
-    Hash: fcdaeee34e52c5d728b2ae71a9c5a55b
+    Hash: 56013de3af6e2e588ae4e6815219a7a6
 HashAppended: 0
 ClassTypes:
 - Class: 48
@@ -15,7 +15,8 @@ ClassTypes:
   Script: {instanceID: 0}
 SerializeReferenceClassIdentifiers: []
 Assets:
-- Assets/Bundles/ShaderVariants.shadervariants
-- Assets/Res/Shader/Loli.shader
 - Packages/com.unity.render-pipelines.universal/Shaders/Lit.shader
+- Assets/Bundles/ShaderVariants.shadervariants
+- Packages/com.unity.render-pipelines.universal/Shaders/Utils/FallbackError.shader
+- Assets/Res/Shader/Loli.shader
 Dependencies: []

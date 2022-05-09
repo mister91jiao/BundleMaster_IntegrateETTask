@@ -1,12 +1,12 @@
 ManifestFileVersion: 0
-CRC: 1996700955
+CRC: 974131262
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: c1c4835defd128fd8c20f64d341f6b8d
+    Hash: 27fd3644719bb15b47171be3b49fb53b
   TypeTreeHash:
     serializedVersion: 2
-    Hash: 68c985bf88fecc38b460cdb825182138
+    Hash: 55d48f4ad9c3b13330b9eb5ee5686477
 HashAppended: 0
 ClassTypes:
 - Class: 48
@@ -14,4 +14,5 @@ ClassTypes:
 SerializeReferenceClassIdentifiers: []
 Assets:
 - Packages/com.unity.render-pipelines.universal/Shaders/Lit.shader
+- Packages/com.unity.render-pipelines.universal/Shaders/Utils/FallbackError.shader
 Dependencies: []
