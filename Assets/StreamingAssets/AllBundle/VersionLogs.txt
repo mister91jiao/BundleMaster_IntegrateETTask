@@ -1,4 +1,5 @@
-2022/5/9 16:16:38|1|False
+2022/5/10 17:20:54|1|False
+allbundle_assets_bundles_groupbundle.bundle|8832821|3490372634
 allbundle_assets_bundles_loginbg_jpg.bundle|5464951|4240323860
 allbundle_assets_bundles_loginui_prefab.bundle|34438|160134283
 allbundle_assets_bundles_resetui_prefab.bundle|32614|1626267099

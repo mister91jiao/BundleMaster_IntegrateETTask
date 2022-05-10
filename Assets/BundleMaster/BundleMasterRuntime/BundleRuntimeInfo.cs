@@ -23,6 +23,11 @@ namespace BM
         /// 细分组的文件
         /// </summary>
         internal readonly Dictionary<string, LoadGroup> LoadGroupDic = new Dictionary<string, LoadGroup>();
+
+        /// <summary>
+        /// 细分组的路径
+        /// </summary>
+        internal readonly List<string> LoadGroupDicKey = new List<string>();
         
         /// <summary>
         /// 资源路径对应的资源LoadHandler

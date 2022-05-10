@@ -84,7 +84,15 @@ public class Init : MonoBehaviour
                 UnityEngine.Object.Instantiate(loadHandler.Asset);
                 ResetUI().Coroutine();
             };
+            LoadGroupTest().Coroutine();
         };
+    }
+
+    private async ETTask LoadGroupTest()
+    {
+        Texture zfnp = await AssetComponent.LoadAsync<Texture>(out LoadHandler handler, "Assets/Bundles/GroupBundle/zfnp.jpg");
+        Debug.LogError(zfnp.height);
+        handler.UnLoad();
     }
     
     private async ETTask ResetUI()

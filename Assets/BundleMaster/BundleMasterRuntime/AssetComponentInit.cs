@@ -133,6 +133,7 @@ namespace BM
                     loadGroup.FilePath = groupLog[0];
                     loadGroup.AssetBundleName = groupLog[1];
                     bundleRuntimeInfo.LoadGroupDic.Add(loadGroup.FilePath, loadGroup);
+                    bundleRuntimeInfo.LoadGroupDicKey.Add(loadGroup.FilePath);
                 }
             }
             //加载当前分包的shader
