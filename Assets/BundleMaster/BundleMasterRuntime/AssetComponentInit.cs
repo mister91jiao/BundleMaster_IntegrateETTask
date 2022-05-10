@@ -132,6 +132,13 @@ namespace BM
                     LoadGroup loadGroup = new LoadGroup();
                     loadGroup.FilePath = groupLog[0];
                     loadGroup.AssetBundleName = groupLog[1];
+                    if (groupLog.Length > 2)
+                    {
+                        for (int i = 2; i < groupLog.Length; i++)
+                        {
+                            loadGroup.DependFileName.Add(groupLog[i]);
+                        }
+                    }
                     bundleRuntimeInfo.LoadGroupDic.Add(loadGroup.FilePath, loadGroup);
                     bundleRuntimeInfo.LoadGroupDicKey.Add(loadGroup.FilePath);
                 }

@@ -91,7 +91,7 @@ public class Init : MonoBehaviour
     private async ETTask LoadGroupTest()
     {
         Texture zfnp = await AssetComponent.LoadAsync<Texture>(out LoadHandler handler, "Assets/Bundles/GroupBundle/zfnp.jpg");
-        Debug.LogError(zfnp.height);
+        //Debug.LogError(zfnp.height);
         handler.UnLoad();
     }
     
