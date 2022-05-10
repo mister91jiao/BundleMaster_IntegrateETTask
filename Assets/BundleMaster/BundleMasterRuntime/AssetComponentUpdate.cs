@@ -433,7 +433,8 @@ namespace BM
                 {
                     byte[] fileLogsData = await DownloadBundleHelper.DownloadDataByUrl(Path.Combine(AssetComponentConfig.BundleServerUrl, packageName, "FileLogs.txt"));
                     byte[] dependLogsData = await DownloadBundleHelper.DownloadDataByUrl(Path.Combine(AssetComponentConfig.BundleServerUrl, packageName, "DependLogs.txt"));
-                    if (fileLogsData == null || dependLogsData == null)
+                    byte[] groupLogsData = await DownloadBundleHelper.DownloadDataByUrl(Path.Combine(AssetComponentConfig.BundleServerUrl, packageName, "GroupLogs.txt"));
+                    if (fileLogsData == null || dependLogsData == null || groupLogsData == null)
                     {
                         AssetLogHelper.LogError("获取Log表失败, PackageName: " + packageName);
                         continue;
@@ -441,6 +442,8 @@ namespace BM
                     CreateUpdateLogFile(Path.Combine(AssetComponentConfig.HotfixPath, packageName, "FileLogs.txt"),
                         System.Text.Encoding.UTF8.GetString(fileLogsData));
                     CreateUpdateLogFile(Path.Combine(AssetComponentConfig.HotfixPath, packageName, "DependLogs.txt"),
+                        System.Text.Encoding.UTF8.GetString(dependLogsData));
+                    CreateUpdateLogFile(Path.Combine(AssetComponentConfig.HotfixPath, packageName, "GroupLogs.txt"),
                         System.Text.Encoding.UTF8.GetString(dependLogsData));
                 }
                 byte[] versionLogsData = await DownloadBundleHelper.DownloadDataByUrl(Path.Combine(AssetComponentConfig.BundleServerUrl, packageName, "VersionLogs.txt"));

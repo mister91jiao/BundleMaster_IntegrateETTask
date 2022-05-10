@@ -21,4 +21,5 @@ MonoBehaviour:
   SecretKey: mister91jiao
   AssetPath:
   - Assets/Bundles/SubBundleAssets
+  AssetGroupPaths: []
   Scene: []

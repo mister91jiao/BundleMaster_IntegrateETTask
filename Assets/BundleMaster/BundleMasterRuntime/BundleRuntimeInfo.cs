@@ -20,6 +20,11 @@ namespace BM
         internal readonly Dictionary<string, LoadDepend> LoadDependDic = new Dictionary<string, LoadDepend>();
         
         /// <summary>
+        /// 细分组的文件
+        /// </summary>
+        internal readonly Dictionary<string, LoadGroup> LoadGroupDic = new Dictionary<string, LoadGroup>();
+        
+        /// <summary>
         /// 资源路径对应的资源LoadHandler
         /// </summary>
         internal readonly Dictionary<string, LoadHandler> AllAssetLoadHandler = new Dictionary<string, LoadHandler>();

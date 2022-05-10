@@ -104,6 +104,37 @@ namespace BM
                     bundleRuntimeInfo.LoadDependDic.Add(loadDepend.FilePath, loadDepend);
                 }
             }
+            ETTask groupTcs = ETTask.Create();
+            string groupPath = BundleFileExistPath(bundlePackageName, "GroupLogs.txt");
+            using (UnityWebRequest webRequest = UnityWebRequest.Get(groupPath))
+            {
+                UnityWebRequestAsyncOperation weq = webRequest.SendWebRequest();
+                weq.completed += (o) =>
+                {
+                    groupTcs.SetResult();
+                };
+                await groupTcs;
+#if UNITY_2020_1_OR_NEWER
+                if (webRequest.result != UnityWebRequest.Result.Success)
+#else
+                if (!string.IsNullOrEmpty(webRequest.error))
+#endif
+                {
+                    AssetLogHelper.LogError("没有找到 " + bundlePackageName + " Bundle的GroupLogs\n" + dependPath);
+                    return;
+                }
+                string groupLogs = webRequest.downloadHandler.text;
+                Regex reg = new Regex(@"\<(.+?)>");
+                MatchCollection matchCollection = reg.Matches(groupLogs);
+                foreach (Match m in matchCollection)
+                {
+                    string[] groupLog = m.Groups[1].Value.Split('|');
+                    LoadGroup loadGroup = new LoadGroup();
+                    loadGroup.FilePath = groupLog[0];
+                    loadGroup.AssetBundleName = groupLog[1];
+                    bundleRuntimeInfo.LoadGroupDic.Add(loadGroup.FilePath, loadGroup);
+                }
+            }
             //加载当前分包的shader
             await LoadShader(bundlePackageName);
         }
