@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using ET;
@@ -8,6 +9,15 @@ using Debug = UnityEngine.Debug;
 
 public class Init : MonoBehaviour
 {
+    private void Awake()
+    {
+        System.AppDomain.CurrentDomain.UnhandledException += (sender, e) =>
+        {
+            AssetLogHelper.LogError(e.ExceptionObject.ToString());
+        };
+        ETTask.ExceptionHandler += AssetLogHelper.LogError;
+    }
+
     void Start()
     {
         DontDestroyOnLoad(gameObject);
