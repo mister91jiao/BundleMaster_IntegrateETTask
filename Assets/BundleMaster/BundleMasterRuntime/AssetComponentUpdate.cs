@@ -444,7 +444,7 @@ namespace BM
                     CreateUpdateLogFile(Path.Combine(AssetComponentConfig.HotfixPath, packageName, "DependLogs.txt"),
                         System.Text.Encoding.UTF8.GetString(dependLogsData));
                     CreateUpdateLogFile(Path.Combine(AssetComponentConfig.HotfixPath, packageName, "GroupLogs.txt"),
-                        System.Text.Encoding.UTF8.GetString(dependLogsData));
+                        System.Text.Encoding.UTF8.GetString(groupLogsData));
                 }
                 byte[] versionLogsData = await DownloadBundleHelper.DownloadDataByUrl(Path.Combine(AssetComponentConfig.BundleServerUrl, packageName, "VersionLogs.txt"));
                 if (versionLogsData == null)
