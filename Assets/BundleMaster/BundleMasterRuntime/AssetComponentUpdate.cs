@@ -2,7 +2,9 @@
 using System.IO;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using ET;
+using UnityEngine;
 using UnityEngine.Networking;
 
 namespace BM
@@ -51,9 +53,9 @@ namespace BM
                 updateBundleDataInfo.PackageCRCDictionary.Add(bundlePackageName, new Dictionary<string, uint>());
                 if (File.Exists(crcLogPath))
                 {
-                    using (StringReader stringReader = new StringReader(crcLogPath))
+                    using (StreamReader streamReader = new StreamReader(crcLogPath))
                     {
-                        string crcLog = await stringReader.ReadToEndAsync();
+                        string crcLog = await streamReader.ReadToEndAsync();
                         string[] crcLogData = crcLog.Split('\n');
                         for (int j = 0; j < crcLogData.Length; j++)
                         {
