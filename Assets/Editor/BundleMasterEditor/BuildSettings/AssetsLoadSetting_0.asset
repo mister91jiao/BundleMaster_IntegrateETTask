@@ -23,5 +23,6 @@ MonoBehaviour:
   - Assets/Bundles
   AssetGroupPaths:
   - Assets/Bundles/GroupBundle
+  - Assets/Bundles/SubBundleAssets
   Scene:
   - {fileID: 102900000, guid: 60c0b125629d7e9449419d1f97aec16c, type: 3}

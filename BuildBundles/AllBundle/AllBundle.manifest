@@ -1,5 +1,5 @@
 ManifestFileVersion: 0
-CRC: 3722540373
+CRC: 1825605593
 AssetBundleManifest:
   AssetBundleInfos:
     Info_0:
@@ -20,22 +20,19 @@ AssetBundleManifest:
     Info_4:
       Name: allbundle_assets_bundles_subui_prefab.bundle
       Dependencies:
-        Dependency_0: allbundle_assets_bundles_xjj_jpg.bundle
+        Dependency_0: allbundle_assets_bundles_groupbundle.bundle
     Info_5:
-      Name: allbundle_assets_bundles_xjj_jpg.bundle
-      Dependencies: {}
-    Info_6:
-      Name: allbundle_assets_bundles_subbundleassets_mister91jiao_prefab.bundle
-      Dependencies:
-        Dependency_0: shader_allbundle
-        Dependency_1: allbundle_assets_res_texture_91logo_png.bundle
-    Info_7:
       Name: allbundle_assets_scenes_game_unity.bundle
       Dependencies:
         Dependency_0: shader_allbundle
-    Info_8:
+    Info_6:
       Name: allbundle_assets_res_texture_91logo_png.bundle
       Dependencies: {}
-    Info_9:
+    Info_7:
       Name: allbundle_assets_bundles_groupbundle.bundle
       Dependencies: {}
+    Info_8:
+      Name: allbundle_assets_bundles_subbundleassets.bundle
+      Dependencies:
+        Dependency_0: shader_allbundle
+        Dependency_1: allbundle_assets_res_texture_91logo_png.bundle

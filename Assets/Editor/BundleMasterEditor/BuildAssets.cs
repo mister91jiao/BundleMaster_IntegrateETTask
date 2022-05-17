@@ -290,13 +290,23 @@ namespace BM
                     loadGroup.FilePathList.Add(file);
                     foreach (string realDepend in realDepends)
                     {
-                        if (!loadGroup.FilePathList.Contains(realDepend))
+                        if (loadGroup.FilePathList.Contains(realDepend))
                         {
-                            if (!loadGroup.DependFileName.Contains(realDepend))
-                            {
-                                loadGroup.DependFileName.Add(realDepend);
-                            }
+                            continue;
                         }
+                        if (!dependenciesIndex.ContainsKey(realDepend))
+                        {
+                            continue;
+                        }
+                        if (dependenciesIndex[realDepend] == 1)
+                        {
+                            continue;
+                        }
+                        if (loadGroup.DependFileName.Contains(realDepend))
+                        {
+                            continue;
+                        }
+                        loadGroup.DependFileName.Add(realDepend);
                     }
                 }
                 else
@@ -345,9 +355,13 @@ namespace BM
                             depends.Add(depend);
                         }
                         //说名这个依赖是一个组资源
-                        if (BuildAssetsTools.IsGroupAsset(depend, assetsLoadSetting))
+                        string groupPath = BuildAssetsTools.GetGroupAssetPath(depend, assetsLoadSetting);
+                        if (groupPath != null)
                         {
-                            depends.Add(depend);
+                            if (!depends.Contains(groupPath))
+                            {
+                                depends.Add(groupPath);
+                            }
                         }
                     }
                 }

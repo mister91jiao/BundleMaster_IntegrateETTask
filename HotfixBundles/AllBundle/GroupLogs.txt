@@ -1,3 +1,0 @@
-<Assets/Bundles/GroupBundle|allbundle_assets_bundles_groupbundle.bundle>
-
-

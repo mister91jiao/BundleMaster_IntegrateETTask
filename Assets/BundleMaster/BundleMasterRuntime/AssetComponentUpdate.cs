@@ -221,23 +221,23 @@ namespace BM
                     streamingCRC.Add(info[0], crc);
                 }
             }
-            //添加本地文件CRC信息
-            for (int i = 1; i < localVersionData.Length; i++)
-            {
-                string localVersionDataLine = localVersionData[i];
-                if (!string.IsNullOrWhiteSpace(localVersionDataLine))
-                {
-                    string[] info = localVersionDataLine.Split('|');
-                    if (updateBundleDataInfo.PackageCRCDictionary[bundlePackageName].ContainsKey(info[0]))
-                    {
-                        updateBundleDataInfo.PackageCRCDictionary[bundlePackageName][info[0]] = uint.Parse(info[2]);
-                    }
-                    else
-                    {
-                        updateBundleDataInfo.PackageCRCDictionary[bundlePackageName].Add(info[0], uint.Parse(info[2]));
-                    }
-                }
-            }
+            // //添加本地文件CRC信息
+            // for (int i = 1; i < localVersionData.Length; i++)
+            // {
+            //     string localVersionDataLine = localVersionData[i];
+            //     if (!string.IsNullOrWhiteSpace(localVersionDataLine))
+            //     {
+            //         string[] info = localVersionDataLine.Split('|');
+            //         if (updateBundleDataInfo.PackageCRCDictionary[bundlePackageName].ContainsKey(info[0]))
+            //         {
+            //             updateBundleDataInfo.PackageCRCDictionary[bundlePackageName][info[0]] = uint.Parse(info[2]);
+            //         }
+            //         else
+            //         {
+            //             updateBundleDataInfo.PackageCRCDictionary[bundlePackageName].Add(info[0], uint.Parse(info[2]));
+            //         }
+            //     }
+            // }
             //创建最后需要返回的数据
             Dictionary<string, long> needUpdateBundles = new Dictionary<string, long>();
             for (int i = 1; i < remoteVersionData.Length; i++)
