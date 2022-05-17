@@ -445,6 +445,16 @@ namespace BM
                     assetLoadPath.Add(assetPath);
                 }
             }
+            foreach (LoadGroup loadGroup in loadGroupDic.Values)
+            {
+                foreach (string filePathList in loadGroup.FilePathList)
+                {
+                    if (!assetLoadPath.Contains(filePathList))
+                    {
+                        assetLoadPath.Add(filePathList);
+                    }
+                }
+            }
         }
 
         /// <summary>

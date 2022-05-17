@@ -1,1 +1,3 @@
+<Assets/Res/UI/91logo.png|allbundle_assets_res_ui_91logo_png.bundle>
+<Assets/Res/UI/xjj.jpg|allbundle_assets_res_ui_xjj_jpg.bundle>
 

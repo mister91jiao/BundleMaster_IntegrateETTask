@@ -19,7 +19,7 @@ MonoBehaviour:
   InitScene:
   - {fileID: 102900000, guid: 9fc0d4010bbf28b4594072e72b8655ab, type: 3}
   - {fileID: 102900000, guid: 56e8291126294654b89f23a1d708abd7, type: 3}
-  GeneratePathCode: 0
+  GeneratePathCode: 1
   GenerateCodeScriptPath: Scripts
   AssetsSettings:
   - {fileID: 11400000, guid: 0b8c754664ab2214fbfcd1f1a78cf066, type: 2}

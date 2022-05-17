@@ -1,4 +1,0 @@
-<Assets/Bundles/SubBundleAssets/mister91jiao.prefab|allbundle_assets_bundles_subbundleassets_mister91jiao_prefab.bundle|Assets/Bundles/UI>
-<Assets/Bundles/SubBundleAssets/SubUI_Copy.prefab|allbundle_assets_bundles_subbundleassets_subui_copy_prefab.bundle|Assets/Bundles/UI>
-<Assets/Scenes/Game.unity|allbundle_assets_scenes_game_unity.bundle>
-
