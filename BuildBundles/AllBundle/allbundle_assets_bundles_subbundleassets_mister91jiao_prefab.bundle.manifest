@@ -1,0 +1,35 @@
+ManifestFileVersion: 0
+CRC: 368427315
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 4fee8987bcaa5880c9fe37f9a60470b4
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 7e4e81b586c36fda88ba73180982b3db
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 23
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 33
+  Script: {instanceID: 0}
+- Class: 43
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 65
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/Bundles/SubBundleAssets/mister91jiao.prefab
+Dependencies:
+- G:/UnityProject/BundleMaster_IntegrateETTask/BuildBundles/AllBundle/allbundle_assets_bundles_ui.bundle
+- G:/UnityProject/BundleMaster_IntegrateETTask/BuildBundles/AllBundle/shader_allbundle

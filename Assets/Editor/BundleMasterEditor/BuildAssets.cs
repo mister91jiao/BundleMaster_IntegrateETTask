@@ -307,6 +307,15 @@ namespace BM
                         }
                         if (!dependenciesIndex.ContainsKey(realDepend))
                         {
+                            string realDependGroup = BuildAssetsTools.GetGroupAssetPath(realDepend, assetsLoadSetting);
+                            if (realDependGroup != null)
+                            {
+                                if (loadGroup.DependFileName.Contains(realDependGroup))
+                                {
+                                    continue;
+                                }
+                                loadGroup.DependFileName.Add(realDependGroup);
+                            }
                             continue;
                         }
                         if (dependenciesIndex[realDepend] == 1)

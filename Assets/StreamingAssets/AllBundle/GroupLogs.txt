@@ -1,3 +1,5 @@
 <Assets/Bundles/GroupBundle|allbundle_assets_bundles_groupbundle.bundle>
-<Assets/Bundles/SubBundleAssets|allbundle_assets_bundles_subbundleassets.bundle|Assets/Res/Texture/91logo.png>
+<Assets/Bundles/UI|allbundle_assets_bundles_ui.bundle>
+<Assets/Bundles/Prefab|allbundle_assets_bundles_prefab.bundle|Assets/Bundles/UI>
+<Assets/Bundles/Atlas|allbundle_assets_bundles_atlas.bundle|Assets/Bundles/UI>
 

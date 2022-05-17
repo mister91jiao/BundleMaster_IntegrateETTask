@@ -1,39 +1,34 @@
 ManifestFileVersion: 0
-CRC: 1662768886
+CRC: 3273631662
 AssetBundleManifest:
   AssetBundleInfos:
     Info_0:
       Name: shader_allbundle
       Dependencies: {}
     Info_1:
-      Name: allbundle_assets_bundles_loginbg_jpg.bundle
-      Dependencies: {}
+      Name: allbundle_assets_bundles_subbundleassets_mister91jiao_prefab.bundle
+      Dependencies:
+        Dependency_0: shader_allbundle
+        Dependency_1: allbundle_assets_bundles_ui.bundle
     Info_2:
-      Name: allbundle_assets_bundles_loginui_prefab.bundle
-      Dependencies:
-        Dependency_0: allbundle_assets_bundles_loginbg_jpg.bundle
-        Dependency_1: allbundle_assets_bundles_subui_prefab.bundle
-        Dependency_2: allbundle_assets_res_texture_91logo_png.bundle
-    Info_3:
-      Name: allbundle_assets_bundles_resetui_prefab.bundle
-      Dependencies: {}
-    Info_4:
-      Name: allbundle_assets_bundles_subui_prefab.bundle
-      Dependencies:
-        Dependency_0: allbundle_assets_bundles_groupbundle.bundle
-    Info_5:
       Name: allbundle_assets_scenes_game_unity.bundle
       Dependencies:
         Dependency_0: shader_allbundle
-    Info_6:
-      Name: allbundle_assets_res_texture_91logo_png.bundle
-      Dependencies: {}
-    Info_7:
+    Info_3:
       Name: allbundle_assets_bundles_groupbundle.bundle
       Dependencies: {}
-    Info_8:
-      Name: allbundle_assets_bundles_subbundleassets.bundle
+    Info_4:
+      Name: allbundle_assets_bundles_subbundleassets_subui_copy_prefab.bundle
       Dependencies:
-        Dependency_0: shader_allbundle
-        Dependency_1: allbundle_assets_res_texture_91logo_png.bundle
-        Dependency_2: allbundle_assets_bundles_groupbundle.bundle
+        Dependency_0: allbundle_assets_bundles_ui.bundle
+    Info_5:
+      Name: allbundle_assets_bundles_ui.bundle
+      Dependencies: {}
+    Info_6:
+      Name: allbundle_assets_bundles_prefab.bundle
+      Dependencies:
+        Dependency_0: allbundle_assets_bundles_ui.bundle
+    Info_7:
+      Name: allbundle_assets_bundles_atlas.bundle
+      Dependencies:
+        Dependency_0: allbundle_assets_bundles_ui.bundle
