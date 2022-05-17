@@ -1,0 +1,7 @@
+<Assets/Bundles/LoginUI.prefab|allbundle_assets_bundles_loginui_prefab.bundle|Assets/Res/UI/91logo.png|Assets/Res/UI/xjj.jpg|Assets/Bundles/SubUI.prefab>
+<Assets/Bundles/ResetUI.prefab|allbundle_assets_bundles_resetui_prefab.bundle>
+<Assets/Bundles/SubUI.prefab|allbundle_assets_bundles_subui_prefab.bundle|Assets/Res/UI/xjj.jpg>
+<Assets/Bundles/SubBundleAssets/mister91jiao.prefab|allbundle_assets_bundles_subbundleassets_mister91jiao_prefab.bundle|Assets/Res/UI/91logo.png>
+<Assets/Bundles/SubBundleAssets/SubUI_Copy.prefab|allbundle_assets_bundles_subbundleassets_subui_copy_prefab.bundle|Assets/Res/UI/xjj.jpg>
+<Assets/Scenes/Game.unity|allbundle_assets_scenes_game_unity.bundle>
+

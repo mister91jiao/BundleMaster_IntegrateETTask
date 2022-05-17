@@ -1,0 +1,14 @@
+ManifestFileVersion: 0
+CRC: 467208014
+AssetBundleManifest:
+  AssetBundleInfos:
+    Info_0:
+      Name: shader_subbundle
+      Dependencies: {}
+    Info_1:
+      Name: subbundle_assets_bundles_subbundleassets_mister91jiao_prefab.bundle
+      Dependencies:
+        Dependency_0: shader_subbundle
+    Info_2:
+      Name: subbundle_assets_bundles_subbundleassets_subui_copy_prefab.bundle
+      Dependencies: {}

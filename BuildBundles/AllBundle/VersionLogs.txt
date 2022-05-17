@@ -1,0 +1,12 @@
+2022/5/17 17:34:36|1|False
+allbundle_assets_bundles_groupbundle.bundle|8833159|135495953
+allbundle_assets_bundles_loginui_prefab.bundle|4233798|1100173140
+allbundle_assets_bundles_resetui_prefab.bundle|33878|4057799692
+allbundle_assets_bundles_subbundleassets_mister91jiao_prefab.bundle|1716279|1306119555
+allbundle_assets_bundles_subbundleassets_subui_copy_prefab.bundle|10432|2362202582
+allbundle_assets_bundles_subui_prefab.bundle|10352|49261130
+allbundle_assets_res_ui_91logo_png.bundle|4209284|1225254521
+allbundle_assets_res_ui_xjj_jpg.bundle|4209284|1895800295
+allbundle_assets_scenes_game_unity.bundle|3757898|1238887428
+shader_allbundle|240449|2273034207
+
