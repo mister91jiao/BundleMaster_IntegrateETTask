@@ -1,0 +1,33 @@
+ManifestFileVersion: 0
+CRC: 4230798698
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 8e2a25e03c2d659321d7f5cfee226cdb
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 8bfd4c748b2eb63d60372f8972dd3346
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+- Class: 213
+  Script: {instanceID: 0}
+- Class: 222
+  Script: {instanceID: 0}
+- Class: 224
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers:
+- AssemblyName: UnityEngine.CoreModule
+  ClassName: UnityEngine.Events.PersistentCallGroup
+- AssemblyName: UnityEngine.UI
+  ClassName: UnityEngine.UI.MaskableGraphic/CullStateChangedEvent
+Assets:
+- Assets/Bundles/SubBundleAssets/SubUI_Copy.prefab
+Dependencies: []

@@ -1,12 +1,12 @@
 ManifestFileVersion: 0
-CRC: 4220180957
+CRC: 3637645061
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 43bf83b6cd1752f5adbeb30ff69ad12a
+    Hash: cefd6f75ad31f474b7dc19873d694407
   TypeTreeHash:
     serializedVersion: 2
-    Hash: 7e4e81b586c36fda88ba73180982b3db
+    Hash: bd93963c356d01655a7a2ce85cb1306f
 HashAppended: 0
 ClassTypes:
 - Class: 1
@@ -27,9 +27,25 @@ ClassTypes:
   Script: {instanceID: 0}
 - Class: 65
   Script: {instanceID: 0}
-SerializeReferenceClassIdentifiers: []
+- Class: 114
+  Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+- Class: 213
+  Script: {instanceID: 0}
+- Class: 222
+  Script: {instanceID: 0}
+- Class: 224
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers:
+- AssemblyName: UnityEngine.CoreModule
+  ClassName: UnityEngine.Events.PersistentCallGroup
+- AssemblyName: UnityEngine.UI
+  ClassName: UnityEngine.UI.MaskableGraphic/CullStateChangedEvent
 Assets:
 - Assets/Bundles/SubBundleAssets/mister91jiao.prefab
+- Assets/Bundles/SubBundleAssets/SubUI_Copy.prefab
 Dependencies:
+- G:/UnityProject/BundleMaster_IntegrateETTask/BuildBundles/AllBundle/allbundle_assets_bundles_groupbundle.bundle
 - G:/UnityProject/BundleMaster_IntegrateETTask/BuildBundles/AllBundle/allbundle_assets_res_texture_91logo_png.bundle
 - G:/UnityProject/BundleMaster_IntegrateETTask/BuildBundles/AllBundle/shader_allbundle

@@ -188,6 +188,7 @@ namespace BM
             }
             //分析所有需要主动加载的资源
             List<string> needRemoveFile = new List<string>();
+            Dictionary<string, List<string>> groupFileToRealDepends = new Dictionary<string, List<string>>();
             foreach (string file in files)
             {
                 //Shader资源单独处理
@@ -286,9 +287,19 @@ namespace BM
                 }
                 if (fileGroupPath != null)
                 {
-                    LoadGroup loadGroup = loadGroupDic[fileGroupPath];
-                    loadGroup.FilePathList.Add(file);
-                    foreach (string realDepend in realDepends)
+                    loadGroupDic[fileGroupPath].FilePathList.Add(file);
+                    groupFileToRealDepends.Add(file, realDepends);
+                }
+                else
+                {
+                    allLoadBaseAndDepends.Add(file, realDepends.ToArray());
+                }
+            }
+            foreach (LoadGroup loadGroup in loadGroupDic.Values)
+            {
+                foreach (string groupFile in loadGroup.FilePathList)
+                {
+                    foreach (string realDepend in groupFileToRealDepends[groupFile])
                     {
                         if (loadGroup.FilePathList.Contains(realDepend))
                         {
@@ -302,16 +313,23 @@ namespace BM
                         {
                             continue;
                         }
+                        else
+                        {
+                            //说明这个依赖是单独依赖并且被Group依赖
+                            if (!loadDependDic.ContainsKey(realDepend))
+                            {
+                                LoadDepend loadDepend = new LoadDepend();
+                                loadDepend.FilePath = realDepend;
+                                loadDepend.AssetBundleName = GetBundleName(assetsLoadSetting, realDepend) + "." + assetsLoadSetting.BundleVariant;
+                                loadDependDic.Add(realDepend, loadDepend);
+                            }
+                        }
                         if (loadGroup.DependFileName.Contains(realDepend))
                         {
                             continue;
                         }
                         loadGroup.DependFileName.Add(realDepend);
                     }
-                }
-                else
-                {
-                    allLoadBaseAndDepends.Add(file, realDepends.ToArray());
                 }
             }
             foreach (string removeFile in needRemoveFile)

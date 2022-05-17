@@ -1,9 +1,9 @@
-2022/5/17 11:32:26|1|False
+2022/5/17 12:27:30|1|False
 allbundle_assets_bundles_groupbundle.bundle|9029079|3424091033
 allbundle_assets_bundles_loginbg_jpg.bundle|5465255|4237090913
 allbundle_assets_bundles_loginui_prefab.bundle|35814|1166116131
 allbundle_assets_bundles_resetui_prefab.bundle|33878|4057799692
-allbundle_assets_bundles_subbundleassets.bundle|1716263|2251861211
+allbundle_assets_bundles_subbundleassets.bundle|1723527|247794228
 allbundle_assets_bundles_subui_prefab.bundle|10368|2940602417
 allbundle_assets_res_texture_91logo_png.bundle|1712311|1883073194
 allbundle_assets_scenes_game_unity.bundle|3757898|1238887428

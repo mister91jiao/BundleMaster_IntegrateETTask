@@ -62,7 +62,7 @@ public class Init : MonoBehaviour
         GameObject loginUIAsset = await AssetComponent.LoadAsync<GameObject>(out LoadHandler loginUIHandler, BPath.Assets_Bundles_LoginUI__prefab);
         GameObject loginUIObj = UnityEngine.Object.Instantiate(loginUIAsset, uiManagerTf, false);
         
-        GameObject subUI = await AssetComponent.LoadAsync<GameObject>(out LoadHandler usbUIHandler, BPath.Assets_Bundles_SubUI__prefab);
+        GameObject subUI = await AssetComponent.LoadAsync<GameObject>(out LoadHandler usbUIHandler, "Assets/Bundles/SubBundleAssets/SubUI_Copy.prefab");
         GameObject subUIObj = UnityEngine.Object.Instantiate(subUI, loginUIObj.transform, false);
         
         loginUIObj.transform.Find("Login").GetComponent<Button>().onClick.AddListener(() =>

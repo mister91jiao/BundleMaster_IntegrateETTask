@@ -1,5 +1,5 @@
 ManifestFileVersion: 0
-CRC: 1825605593
+CRC: 1662768886
 AssetBundleManifest:
   AssetBundleInfos:
     Info_0:
@@ -36,3 +36,4 @@ AssetBundleManifest:
       Dependencies:
         Dependency_0: shader_allbundle
         Dependency_1: allbundle_assets_res_texture_91logo_png.bundle
+        Dependency_2: allbundle_assets_bundles_groupbundle.bundle
