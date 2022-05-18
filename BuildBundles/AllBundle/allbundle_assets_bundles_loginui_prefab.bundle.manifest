@@ -1,12 +1,12 @@
 ManifestFileVersion: 0
-CRC: 3749941933
+CRC: 3721549778
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 83090c66186e0c39a520f5ca4ad433f9
+    Hash: 4a3cb35c5f04955e6db71e203dd026f5
   TypeTreeHash:
     serializedVersion: 2
-    Hash: c1597bb86be680561f63153b2c52b9b7
+    Hash: 6b44d2f0e304c8b3b55fd4f232b53c06
 HashAppended: 0
 ClassTypes:
 - Class: 1
@@ -33,8 +33,6 @@ ClassTypes:
   Script: {instanceID: 0}
 - Class: 224
   Script: {instanceID: 0}
-- Class: 687078895
-  Script: {instanceID: 0}
 SerializeReferenceClassIdentifiers:
 - AssemblyName: UnityEngine.CoreModule
   ClassName: UnityEngine.Events.PersistentCallGroup
@@ -57,3 +55,4 @@ Assets:
 Dependencies:
 - G:/UnityProject/BundleMaster_IntegrateETTask/BuildBundles/AllBundle/allbundle_assets_bundles_subui_prefab.bundle
 - G:/UnityProject/BundleMaster_IntegrateETTask/BuildBundles/AllBundle/allbundle_assets_res_ui_91logo_png.bundle
+- G:/UnityProject/BundleMaster_IntegrateETTask/BuildBundles/AllBundle/allbundle_assets_res_ui_loginbg_jpg.bundle

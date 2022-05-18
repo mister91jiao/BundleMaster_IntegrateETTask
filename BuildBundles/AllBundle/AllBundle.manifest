@@ -1,5 +1,5 @@
 ManifestFileVersion: 0
-CRC: 556995197
+CRC: 3836198256
 AssetBundleManifest:
   AssetBundleInfos:
     Info_0:
@@ -10,6 +10,7 @@ AssetBundleManifest:
       Dependencies:
         Dependency_0: allbundle_assets_bundles_subui_prefab.bundle
         Dependency_1: allbundle_assets_res_ui_91logo_png.bundle
+        Dependency_2: allbundle_assets_res_ui_loginbg_jpg.bundle
     Info_2:
       Name: allbundle_assets_bundles_resetui_prefab.bundle
       Dependencies: {}
@@ -30,12 +31,21 @@ AssetBundleManifest:
       Name: allbundle_assets_bundles_groupbundle.bundle
       Dependencies: {}
     Info_7:
+      Name: allbundle_assets_bundles_atlas_uiatlas_spriteatlasv2.bundle
+      Dependencies:
+        Dependency_0: allbundle_assets_res_ui_91logo_png.bundle
+        Dependency_1: allbundle_assets_res_ui_xjj_jpg.bundle
+        Dependency_2: allbundle_assets_res_ui_loginbg_jpg.bundle
+    Info_8:
       Name: allbundle_assets_bundles_subbundleassets_subui_copy_prefab.bundle
       Dependencies:
         Dependency_0: allbundle_assets_res_ui_xjj_jpg.bundle
-    Info_8:
+    Info_9:
       Name: allbundle_assets_res_ui_91logo_png.bundle
       Dependencies: {}
-    Info_9:
+    Info_10:
       Name: allbundle_assets_res_ui_xjj_jpg.bundle
+      Dependencies: {}
+    Info_11:
+      Name: allbundle_assets_res_ui_loginbg_jpg.bundle
       Dependencies: {}

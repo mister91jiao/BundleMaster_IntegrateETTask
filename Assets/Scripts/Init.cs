@@ -58,6 +58,8 @@ public class Init : MonoBehaviour
     private async ETTask InitUI()
     {
         Transform uiManagerTf = gameObject.transform.Find("UIManager");
+        //加载图集
+        await AssetComponent.LoadAsync(out LoadHandler atlasHandler, BPath.Assets_Bundles_Atlas_UIAtlas__spriteatlasv2);
         //异步加载资源
         GameObject loginUIAsset = await AssetComponent.LoadAsync<GameObject>(out LoadHandler loginUIHandler, BPath.Assets_Bundles_LoginUI__prefab);
         GameObject loginUIObj = UnityEngine.Object.Instantiate(loginUIAsset, uiManagerTf, false);
