@@ -8,3 +8,6 @@
 <br/>QQ讨论群: 787652036</br>
 <br/>使用ET框架请下载纯代码版进行集成: https://github.com/mister91jiao/BundleMaster</br>
 <br/>ETTask部分来源于ET框架(https://github.com/egametang/ET)</br>
+<br/>友情链接: </br>
+<br/>JEngine 一款集成好BM的优秀框架: https://github.com/JasonXuDeveloper/JEngine</br>
+<br/>huatuo 革命性的热更新解决方案: https://github.com/focus-creative-games/huatuo</br>
