@@ -9,6 +9,8 @@ using Debug = UnityEngine.Debug;
 
 public class Init : MonoBehaviour
 {
+    private Transform uiManagerTf;
+    
     private void Awake()
     {
         System.AppDomain.CurrentDomain.UnhandledException += (sender, e) =>
@@ -23,21 +25,21 @@ public class Init : MonoBehaviour
         DontDestroyOnLoad(gameObject);
         Initialization().Coroutine();
     }
+    
     void Update()
     {
         AssetComponent.Update();
     }
     private async ETTask Initialization()
     {
+        //重新配置热更路径(开发方便用, 打包移动端需要注释注释)
+        AssetComponentConfig.HotfixPath = Application.dataPath + "/../HotfixBundles/";
+        uiManagerTf = gameObject.transform.Find("UIManager");
         await CheckHotfix();
-        await InitUI();
     }
     
     private async ETTask CheckHotfix()
     {
-        //重新配置热更路径(开发方便用, 打包移动端需要注释注释)
-        AssetComponentConfig.HotfixPath = Application.dataPath + "/../HotfixBundles/";
-        
         AssetComponentConfig.DefaultBundlePackageName = "AllBundle";
         Dictionary<string, bool> updatePackageBundle = new Dictionary<string, bool>()
         {
@@ -49,15 +51,42 @@ public class Init : MonoBehaviour
         if (updateBundleDataInfo.NeedUpdate)
         {
             Debug.LogError("需要更新, 大小: " + updateBundleDataInfo.NeedUpdateSize);
-            await AssetComponent.DownLoadUpdate(updateBundleDataInfo);
+            //创建下载UI
+            GameObject downLoadUI = GameObject.Instantiate(Resources.Load<GameObject>("DownLoadUI"), uiManagerTf);
+            Slider progressSlider = downLoadUI.transform.Find("ProgressSlider").GetComponent<Slider>();
+            Text progressText = downLoadUI.transform.Find("ProgressValue/Text").GetComponent<Text>();
+            Text speedText = downLoadUI.transform.Find("SpeedValue/Text").GetComponent<Text>();
+            updateBundleDataInfo.DownLoadFinishCallback += () =>
+            {
+                GameObject.Destroy(downLoadUI);
+                InitializePackage().Coroutine();
+            };
+            updateBundleDataInfo.ProgressCallback += p =>
+            {
+                progressSlider.value = p / 100.0f;
+                progressText.text = p.ToString("#0.00") + "%";
+            };
+            updateBundleDataInfo.DownLoadSpeedCallback += s =>
+            {
+                speedText.text = (s / 1024.0f).ToString("#0.00") + " kb/s";
+            };
+            AssetComponent.DownLoadUpdate(updateBundleDataInfo).Coroutine();
         }
+        else
+        {
+            InitializePackage().Coroutine();
+        }
+    }
+
+    private async ETTask InitializePackage()
+    {
         await AssetComponent.Initialize(AssetComponentConfig.DefaultBundlePackageName);
         await AssetComponent.Initialize("SubBundle");
+        await InitUI();
     }
 
     private async ETTask InitUI()
     {
-        Transform uiManagerTf = gameObject.transform.Find("UIManager");
         //加载图集
         await AssetComponent.LoadAsync(out LoadHandler atlasHandler, BPath.Assets_Bundles_Atlas_UIAtlas__spriteatlasv2);
         //异步加载资源
@@ -112,7 +141,6 @@ public class Init : MonoBehaviour
     
     private async ETTask ResetUI()
     {
-        Transform uiManagerTf = gameObject.transform.Find("UIManager");
         //异步加载资源
         UnityEngine.Object resetUIAsset = await AssetComponent.LoadAsync(BPath.Assets_Bundles_ResetUI__prefab);
         GameObject resetUIObj = UnityEngine.Object.Instantiate(resetUIAsset as GameObject, uiManagerTf, false);
