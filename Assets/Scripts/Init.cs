@@ -10,6 +10,7 @@ using Debug = UnityEngine.Debug;
 public class Init : MonoBehaviour
 {
     private Transform uiManagerTf;
+    private UpdateBundleDataInfo updateBundleDataInfo;
     
     private void Awake()
     {
@@ -23,61 +24,83 @@ public class Init : MonoBehaviour
     void Start()
     {
         DontDestroyOnLoad(gameObject);
-        Initialization().Coroutine();
+        Initialization();
     }
     
     void Update()
     {
         AssetComponent.Update();
     }
-    private async ETTask Initialization()
+    
+    void OnDestroy()
+    {
+        updateBundleDataInfo?.CancelUpdate();
+    }
+
+    private void Initialization()
     {
         //重新配置热更路径(开发方便用, 打包移动端需要注释注释)
         AssetComponentConfig.HotfixPath = Application.dataPath + "/../HotfixBundles/";
         uiManagerTf = gameObject.transform.Find("UIManager");
-        await CheckHotfix();
+        AssetComponentConfig.DefaultBundlePackageName = "AllBundle";
+        //创建下载UI
+        GameObject downLoadUI = GameObject.Instantiate(Resources.Load<GameObject>("DownLoadUI"), uiManagerTf);
+        DownLoad(downLoadUI).Coroutine();
     }
     
-    private async ETTask CheckHotfix()
+    /// <summary>
+    /// 下载资源
+    /// </summary>
+    private async ETTask DownLoad(GameObject downLoadUI)
     {
-        AssetComponentConfig.DefaultBundlePackageName = "AllBundle";
+        downLoadUI.SetActive(false);
         Dictionary<string, bool> updatePackageBundle = new Dictionary<string, bool>()
         {
             {AssetComponentConfig.DefaultBundlePackageName, false},
             {"SubBundle", false},
             {"OriginFile", false},
         };
-        UpdateBundleDataInfo updateBundleDataInfo = await AssetComponent.CheckAllBundlePackageUpdate(updatePackageBundle);
-        if (updateBundleDataInfo.NeedUpdate)
-        {
-            Debug.LogError("需要更新, 大小: " + updateBundleDataInfo.NeedUpdateSize);
-            //创建下载UI
-            GameObject downLoadUI = GameObject.Instantiate(Resources.Load<GameObject>("DownLoadUI"), uiManagerTf);
-            Slider progressSlider = downLoadUI.transform.Find("ProgressSlider").GetComponent<Slider>();
-            Text progressText = downLoadUI.transform.Find("ProgressValue/Text").GetComponent<Text>();
-            Text speedText = downLoadUI.transform.Find("SpeedValue/Text").GetComponent<Text>();
-            updateBundleDataInfo.DownLoadFinishCallback += () =>
-            {
-                GameObject.Destroy(downLoadUI);
-                InitializePackage().Coroutine();
-            };
-            updateBundleDataInfo.ProgressCallback += p =>
-            {
-                progressSlider.value = p / 100.0f;
-                progressText.text = p.ToString("#0.00") + "%";
-            };
-            updateBundleDataInfo.DownLoadSpeedCallback += s =>
-            {
-                speedText.text = (s / 1024.0f).ToString("#0.00") + " kb/s";
-            };
-            AssetComponent.DownLoadUpdate(updateBundleDataInfo).Coroutine();
-        }
-        else
+        updateBundleDataInfo = await AssetComponent.CheckAllBundlePackageUpdate(updatePackageBundle);
+        if (!updateBundleDataInfo.NeedUpdate)
         {
             InitializePackage().Coroutine();
+            return;
         }
+        downLoadUI.SetActive(true);
+        Debug.LogError("需要更新, 大小: " + updateBundleDataInfo.NeedUpdateSize);
+        Slider progressSlider = downLoadUI.transform.Find("ProgressSlider").GetComponent<Slider>();
+        Text progressText = downLoadUI.transform.Find("ProgressValue/Text").GetComponent<Text>();
+        Text speedText = downLoadUI.transform.Find("SpeedValue/Text").GetComponent<Text>();
+        Button cancelDownLoad = downLoadUI.transform.Find("Cancel").GetComponent<Button>();
+        Button reDownLoad = downLoadUI.transform.Find("ReDown").GetComponent<Button>();
+        updateBundleDataInfo.DownLoadFinishCallback += () =>
+        {
+            GameObject.Destroy(downLoadUI);
+            InitializePackage().Coroutine();
+        };
+        updateBundleDataInfo.ProgressCallback += p =>
+        {
+            progressSlider.value = p / 100.0f;
+            progressText.text = p.ToString("#0.00") + "%";
+        };
+        updateBundleDataInfo.DownLoadSpeedCallback += s =>
+        {
+            speedText.text = (s / 1024.0f).ToString("#0.00") + " kb/s";
+        };
+        updateBundleDataInfo.ErrorCancelCallback += () =>
+        {
+            Debug.LogError("下载取消");
+        };
+        cancelDownLoad.onClick.RemoveAllListeners();
+        cancelDownLoad.onClick.AddListener(updateBundleDataInfo.CancelUpdate);
+        reDownLoad.onClick.RemoveAllListeners();
+        reDownLoad.onClick.AddListener(() =>
+        {
+            DownLoad(downLoadUI).Coroutine();
+        });
+        AssetComponent.DownLoadUpdate(updateBundleDataInfo).Coroutine();
     }
-
+    
     private async ETTask InitializePackage()
     {
         await AssetComponent.Initialize(AssetComponentConfig.DefaultBundlePackageName);
@@ -153,7 +176,7 @@ public class Init : MonoBehaviour
             operation.completed += asyncOperation =>
             {
                 //重新加载资源
-                Initialization().Coroutine();
+                Initialization();
             };
         });
     }

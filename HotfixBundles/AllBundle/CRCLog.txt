@@ -1,13 +1,13 @@
 
-allbundle_assets_bundles_loginui_prefab.bundle|43341398|2022/7/13 14:38:38
-allbundle_assets_bundles_subbundleassets_subui_copy_prefab.bundle|2362202582|2022/7/13 14:38:38
-allbundle_assets_res_ui_loginbg_jpg.bundle|2515138078|2022/7/13 14:38:38
-allbundle_assets_res_ui_91logo_png.bundle|2692326791|2022/7/13 14:38:38
-allbundle_assets_bundles_resetui_prefab.bundle|4057799692|2022/7/13 14:38:38
-shader_allbundle|2273034207|2022/7/13 14:38:38
-allbundle_assets_res_ui_xjj_jpg.bundle|1154801020|2022/7/13 14:38:38
-allbundle_assets_bundles_subbundleassets_mister91jiao_prefab.bundle|1306119555|2022/7/13 14:38:38
-allbundle_assets_bundles_subui_prefab.bundle|49261130|2022/7/13 14:38:38
-allbundle_assets_bundles_atlas_uiatlas_spriteatlasv2.bundle|1852627018|2022/7/13 14:38:38
-allbundle_assets_scenes_game_unity.bundle|1238887428|2022/7/13 14:38:38
-allbundle_assets_bundles_groupbundle.bundle|135495953|2022/7/13 14:38:38
+allbundle_assets_bundles_subbundleassets_subui_copy_prefab.bundle|2362202582|2022/7/14 15:48:04
+allbundle_assets_res_ui_loginbg_jpg.bundle|2515138078|2022/7/14 15:48:04
+allbundle_assets_res_ui_xjj_jpg.bundle|1154801020|2022/7/14 15:48:04
+allbundle_assets_bundles_subui_prefab.bundle|49261130|2022/7/14 15:48:04
+allbundle_assets_res_ui_91logo_png.bundle|2692326791|2022/7/14 15:48:04
+allbundle_assets_bundles_loginui_prefab.bundle|43341398|2022/7/14 15:48:04
+allbundle_assets_bundles_resetui_prefab.bundle|4057799692|2022/7/14 15:48:04
+shader_allbundle|2273034207|2022/7/14 15:48:04
+allbundle_assets_bundles_subbundleassets_mister91jiao_prefab.bundle|1306119555|2022/7/14 15:48:04
+allbundle_assets_scenes_game_unity.bundle|1238887428|2022/7/14 15:48:04
+allbundle_assets_bundles_atlas_uiatlas_spriteatlasv2.bundle|1852627018|2022/7/14 15:48:04
+allbundle_assets_bundles_groupbundle.bundle|135495953|2022/7/14 15:48:04
