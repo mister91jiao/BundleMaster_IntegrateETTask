@@ -19,7 +19,6 @@ namespace BM
             {
 #if UNITY_EDITOR
                 assetPath = Path.Combine(Application.dataPath + "/../", assetPath);
-                AssetLogHelper.LogError(assetPath);
                 return File.Exists(assetPath);
 #else
                 AssetLogHelper.LogError("检查资源: " + assetPath + " 失败(资源检查Develop模式只能在编辑器下运行)");
