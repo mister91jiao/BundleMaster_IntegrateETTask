@@ -31,7 +31,6 @@ namespace ET
         
         public void Dispose()
         {
-            Debug.LogError("协程锁释放...");
             if (isDispose)
             {
                 Debug.LogError("协程锁重复释放");
