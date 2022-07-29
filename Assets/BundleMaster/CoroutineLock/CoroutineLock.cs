@@ -1,7 +1,7 @@
 using System;
-using UnityEngine;
+using ET;
 
-namespace ET
+namespace BM
 {
     public class CoroutineLock : IDisposable
     {
@@ -33,7 +33,7 @@ namespace ET
         {
             if (isDispose)
             {
-                Debug.LogError("协程锁重复释放");
+                //Debug.LogError("协程锁重复释放");
                 return;
             }
             waitTask = null;

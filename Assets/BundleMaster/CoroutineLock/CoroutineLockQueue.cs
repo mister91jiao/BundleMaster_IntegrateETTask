@@ -21,6 +21,8 @@ namespace ET
                 nextCoroutineLock.Enable();
                 return;
             }
+            keyToQueue.Clear();
+            CoroutineLockComponent.CoroutineLockQueuePool.Enqueue(keyToQueue);
             coroutineLockKeyToQueue.Remove(coroutineLock.Key);
         }
         
@@ -38,7 +40,16 @@ namespace ET
             coroutineLock.Init(key, this);
             if (!coroutineLockKeyToQueue.ContainsKey(key))
             {
-                coroutineLockKeyToQueue.Add(key, new Queue<CoroutineLock>());
+                Queue<CoroutineLock> coroutineLockQueue;
+                if (CoroutineLockComponent.CoroutineLockQueuePool.Count > 0)
+                {
+                    coroutineLockQueue = CoroutineLockComponent.CoroutineLockQueuePool.Dequeue();
+                }
+                else
+                {
+                    coroutineLockQueue = new Queue<CoroutineLock>();
+                }
+                coroutineLockKeyToQueue.Add(key, coroutineLockQueue);
                 coroutineLock.Enable();
             }
             else

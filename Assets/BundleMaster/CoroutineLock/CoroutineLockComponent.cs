@@ -1,6 +1,7 @@
 using System.Collections.Generic;
+using ET;
 
-namespace ET
+namespace BM
 {
     public static class CoroutineLockComponent
     {
@@ -13,6 +14,11 @@ namespace ET
         /// 没有用到的CoroutineLock池
         /// </summary>
         internal static readonly Queue<CoroutineLock> CoroutineLockQueue = new Queue<CoroutineLock>();
+        
+        /// <summary>
+        /// 缓存池的池
+        /// </summary>
+        internal static readonly Queue<Queue<CoroutineLock>> CoroutineLockQueuePool = new Queue<Queue<CoroutineLock>>();
 
         public static async ETTask<CoroutineLock> Wait(int coroutineLockType, long key)
         {
