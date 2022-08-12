@@ -1,2 +1,3 @@
 <Assets/Bundles/GroupBundle|allbundle_assets_bundles_groupbundle.bundle>
+<Assets/Res/UI|allbundle_assets_res_ui.bundle>
 

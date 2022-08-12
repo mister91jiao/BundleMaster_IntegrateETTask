@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 3594210553
+CRC: 3930400419
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 930e698f3a0aaf4661b19e7aff921468
+    Hash: 3f8d495370cb78030efd827857dc1e6d
   TypeTreeHash:
     serializedVersion: 2
     Hash: dda481f9c8e84683649c3a3d73eb91cb
@@ -29,4 +29,4 @@ SerializeReferenceClassIdentifiers:
 Assets:
 - Assets/Bundles/SubUI.prefab
 Dependencies:
-- G:/UnityProject/BundleMaster_IntegrateETTask/BuildBundles/AllBundle/allbundle_assets_res_ui_xjj_jpg.bundle
+- G:/UnityProject/BundleMaster_IntegrateETTask/BuildBundles/AllBundle/allbundle_assets_res_ui.bundle

@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 592098506
+CRC: 4011410195
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: cf206e0d655cf2b349070a7c7b9b36ea
+    Hash: 5908b0c98a2989ededf7362a86379fb8
   TypeTreeHash:
     serializedVersion: 2
     Hash: 6b44d2f0e304c8b3b55fd4f232b53c06
@@ -54,5 +54,4 @@ Assets:
 - Assets/Bundles/LoginUI.prefab
 Dependencies:
 - G:/UnityProject/BundleMaster_IntegrateETTask/BuildBundles/AllBundle/allbundle_assets_bundles_subui_prefab.bundle
-- G:/UnityProject/BundleMaster_IntegrateETTask/BuildBundles/AllBundle/allbundle_assets_res_ui_91logo_png.bundle
-- G:/UnityProject/BundleMaster_IntegrateETTask/BuildBundles/AllBundle/allbundle_assets_res_ui_loginbg_jpg.bundle
+- G:/UnityProject/BundleMaster_IntegrateETTask/BuildBundles/AllBundle/allbundle_assets_res_ui.bundle

@@ -16,12 +16,14 @@ MonoBehaviour:
   BuildIndex: 1
   BundleVariant: bundle
   NameByHash: 0
-  BuildAssetBundleOptions: 1
+  BuildAssetBundleOptions: 768
   EncryptAssets: 0
   SecretKey: mister91jiao
   AssetPath:
   - Assets/Bundles
+  - Assets/Res/UI
   AssetGroupPaths:
   - Assets/Bundles/GroupBundle
+  - Assets/Res/UI
   Scene:
   - {fileID: 102900000, guid: 60c0b125629d7e9449419d1f97aec16c, type: 3}

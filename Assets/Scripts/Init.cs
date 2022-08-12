@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 using ET;
@@ -32,6 +31,11 @@ public class Init : MonoBehaviour
         AssetComponent.Update();
     }
     
+    void OnLowMemory()
+    {
+        AssetComponent.ForceUnLoadAll();
+    }
+    
     void OnDestroy()
     {
         updateBundleDataInfo?.CancelUpdate();
@@ -46,6 +50,7 @@ public class Init : MonoBehaviour
         //创建下载UI
         GameObject downLoadUI = GameObject.Instantiate(Resources.Load<GameObject>("DownLoadUI"), uiManagerTf);
         DownLoad(downLoadUI).Coroutine();
+        
     }
     
     /// <summary>
@@ -58,11 +63,12 @@ public class Init : MonoBehaviour
         {
             {AssetComponentConfig.DefaultBundlePackageName, false},
             {"SubBundle", false},
-            {"OriginFile", false},
+            //{"OriginFile", false},
         };
         updateBundleDataInfo = await AssetComponent.CheckAllBundlePackageUpdate(updatePackageBundle);
         if (!updateBundleDataInfo.NeedUpdate)
         {
+            GameObject.Destroy(downLoadUI);
             InitializePackage().Coroutine();
             return;
         }
@@ -111,7 +117,7 @@ public class Init : MonoBehaviour
     private async ETTask InitUI()
     {
         //加载图集
-        await AssetComponent.LoadAsync(out LoadHandler atlasHandler, BPath.Assets_Bundles_Atlas_UIAtlas__spriteatlasv2);
+        await AssetComponent.LoadAsync(out LoadHandler atlasHandler2, BPath.Assets_Bundles_Atlas_UISpriteAtlas__spriteatlas);
         //异步加载资源
         GameObject loginUIAsset = await AssetComponent.LoadAsync<GameObject>(out LoadHandler loginUIHandler, BPath.Assets_Bundles_LoginUI__prefab);
         GameObject loginUIObj = UnityEngine.Object.Instantiate(loginUIAsset, uiManagerTf, false);
@@ -124,6 +130,7 @@ public class Init : MonoBehaviour
             //卸载资源
             GameObject.Destroy(loginUIObj);
             loginUIHandler.UnLoad();
+            atlasHandler2.UnLoad();
             LoadNewScene().Coroutine();
         });
     }
@@ -134,7 +141,6 @@ public class Init : MonoBehaviour
         //如果需要获取场景加载进度, 用这种加载方式 loadSceneHandler2.GetProgress() , 注意进度不是线性的
         // ETTask loadSceneHandlerTask = AssetComponent.LoadSceneAsync(out LoadSceneHandler loadSceneHandler2, "Assets/Scenes/Game.unity");
         // await loadSceneHandlerTask;
-        
         AsyncOperation operation = SceneManager.LoadSceneAsync("Game");
         operation.completed += asyncOperation =>
         {
@@ -151,13 +157,13 @@ public class Init : MonoBehaviour
                 UnityEngine.Object.Instantiate(loadHandler.Asset);
                 ResetUI().Coroutine();
             };
-            LoadGroupTest().Coroutine();
+            //LoadGroupTest().Coroutine();
         };
-    }
+    } 
 
     private async ETTask LoadGroupTest()
     {
-        Texture zfnp = await AssetComponent.LoadAsync<Texture>(out LoadHandler handler, BPath.Assets_Bundles_GroupBundle_zfnp__jpg);
+        Texture zfnp = await AssetComponent.LoadAsync<Texture>(out LoadHandler handler, BPath.Assets_Bundles_GroupBundle_bds__png);
         //Debug.LogError(zfnp.height);
         handler.UnLoad();
     }

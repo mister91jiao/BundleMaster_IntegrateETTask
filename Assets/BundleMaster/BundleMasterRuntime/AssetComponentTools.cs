@@ -33,7 +33,9 @@ namespace BM
                 }
                 else
                 {
+#if !(UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN)
                     path = "file://" + path;
+#endif
                 }
                 return path;
             }

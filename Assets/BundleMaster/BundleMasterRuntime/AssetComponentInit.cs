@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using UnityEngine;
 using ET;
@@ -155,27 +156,39 @@ namespace BM
         {
             ETTask tcs = ETTask.Create();
             string shaderPath = BundleFileExistPath(bundlePackageName, "shader_" + bundlePackageName.ToLower());
-            byte[] shaderData;
             if (BundleNameToRuntimeInfo[bundlePackageName].Encrypt)
             {
-                shaderData = await VerifyHelper.GetDecryptDataAsync(shaderPath, null, BundleNameToRuntimeInfo[bundlePackageName].SecretKey);
-            }
-            else
-            {
-                shaderData = await VerifyHelper.GetDecryptDataAsync(shaderPath);
-            }
-            if (shaderData == null)
-            {
-                tcs.SetResult();
-            }
-            else
-            {
-                AssetBundleCreateRequest request = AssetBundle.LoadFromMemoryAsync(shaderData);
-                request.completed += operation =>
+                byte[] shaderData = await VerifyHelper.GetDecryptDataAsync(shaderPath, null, BundleNameToRuntimeInfo[bundlePackageName].SecretKey);
+                if (shaderData == null)
                 {
-                    BundleNameToRuntimeInfo[bundlePackageName].Shader = request.assetBundle;
                     tcs.SetResult();
-                };
+                }
+                else
+                {
+                    AssetBundleCreateRequest request = AssetBundle.LoadFromMemoryAsync(shaderData);
+                    request.completed += operation =>
+                    {
+                        BundleNameToRuntimeInfo[bundlePackageName].Shader = request.assetBundle;
+                        tcs.SetResult();
+                    };
+                }
+            }
+            else
+            {
+                byte[] shaderData = await VerifyHelper.GetDecryptDataAsync(shaderPath, null, BundleNameToRuntimeInfo[bundlePackageName].SecretKey);
+                if (shaderData == null)
+                {
+                    tcs.SetResult();
+                }
+                else
+                {
+                    AssetBundleCreateRequest request = AssetBundle.LoadFromFileAsync(shaderPath);
+                    request.completed += operation =>
+                    {
+                        BundleNameToRuntimeInfo[bundlePackageName].Shader = request.assetBundle;
+                        tcs.SetResult();
+                    };
+                }
             }
             await tcs;
         }
