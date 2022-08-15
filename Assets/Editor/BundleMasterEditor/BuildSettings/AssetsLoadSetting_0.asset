@@ -17,7 +17,7 @@ MonoBehaviour:
   BundleVariant: bundle
   NameByHash: 0
   BuildAssetBundleOptions: 768
-  EncryptAssets: 0
+  EncryptAssets: 1
   SecretKey: mister91jiao
   AssetPath:
   - Assets/Bundles

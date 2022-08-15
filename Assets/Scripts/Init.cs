@@ -44,7 +44,7 @@ public class Init : MonoBehaviour
     private void Initialization()
     {
         //重新配置热更路径(开发方便用, 打包移动端需要注释注释)
-        AssetComponentConfig.HotfixPath = Application.dataPath + "/../HotfixBundles/";
+        //AssetComponentConfig.HotfixPath = Application.dataPath + "/../HotfixBundles/";
         uiManagerTf = gameObject.transform.Find("UIManager");
         AssetComponentConfig.DefaultBundlePackageName = "AllBundle";
         //创建下载UI
@@ -109,8 +109,8 @@ public class Init : MonoBehaviour
     
     private async ETTask InitializePackage()
     {
-        await AssetComponent.Initialize(AssetComponentConfig.DefaultBundlePackageName);
-        await AssetComponent.Initialize("SubBundle");
+        await AssetComponent.Initialize(AssetComponentConfig.DefaultBundlePackageName, "mister91jiao");
+        await AssetComponent.Initialize("SubBundle", "mister91jiao");
         await InitUI();
     }
 
@@ -146,12 +146,14 @@ public class Init : MonoBehaviour
         {
             //同步加载资源(加载分包内的资源)
             //GameObject gameObjectAsset = AssetComponent.Load<GameObject>(BPath.Assets_Bundles_SubBundleAssets_mister91jiao__prefab, "SubBundle");
-            BundleRuntimeInfo bundleRuntimeInfo = AssetComponent.GetBundleRuntimeInfo("SubBundle");
-            GameObject gameObjectAsset = bundleRuntimeInfo.Load<GameObject>(BPath.Assets_Bundles_SubBundleAssets_mister91jiao__prefab);
-            GameObject obj = UnityEngine.Object.Instantiate(gameObjectAsset);
+            
+            // BundleRuntimeInfo bundleRuntimeInfo = AssetComponent.GetBundleRuntimeInfo("SubBundle");
+            // GameObject gameObjectAsset = bundleRuntimeInfo.Load<GameObject>(BPath.Assets_Bundles_SubBundleAssets_mister91jiao__prefab);
+            // GameObject obj = UnityEngine.Object.Instantiate(gameObjectAsset);
+            
             // GameObject gameObjectAsset1 = AssetComponent.Load<GameObject>(BPath.Assets_Bundles_SubBundleAssets_mister91jiao__prefab);
             // GameObject obj1 = UnityEngine.Object.Instantiate(gameObjectAsset1);
-            AssetComponent.LoadAsync<GameObject>(out LoadHandler handler, BPath.Assets_Bundles_SubBundleAssets_mister91jiao__prefab).Coroutine();
+            AssetComponent.LoadAsync<GameObject>(out LoadHandler handler, BPath.Assets_Bundles_SubBundleAssets_mister91jiao__prefab, "SubBundle").Coroutine();
             handler.Completed += loadHandler =>
             {
                 UnityEngine.Object.Instantiate(loadHandler.Asset);

@@ -82,14 +82,16 @@ namespace BM
                     return;
                 }
             }
-            string assetBundlePath = AssetComponent.BundleFileExistPath(bundlePackageName, AssetBundleName);
+            
             if (AssetComponent.BundleNameToRuntimeInfo[bundlePackageName].Encrypt)
             {
+                string assetBundlePath = AssetComponent.BundleFileExistPath(bundlePackageName, AssetBundleName, true);
                 byte[] data = VerifyHelper.GetDecryptData(assetBundlePath, AssetComponent.BundleNameToRuntimeInfo[bundlePackageName].SecretKey);
                 AssetBundle = AssetBundle.LoadFromMemory(data);
             }
             else
             {
+                string assetBundlePath = AssetComponent.BundleFileExistPath(bundlePackageName, AssetBundleName, false);
                 AssetBundle = AssetBundle.LoadFromFile(assetBundlePath);
             }
             _loadState = LoadState.Finish;
@@ -115,18 +117,17 @@ namespace BM
             }
             _loadFinishTasks.Add(tcs);
             _loadState = LoadState.Loading;
-            string assetBundlePath = AssetComponent.BundleFileExistPath(bundlePackageName, AssetBundleName);
             
-            
-            await LoadDataFinish(assetBundlePath, bundlePackageName);
-            // if (AssetComponent.BundleNameToRuntimeInfo[bundlePackageName].Encrypt)
-            // {
-            //     await LoadDataFinish(assetBundlePath, bundlePackageName);
-            // }
-            // else
-            // {
-            //     LoadBundleFinish(assetBundlePath);
-            // }
+            if (AssetComponent.BundleNameToRuntimeInfo[bundlePackageName].Encrypt)
+            {
+                string assetBundlePath = AssetComponent.BundleFileExistPath(bundlePackageName, AssetBundleName, true);
+                await LoadDataFinish(assetBundlePath, bundlePackageName);
+            }
+            else
+            {
+                string assetBundlePath = AssetComponent.BundleFileExistPath(bundlePackageName, AssetBundleName, false);
+                LoadBundleFinish(assetBundlePath);
+            }
         }
 
         /// <summary>
@@ -201,14 +202,16 @@ namespace BM
                 AssetBundle = _assetBundleCreateRequest.assetBundle;
                 return;
             }
-            string assetBundlePath = AssetComponent.BundleFileExistPath(bundlePackageName, AssetBundleName);
+            
             if (AssetComponent.BundleNameToRuntimeInfo[bundlePackageName].Encrypt)
             {
+                string assetBundlePath = AssetComponent.BundleFileExistPath(bundlePackageName, AssetBundleName, true);
                 byte[] data = VerifyHelper.GetDecryptData(assetBundlePath, AssetComponent.BundleNameToRuntimeInfo[bundlePackageName].SecretKey);
                 AssetBundle = AssetBundle.LoadFromMemory(data);
             }
             else
             {
+                string assetBundlePath = AssetComponent.BundleFileExistPath(bundlePackageName, AssetBundleName, false);
                 AssetBundle = AssetBundle.LoadFromFile(assetBundlePath);
             }
             for (int i = 0; i < _loadFinishTasks.Count; i++)
