@@ -1,0 +1,9 @@
+<Assets/Bundles/car.mp4|allbundle_assets_bundles_car_mp4.bundle>
+<Assets/Bundles/LoginUI.prefab|allbundle_assets_bundles_loginui_prefab.bundle|Assets/Res/UI|Assets/Bundles/SubUI.prefab>
+<Assets/Bundles/ResetUI.prefab|allbundle_assets_bundles_resetui_prefab.bundle>
+<Assets/Bundles/SubUI.prefab|allbundle_assets_bundles_subui_prefab.bundle|Assets/Res/UI>
+<Assets/Bundles/Atlas/UISpriteAtlas.spriteatlas|allbundle_assets_bundles_atlas_uispriteatlas_spriteatlas.bundle|Assets/Res/UI>
+<Assets/Bundles/SubBundleAssets/mister91jiao.prefab|allbundle_assets_bundles_subbundleassets_mister91jiao_prefab.bundle|Assets/Res/UI>
+<Assets/Bundles/SubBundleAssets/SubUI_Copy.prefab|allbundle_assets_bundles_subbundleassets_subui_copy_prefab.bundle|Assets/Res/UI>
+<Assets/Scenes/Game.unity|allbundle_assets_scenes_game_unity.bundle>
+

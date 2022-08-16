@@ -44,7 +44,7 @@ public class Init : MonoBehaviour
     private void Initialization()
     {
         //重新配置热更路径(开发方便用, 打包移动端需要注释注释)
-        //AssetComponentConfig.HotfixPath = Application.dataPath + "/../HotfixBundles/";
+        AssetComponentConfig.HotfixPath = Application.dataPath + "/../HotfixBundles/";
         uiManagerTf = gameObject.transform.Find("UIManager");
         AssetComponentConfig.DefaultBundlePackageName = "AllBundle";
         //创建下载UI
@@ -109,8 +109,8 @@ public class Init : MonoBehaviour
     
     private async ETTask InitializePackage()
     {
-        await AssetComponent.Initialize(AssetComponentConfig.DefaultBundlePackageName, "mister91jiao");
-        await AssetComponent.Initialize("SubBundle", "mister91jiao");
+        await AssetComponent.Initialize(AssetComponentConfig.DefaultBundlePackageName);
+        await AssetComponent.Initialize("SubBundle");
         await InitUI();
     }
 
