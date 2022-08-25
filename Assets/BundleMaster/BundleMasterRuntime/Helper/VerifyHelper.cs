@@ -67,6 +67,17 @@ namespace BM
             return crc;
         }
         
+        internal static uint GetCRC32(DownLoadData downLoadData)
+        {
+            uint iCount = (uint)downLoadData.Data.Length;
+            uint crc = 0xFFFFFFFF;
+            for (uint i = 0; i < iCount; i++)
+            {
+                crc = (crc << 8) ^ CRCTable[(crc >> 24) ^ downLoadData.Data[i]];
+            }
+            return crc;
+        }
+        
         /// <summary>
         /// 创建加密过的数据
         /// </summary>
