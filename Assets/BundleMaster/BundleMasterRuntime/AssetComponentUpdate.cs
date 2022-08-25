@@ -5,6 +5,7 @@ using System.Globalization;
 using ET;
 using UnityEngine;
 using UnityEngine.Networking;
+using Debug = System.Diagnostics.Debug;
 
 namespace BM
 {
@@ -526,17 +527,19 @@ namespace BM
                 url = Path.Combine(AssetComponentConfig.BundleServerUrl, PackegName, fileUrls);
             }
             float startDownLoadTime = Time.realtimeSinceStartup;
-            byte[] data = await DownloadBundleHelper.DownloadDataByUrl(url);
-            if (data == null)
+            DownLoadData downLoadData = await DownloadBundleHelper.DownloadRefDataByUrl(url);
+            if (downLoadData.Data == null)
             {
                 UpdateBundleDataInfo.CancelUpdate();
             }
             //说明下载更新已经被取消
             if (UpdateBundleDataInfo.Cancel)
             {
+                DownLoadData.Recovery(downLoadData);
                 return;
             }
-            int dataLength = data.Length;
+            Debug.Assert(downLoadData.Data != null, "downLoadData.Data != null");
+            int dataLength = downLoadData.Data.Length;
             UpdateBundleDataInfo.AddSpeedQueue((int)(dataLength / (Time.realtimeSinceStartup - startDownLoadTime)));
             string fileCreatePath = Path.Combine(DownLoadPackagePath, FileName);
             fileCreatePath = fileCreatePath.Replace("\\", "/");
@@ -545,17 +548,18 @@ namespace BM
                 //大于2M用异步
                 if (dataLength > 2097152)
                 {
-                    await fs.WriteAsync(data, 0, data.Length);
+                    await fs.WriteAsync(downLoadData.Data, 0, downLoadData.Data.Length);
                 }
                 else
                 {
-                    fs.Write(data, 0, data.Length);
+                    fs.Write(downLoadData.Data, 0, downLoadData.Data.Length);
                 }
                 fs.Close();
             }
-            UpdateBundleDataInfo.AddCRCFileInfo(PackegName, FileName, VerifyHelper.GetCRC32(data));
-            UpdateBundleDataInfo.FinishUpdateSize += data.Length;
+            UpdateBundleDataInfo.AddCRCFileInfo(PackegName, FileName, VerifyHelper.GetCRC32(downLoadData));
+            UpdateBundleDataInfo.FinishUpdateSize += downLoadData.Data.Length;
             UpdateBundleDataInfo.FinishDownLoadBundleCount++;
+            DownLoadData.Recovery(downLoadData);
             foreach (Queue<DownLoadTask> downLoadTaskQueue in PackageDownLoadTask.Values)
             {
                 if (downLoadTaskQueue.Count > 0)
@@ -567,6 +571,7 @@ namespace BM
             //说明下载完成了
             if (UpdateBundleDataInfo.FinishDownLoadBundleCount < UpdateBundleDataInfo.NeedDownLoadBundleCount)
             {
+                DownLoadData.ClearPool();
                 return;
             }
             UpdateBundleDataInfo.FinishUpdate = true;
