@@ -2,6 +2,7 @@
 using System.IO;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Threading;
 using ET;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -528,6 +529,10 @@ namespace BM
             }
             float startDownLoadTime = Time.realtimeSinceStartup;
             DownLoadData downLoadData = await DownloadBundleHelper.DownloadRefDataByUrl(url);
+
+            Thread thread = new Thread(LMTD.LMTDownLoad.Create(url, Path.Combine(@"G:\Assets", FileName)).Logic);
+            thread.Start();
+            
             if (downLoadData.Data == null)
             {
                 UpdateBundleDataInfo.CancelUpdate();
@@ -577,5 +582,6 @@ namespace BM
             UpdateBundleDataInfo.FinishUpdate = true;
             DownLoadingKey.SetResult();
         }
+        
     }
 }
