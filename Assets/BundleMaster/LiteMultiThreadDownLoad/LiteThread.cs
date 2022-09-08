@@ -7,7 +7,7 @@ namespace LMTD
     internal class LiteThread
     {
         private readonly Thread thread;
-        private Action logic = null;
+        private ILiteThreadAction _liteThreadAction = null;
         
         internal LiteThread()
         {
@@ -18,7 +18,7 @@ namespace LMTD
 
         internal void Action(ILiteThreadAction liteThreadAction)
         {
-            logic = liteThreadAction.Logic;
+            this._liteThreadAction = liteThreadAction;
         }
 
         private void Run()
@@ -26,17 +26,17 @@ namespace LMTD
             while (!ThreadFactory.RecoverKey)
             {
                 Thread.Sleep(1);
-                if (logic != null)
+                if (_liteThreadAction != null)
                 {
-                    logic();
-                    logic = null;
-                    //执行完逻辑后自己进池
-                    ThreadFactory.ThreadPool.Enqueue(this);
+                    _liteThreadAction.Logic();
+                    _liteThreadAction = null;
+                    lock (ThreadFactory.ThreadPool)
+                    {
+                        //执行完逻辑后自己进池
+                        ThreadFactory.ThreadPool.Enqueue(this);
+                    }
                 }
-            }
-            if (ThreadFactory.ThreadCount == 1)
-            {
-                ThreadFactory.RecoverKey = false;
+                
             }
             Recovery();
         }

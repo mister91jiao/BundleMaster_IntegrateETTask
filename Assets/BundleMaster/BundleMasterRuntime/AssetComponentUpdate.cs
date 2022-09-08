@@ -2,11 +2,8 @@
 using System.IO;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Threading;
 using ET;
-using UnityEngine;
 using UnityEngine.Networking;
-using Debug = System.Diagnostics.Debug;
 
 namespace BM
 {
@@ -421,13 +418,14 @@ namespace BM
                 {
                     if (downLoadTaskQueue.Count > 0)
                     {
-                        downLoadTaskQueue.Dequeue().DownLoad().Coroutine();
+                        //downLoadTaskQueue.Dequeue().DownLoad().Coroutine();
+                        downLoadTaskQueue.Dequeue().ThreadDownLoad().Coroutine();
                         break;
                     }
                 }
             }
             //将下载进度更新添加到帧循环
-            DownLoadAction += updateBundleDataInfo.UpdateProgress;
+            DownLoadAction += updateBundleDataInfo.UpdateProgressAndSpeedCallBack;
             await downLoading;
             
             //下载完成关闭CRCLog文件
@@ -474,114 +472,11 @@ namespace BM
             }
             
             updateBundleDataInfo.SmoothProgress = 100;
-            DownLoadAction -= updateBundleDataInfo.UpdateProgress;
+            DownLoadAction -= updateBundleDataInfo.UpdateProgressAndSpeedCallBack;
             updateBundleDataInfo.FinishCallback?.Invoke();
             AssetLogHelper.LogError("下载完成");
         }
         
     }
-
-
-    public class DownLoadTask
-    {
-        public UpdateBundleDataInfo UpdateBundleDataInfo;
-
-        public ETTask DownLoadingKey;
-
-        public Dictionary<string, Queue<DownLoadTask>> PackageDownLoadTask;
-        
-        /// <summary>
-        /// 下载的资源分包名称
-        /// </summary>
-        public string PackegName;
-
-        /// <summary>
-        /// 分包所在路径
-        /// </summary>
-        public string DownLoadPackagePath;
-
-        /// <summary>
-        /// 下载的文件的名称
-        /// </summary>
-        public string FileName;
-
-        /// <summary>
-        /// 下载的文件的大小
-        /// </summary>
-        public long FileSize;
-
-        public async ETTask DownLoad()
-        {
-            string url = Path.Combine(AssetComponentConfig.BundleServerUrl, PackegName, UnityWebRequest.EscapeURL(FileName));
-            if (FileName.Contains("\\"))
-            {
-                string[] pathSplits = FileName.Split('\\');
-                string filePath = "";
-                string fileUrls = "";
-                for (int i = 0; i < pathSplits.Length - 1; i++)
-                {
-                    filePath += (pathSplits[i] + "/");
-                    fileUrls += (UnityWebRequest.EscapeURL(pathSplits[i]) + "/");
-                }
-                fileUrls += (UnityWebRequest.EscapeURL(pathSplits[pathSplits.Length - 1]));
-                Directory.CreateDirectory(Path.Combine(AssetComponentConfig.HotfixPath, PackegName, filePath));
-                url = Path.Combine(AssetComponentConfig.BundleServerUrl, PackegName, fileUrls);
-            }
-            float startDownLoadTime = Time.realtimeSinceStartup;
-            DownLoadData downLoadData = await DownloadBundleHelper.DownloadRefDataByUrl(url);
-
-            Thread thread = new Thread(LMTD.LMTDownLoad.Create(url, Path.Combine(@"G:\Assets", FileName)).Logic);
-            thread.Start();
-            
-            if (downLoadData.Data == null)
-            {
-                UpdateBundleDataInfo.CancelUpdate();
-            }
-            //说明下载更新已经被取消
-            if (UpdateBundleDataInfo.Cancel)
-            {
-                DownLoadData.Recovery(downLoadData);
-                return;
-            }
-            Debug.Assert(downLoadData.Data != null, "downLoadData.Data != null");
-            int dataLength = downLoadData.Data.Length;
-            UpdateBundleDataInfo.AddSpeedQueue((int)(dataLength / (Time.realtimeSinceStartup - startDownLoadTime)));
-            string fileCreatePath = Path.Combine(DownLoadPackagePath, FileName);
-            fileCreatePath = fileCreatePath.Replace("\\", "/");
-            using (FileStream fs = new FileStream(fileCreatePath, FileMode.Create))
-            {
-                //大于2M用异步
-                if (dataLength > 2097152)
-                {
-                    await fs.WriteAsync(downLoadData.Data, 0, downLoadData.Data.Length);
-                }
-                else
-                {
-                    fs.Write(downLoadData.Data, 0, downLoadData.Data.Length);
-                }
-                fs.Close();
-            }
-            UpdateBundleDataInfo.AddCRCFileInfo(PackegName, FileName, VerifyHelper.GetCRC32(downLoadData));
-            UpdateBundleDataInfo.FinishUpdateSize += downLoadData.Data.Length;
-            UpdateBundleDataInfo.FinishDownLoadBundleCount++;
-            DownLoadData.Recovery(downLoadData);
-            foreach (Queue<DownLoadTask> downLoadTaskQueue in PackageDownLoadTask.Values)
-            {
-                if (downLoadTaskQueue.Count > 0)
-                {
-                    downLoadTaskQueue.Dequeue().DownLoad().Coroutine();
-                    return;
-                }
-            }
-            //说明下载完成了
-            if (UpdateBundleDataInfo.FinishDownLoadBundleCount < UpdateBundleDataInfo.NeedDownLoadBundleCount)
-            {
-                DownLoadData.ClearPool();
-                return;
-            }
-            UpdateBundleDataInfo.FinishUpdate = true;
-            DownLoadingKey.SetResult();
-        }
-        
-    }
+    
 }

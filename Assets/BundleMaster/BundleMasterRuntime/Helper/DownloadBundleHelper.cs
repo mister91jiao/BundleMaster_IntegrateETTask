@@ -1,6 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+using System.Threading;
+using System.Threading.Tasks;
 using UnityEngine.Networking;
 using ET;
+using LMTD;
+using UnityEngine;
 
 namespace BM
 {
@@ -83,7 +89,50 @@ namespace BM
                 webRequest.downloadHandler.Dispose();
             }
         }
+
+        /// <summary>
+        /// 下载完成回调位
+        /// </summary>
+        internal static readonly Queue<ETTask> DownLoadFinishQueue = new Queue<ETTask>();
+
+        /// <summary>
+        /// 多线程下载资源直存
+        /// </summary>
+        public static async ETTask<LmtDownloadInfo> DownloadData(string url, string filePath, UpdateBundleDataInfo updateBundleDataInfo)
+        {
+            ETTask tcs = ETTask.Create(true);
+            LMTDownLoad lmtDownLoad = LMTDownLoad.Create(url, filePath);
+
+            long lastDownSize = 0;
+            lmtDownLoad.UpDateInfo += () =>
+            {
+                // ReSharper disable AccessToDisposedClosure
+                updateBundleDataInfo.FinishUpdateSize += lmtDownLoad.LmtDownloadInfo.DownLoadSize - lastDownSize;
+                lastDownSize = lmtDownLoad.LmtDownloadInfo.DownLoadSize;
+                // ReSharper restore AccessToDisposedClosure
+            };
+            
+            lmtDownLoad.Completed += (info) =>
+            {
+                lock (DownLoadFinishQueue)
+                {
+                    DownLoadFinishQueue.Enqueue(tcs);
+                }
+            };
+            ThreadFactory.ThreadAction(lmtDownLoad);
+            await tcs;
+            LmtDownloadInfo lmtDownloadInfo = lmtDownLoad.LmtDownloadInfo;
+            lmtDownLoad.Dispose();
+            return lmtDownloadInfo;
+        }
         
+        public static async Task<LmtDownloadInfo> DownloadDataTask(string url, string filePath)
+        {
+            LMTDownLoad lmtDownLoad = LMTDownLoad.Create(url, filePath);
+            Task<LmtDownloadInfo> tcs = new Task<LmtDownloadInfo>(lmtDownLoad.DownLoad);
+            tcs.Start();
+            return await tcs;
+        }
         
     }
 
@@ -91,13 +140,13 @@ namespace BM
     {
         public byte[] Data;
 
-        private static Queue<DownLoadData> _downLoadDataPool = new Queue<DownLoadData>();
+        private static readonly Queue<DownLoadData> DownLoadDataPool = new Queue<DownLoadData>();
 
         public static DownLoadData Get()
         {
-            if (_downLoadDataPool.Count > 0)
+            if (DownLoadDataPool.Count > 0)
             {
-                return _downLoadDataPool.Dequeue();
+                return DownLoadDataPool.Dequeue();
             }
             else
             {
@@ -108,12 +157,12 @@ namespace BM
         public static void Recovery(DownLoadData downLoadData)
         {
             downLoadData.Data = null;
-            _downLoadDataPool.Enqueue(downLoadData);
+            DownLoadDataPool.Enqueue(downLoadData);
         }
 
         public static void ClearPool()
         {
-            _downLoadDataPool.Clear();
+            DownLoadDataPool.Clear();
         }
     }
     

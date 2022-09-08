@@ -39,6 +39,7 @@ public class Init : MonoBehaviour
     void OnDestroy()
     {
         updateBundleDataInfo?.CancelUpdate();
+        LMTD.ThreadFactory.Destroy();
     }
 
     private void Initialization()
@@ -63,6 +64,7 @@ public class Init : MonoBehaviour
         {
             {AssetComponentConfig.DefaultBundlePackageName, false},
             {"SubBundle", false},
+            {"Main", false},
             //{"OriginFile", false},
         };
         updateBundleDataInfo = await AssetComponent.CheckAllBundlePackageUpdate(updatePackageBundle);
