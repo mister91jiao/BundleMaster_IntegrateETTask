@@ -8,7 +8,29 @@ namespace LMTD
 {
     public class LMTDownLoad : ILiteThreadAction, IDisposable
     {
-        private static Queue<LMTDownLoad> _lmtDownLoadQueue = new Queue<LMTDownLoad>(); 
+        private static readonly Queue<LMTDownLoad> LmtDownLoadQueue = new Queue<LMTDownLoad>();
+        
+        private Action<LmtDownloadInfo> completeCallback;
+        
+        /// <summary>
+        /// 下载完成后的回调
+        /// </summary>
+        public event Action<LmtDownloadInfo> Completed
+        {
+            add => completeCallback += value;
+            remove => this.completeCallback -= value;
+        }
+        
+        private Action upDateInfoCallback;
+        
+        /// <summary>
+        /// 下载更新循环
+        /// </summary>
+        public event Action UpDateInfo
+        {
+            add => upDateInfoCallback += value;
+            remove => this.upDateInfoCallback -= value;
+        }
 
         /// <summary>
         /// 创建一个下载器
@@ -16,17 +38,26 @@ namespace LMTD
         public static LMTDownLoad Create(string url, string filePath)
         {
             LMTDownLoad lmtDownLoad;
-            if (_lmtDownLoadQueue.Count > 0)
+            lock (LmtDownLoadQueue)
             {
-                lmtDownLoad = _lmtDownLoadQueue.Dequeue();
+                if (LmtDownLoadQueue.Count > 0)
+                {
+                    lmtDownLoad = LmtDownLoadQueue.Dequeue();
+                    lmtDownLoad.url = url;
+                    lmtDownLoad.filePath = filePath;
+                }
+                else
+                {
+                    lmtDownLoad = new LMTDownLoad(url, filePath);
+                }
             }
-            else
-            {
-                lmtDownLoad = new LMTDownLoad();
-            }
-            lmtDownLoad.url = url;
-            lmtDownLoad.filePath = filePath;
             return lmtDownLoad;
+        }
+        
+        private LMTDownLoad(string url, string filePath)
+        {
+            this.url = url;
+            this.filePath = filePath;
         }
 
         /// <summary>
@@ -38,41 +69,134 @@ namespace LMTD
         /// 文件存储路径
         /// </summary>
         private string filePath = null;
+
+        /// <summary>
+        /// 下载信息
+        /// </summary>
+        public LmtDownloadInfo LmtDownloadInfo;
         
-        private void DownLoad()
+        /// <summary>
+        /// 返回下载文件的信息
+        /// </summary>
+        public LmtDownloadInfo DownLoad()
         {
+            //需要返回的数据
+            LmtDownloadInfo.DownLoadFileCRC = 0xFFFFFFFF;
+            LmtDownloadInfo.downLoadSizeValue = 0;
+            //创建下载请求
             HttpWebRequest httpWebRequest = (HttpWebRequest)WebRequest.Create(url);
-            using HttpWebResponse httpWebResponse = (HttpWebResponse)httpWebRequest.GetResponse();
-            //获取文件流
-            using Stream receiveStream = httpWebResponse.GetResponseStream();
-            using FileStream fileStream = new FileStream(filePath, FileMode.Create);
+            HttpWebResponse httpWebResponse;
+            try
+            {
+                httpWebResponse = (HttpWebResponse)httpWebRequest.GetResponse();
+            }
+            catch
+            {
+#if UNITY_5_3_OR_NEWER
+                UnityEngine.Debug.LogError("下载资源失败\n" + url + "\n");
+#else
+                Console.WriteLine("下载失败资源失败\n" + url + "\n");
+#endif
+                LmtDownloadInfo.LmtDownloadResult = LmtDownloadResult.ResponseFail;
+                return LmtDownloadInfo;
+            }
+
             //创建一块存储的大小
             byte[] blockBytes = new byte[1024];
-            Debug.Assert(receiveStream != null, nameof(receiveStream) + "获取远程文件流为空\n[" + url + "]\n");
-            int blockSize = receiveStream.Read(blockBytes, 0, blockBytes.Length);
-             while (blockSize > 0)
-             {
-                 //循环写入读取数据
-                 fileStream.Write(blockBytes, 0, blockSize);
-                 blockSize = receiveStream.Read(blockBytes, 0, blockBytes.Length);
-             }
-             fileStream.Close();
-             receiveStream.Close();
-             httpWebResponse.Close();
-            //循环结束下载完成
+            using FileStream fileStream = new FileStream(filePath, FileMode.Create);
+            try
+            {
+                //获取文件流
+                using Stream receiveStream = httpWebResponse.GetResponseStream();
+                // ReSharper disable once PossibleNullReferenceException
+                int blockSize = receiveStream.Read(blockBytes, 0, blockBytes.Length);
+                while (blockSize > 0)
+                {
+                    //计算CRC
+                    for (uint i = 0; i < blockSize; i++)
+                    {
+                        LmtDownloadInfo.DownLoadFileCRC = (LmtDownloadInfo.DownLoadFileCRC << 8) ^ LmtdTable.CRCTable[(LmtDownloadInfo.DownLoadFileCRC >> 24) ^ blockBytes[i]];
+                    }
+                    LmtDownloadInfo.downLoadSizeValue += blockSize;
+                    upDateInfoCallback?.Invoke();
+                    //循环写入读取数据
+                    fileStream.Write(blockBytes, 0, blockSize);
+                    blockSize = receiveStream.Read(blockBytes, 0, blockBytes.Length);
+                }
+                receiveStream.Close();
+            }
+            catch
+            {
+#if UNITY_5_3_OR_NEWER
+                UnityEngine.Debug.LogError("下载资源中断\n" + url + "\n");
+#else
+                Console.WriteLine("下载资源中断\n" + url + "\n");
+#endif
+                LmtDownloadInfo.LmtDownloadResult = LmtDownloadResult.DownLoadFail;
+                return LmtDownloadInfo;
+            }
+            finally
+            {
+                fileStream.Close();
+                httpWebResponse.Close();
+                httpWebResponse.Dispose();
+            }
+            LmtDownloadInfo.LmtDownloadResult = LmtDownloadResult.Success;
+            return LmtDownloadInfo;
         }
         
         public void Logic()
         {
-            DownLoad();
+            LmtDownloadInfo lmtDownloadInfo = DownLoad();
+            completeCallback?.Invoke(lmtDownloadInfo);
         }
 
         public void Dispose()
         {
             url = null;
             filePath = null;
-            _lmtDownLoadQueue.Enqueue(this);
+            completeCallback = null;
+            upDateInfoCallback = null;
+            lock (LmtDownLoadQueue)
+            {
+                LmtDownLoadQueue.Enqueue(this);
+            }
         }
         
+    }
+    
+    /// <summary>
+    /// 下载完成后的回调信息
+    /// </summary>
+    public struct LmtDownloadInfo
+    {
+        public LmtDownloadResult LmtDownloadResult; 
+        public uint DownLoadFileCRC;
+
+        internal long downLoadSizeValue;
+        /// <summary>
+        /// 已经下载了多少
+        /// </summary>
+        public long DownLoadSize
+        {
+            get { return downLoadSizeValue; }
+        }
+        
+    }
+    
+    public enum LmtDownloadResult
+    {
+        /// <summary>
+        /// 成功
+        /// </summary>
+        Success = 0,
+        /// <summary>
+        /// 请求连接失败
+        /// </summary>
+        ResponseFail = 1,
+        /// <summary>
+        /// 下载失败
+        /// </summary>
+        DownLoadFail = 2
     }
 }

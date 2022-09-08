@@ -185,6 +185,9 @@ namespace BM
             return fileLength;
         }
         
+        /// <summary>
+        /// 注意此Table和多线程下载的Table以及打AssetBundle加密用的Table需要一样，其中在多线程下载的Table里还有一份拷贝
+        /// </summary>
         private static readonly UInt32[] CRCTable =
         {
           0x00000000, 0x04c11db7, 0x09823b6e, 0x0d4326d9, 0x130476dc, 0x17c56b6b, 0x1a864db2, 0x1e475005,

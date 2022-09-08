@@ -1,6 +1,6 @@
 ﻿namespace LMTD
 {
-    internal interface ILiteThreadAction
+    public interface ILiteThreadAction
     {
         public void Logic();
     }
