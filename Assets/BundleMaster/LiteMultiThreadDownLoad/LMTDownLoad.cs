@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Net;
 
@@ -88,6 +87,7 @@ namespace LMTD
             LmtDownloadInfo.downLoadSizeValue = 0;
             //创建下载请求
             HttpWebRequest httpWebRequest = (HttpWebRequest)WebRequest.Create(url);
+            httpWebRequest.Proxy = LMTDProxy.GetProxy();
             HttpWebResponse httpWebResponse;
             try
             {
