@@ -64,8 +64,8 @@ public class Init : MonoBehaviour
         {
             {AssetComponentConfig.DefaultBundlePackageName, false},
             {"SubBundle", false},
-            {"Main", false},
-            //{"OriginFile", false},
+            //{"Main", false},
+            //{"APK", false},
         };
         updateBundleDataInfo = await AssetComponent.CheckAllBundlePackageUpdate(updatePackageBundle);
         if (!updateBundleDataInfo.NeedUpdate)

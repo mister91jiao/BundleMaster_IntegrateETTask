@@ -103,9 +103,8 @@ namespace LMTD
                 LmtDownloadInfo.LmtDownloadResult = LmtDownloadResult.ResponseFail;
                 return LmtDownloadInfo;
             }
-
-            //创建一块存储的大小
-            byte[] blockBytes = new byte[1024];
+            //创建一块存储的大小 1mb
+            byte[] blockBytes = new byte[1048576];
             using FileStream fileStream = new FileStream(filePath, FileMode.Create);
             try
             {
