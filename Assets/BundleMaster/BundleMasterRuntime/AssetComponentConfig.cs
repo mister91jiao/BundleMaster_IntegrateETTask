@@ -25,7 +25,7 @@ namespace BM
         /// <summary>
         /// 资源服务器的地址 http://192.168.50.157/BundleData/
         /// </summary>
-        public static string BundleServerUrl = "https://www.download.cutale.cn/BundleData/ADAssets/";
+        public static string BundleServerUrl = "http://192.168.50.157/BundleData/";
         
         /// <summary>
         /// 默认加载的Bundle名
