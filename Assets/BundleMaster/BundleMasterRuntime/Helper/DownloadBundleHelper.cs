@@ -167,7 +167,9 @@ namespace BM
             LMTDownLoad lmtDownLoad = LMTDownLoad.Create(url, filePath);
             Task<LmtDownloadInfo> tcs = new Task<LmtDownloadInfo>(lmtDownLoad.DownLoad);
             tcs.Start();
-            return await tcs;
+            await tcs;
+            lmtDownLoad.Dispose();
+            return lmtDownLoad.LmtDownloadInfo;
         }
         
     }
