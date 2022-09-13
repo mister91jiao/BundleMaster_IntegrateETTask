@@ -51,6 +51,7 @@ namespace LMTD
                     lmtDownLoad = new LMTDownLoad(url, filePath);
                 }
             }
+            lmtDownLoad.CancelLock = false;
             return lmtDownLoad;
         }
         
@@ -59,6 +60,8 @@ namespace LMTD
             this.url = url;
             this.filePath = filePath;
         }
+
+        public bool CancelLock = false;
 
         /// <summary>
         /// 下载地址
@@ -112,6 +115,11 @@ namespace LMTD
                 int blockSize = receiveStream.Read(blockBytes, 0, blockBytes.Length);
                 while (blockSize > 0)
                 {
+                    if (CancelLock)
+                    {
+                        LmtDownloadInfo.LmtDownloadResult = LmtDownloadResult.CancelDownLoad;
+                        return LmtDownloadInfo;
+                    }
                     //计算CRC
                     for (uint i = 0; i < blockSize; i++)
                     {
@@ -153,6 +161,7 @@ namespace LMTD
 
         public void Dispose()
         {
+            CancelLock = false;
             url = null;
             filePath = null;
             completeCallback = null;
@@ -197,6 +206,10 @@ namespace LMTD
         /// <summary>
         /// 下载失败
         /// </summary>
-        DownLoadFail = 2
+        DownLoadFail = 2,
+        /// <summary>
+        /// 取消下载
+        /// </summary>
+        CancelDownLoad = 3
     }
 }

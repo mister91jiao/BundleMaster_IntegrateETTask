@@ -132,9 +132,10 @@ namespace BM
             fileCreatePath = fileCreatePath.Replace("\\", "/");
             //开始下载
             LmtDownloadInfo lmtDownloadInfo = await DownloadBundleHelper.DownloadData(url, fileCreatePath, UpdateBundleDataInfo);
-            if (lmtDownloadInfo.LmtDownloadResult != LmtDownloadResult.Success)
+            //说明下载更新已经被取消
+            if (UpdateBundleDataInfo.Cancel)
             {
-                AssetLogHelper.LogError("下载资源失败: " + lmtDownloadInfo.LmtDownloadResult);
+                return;
             }
             UpdateBundleDataInfo.AddCRCFileInfo(PackegName, FileName, lmtDownloadInfo.DownLoadFileCRC);
             UpdateBundleDataInfo.FinishDownLoadBundleCount++;

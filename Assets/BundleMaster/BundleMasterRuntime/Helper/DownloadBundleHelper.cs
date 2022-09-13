@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using System.Threading;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine.Networking;
 using ET;
 using LMTD;
-using UnityEngine;
 
 namespace BM
 {
@@ -100,9 +96,30 @@ namespace BM
         /// </summary>
         public static async ETTask<LmtDownloadInfo> DownloadData(string url, string filePath, UpdateBundleDataInfo updateBundleDataInfo)
         {
+            LmtDownloadInfo lmtDownloadInfo = new LmtDownloadInfo();
+            for (int i = 0; i < AssetComponentConfig.ReDownLoadCount; i++)
+            {
+                //说明下载更新已经被取消
+                if (updateBundleDataInfo.Cancel)
+                {
+                    return lmtDownloadInfo;
+                }
+                
+                lmtDownloadInfo = await DownloadOneData(url, filePath, updateBundleDataInfo);
+                if (lmtDownloadInfo.LmtDownloadResult == LmtDownloadResult.Success)
+                {
+                    return lmtDownloadInfo;
+                }
+            }
+            //多次下载失败直接取消下载
+            updateBundleDataInfo.CancelUpdate();
+            return lmtDownloadInfo;
+        }
+
+        private static async ETTask<LmtDownloadInfo> DownloadOneData(string url, string filePath, UpdateBundleDataInfo updateBundleDataInfo)
+        {
             ETTask tcs = ETTask.Create(true);
             LMTDownLoad lmtDownLoad = LMTDownLoad.Create(url, filePath);
-
             long lastDownSize = 0;
             lmtDownLoad.UpDateInfo += () =>
             {
@@ -110,8 +127,15 @@ namespace BM
                 updateBundleDataInfo.FinishUpdateSize += lmtDownLoad.LmtDownloadInfo.DownLoadSize - lastDownSize;
                 lastDownSize = lmtDownLoad.LmtDownloadInfo.DownLoadSize;
                 // ReSharper restore AccessToDisposedClosure
+                lock (updateBundleDataInfo)
+                {
+                    if (updateBundleDataInfo.Cancel)
+                    { 
+                        // ReSharper disable once AccessToDisposedClosure
+                        lmtDownLoad.CancelLock = true;
+                    }
+                }
             };
-            
             lmtDownLoad.Completed += (info) =>
             {
                 lock (DownLoadFinishQueue)
@@ -122,10 +146,22 @@ namespace BM
             ThreadFactory.ThreadAction(lmtDownLoad);
             await tcs;
             LmtDownloadInfo lmtDownloadInfo = lmtDownLoad.LmtDownloadInfo;
+            if (lmtDownloadInfo.LmtDownloadResult != LmtDownloadResult.Success)
+            {
+                updateBundleDataInfo.FinishUpdateSize -= lmtDownLoad.LmtDownloadInfo.DownLoadSize;
+                //主动取消下载就没必要再输出log了
+                if (lmtDownloadInfo.LmtDownloadResult != LmtDownloadResult.CancelDownLoad)
+                {
+                    AssetLogHelper.LogError("下载资源失败: " + lmtDownloadInfo.LmtDownloadResult);
+                }
+            }
             lmtDownLoad.Dispose();
             return lmtDownloadInfo;
         }
         
+        /// <summary>
+        /// 另一种多线程下载的方式，不建议使用
+        /// </summary>
         public static async Task<LmtDownloadInfo> DownloadDataTask(string url, string filePath)
         {
             LMTDownLoad lmtDownLoad = LMTDownLoad.Create(url, filePath);
