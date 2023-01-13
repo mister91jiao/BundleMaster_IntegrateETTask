@@ -257,7 +257,7 @@ namespace BM
                             {
                                 if (crc != streamingCrc)
                                 {
-                                    if (!File.Exists(Path.Combine(AssetComponentConfig.HotfixPath, bundlePackageName, info[0])))
+                                    if (!File.Exists(PathUnifiedHelper.UnifiedPath(Path.Combine(AssetComponentConfig.HotfixPath, bundlePackageName, info[0]))))
                                     {
                                         needUpdateBundles.Add(info[0], long.Parse(info[1]));
                                     }
@@ -265,7 +265,7 @@ namespace BM
                             }
                             else
                             {
-                                if (!File.Exists(Path.Combine(AssetComponentConfig.HotfixPath, bundlePackageName, info[0])))
+                                if (!File.Exists(PathUnifiedHelper.UnifiedPath(Path.Combine(AssetComponentConfig.HotfixPath, bundlePackageName, info[0]))))
                                 {
                                     needUpdateBundles.Add(info[0], long.Parse(info[1]));
                                 }
