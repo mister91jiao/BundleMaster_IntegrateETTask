@@ -71,8 +71,7 @@ namespace BM
             Debug.Assert(downLoadData.Data != null, "downLoadData.Data != null");
             int dataLength = downLoadData.Data.Length;
             
-            string fileCreatePath = Path.Combine(DownLoadPackagePath, FileName);
-            fileCreatePath = fileCreatePath.Replace("\\", "/");
+            string fileCreatePath = PathUnifiedHelper.UnifiedPath(Path.Combine(DownLoadPackagePath, FileName));
             using (FileStream fs = new FileStream(fileCreatePath, FileMode.Create))
             {
                 //大于2M用异步
@@ -128,8 +127,7 @@ namespace BM
                 url = Path.Combine(AssetComponentConfig.BundleServerUrl, PackegName, fileUrls);
             }
             //计算文件存储路径
-            string fileCreatePath = Path.Combine(DownLoadPackagePath, FileName);
-            fileCreatePath = fileCreatePath.Replace("\\", "/");
+            string fileCreatePath = PathUnifiedHelper.UnifiedPath(Path.Combine(DownLoadPackagePath, FileName));
             //开始下载
             LmtDownloadInfo lmtDownloadInfo = await DownloadBundleHelper.DownloadData(url, fileCreatePath, UpdateBundleDataInfo);
             //说明下载更新已经被取消
