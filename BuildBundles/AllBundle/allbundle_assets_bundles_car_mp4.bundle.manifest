@@ -1,0 +1,17 @@
+ManifestFileVersion: 0
+CRC: 1204651695
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: d027c0ae9ad06232b5f6d8fa6b24a28a
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: c12678a98877549a3fe7bb52917258ad
+HashAppended: 0
+ClassTypes:
+- Class: 329
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/Bundles/car.mp4
+Dependencies: []
