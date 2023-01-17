@@ -11,7 +11,7 @@ public static class InstallHelper
     {
         //创建下载UI
         Transform uiManagerTf = GameObject.Find("UIManager").transform;
-        GameObject downLoadUI = GameObject.Instantiate(Resources.Load<GameObject>("DownLoadUI"), uiManagerTf);
+        GameObject downLoadUI = Object.Instantiate(Resources.Load<GameObject>("DownLoadUI"), uiManagerTf);
         
         Dictionary<string, bool> updatePackageBundle = new Dictionary<string, bool>()
         {
@@ -42,7 +42,7 @@ public static class InstallHelper
            Debug.LogError("需要更新新的APK " + updateBundleDataInfo.NeedUpdateSize);
            await AssetComponent.DownLoadUpdate(updateBundleDataInfo);
         }
-        GameObject.Destroy(downLoadUI);
+        Object.Destroy(downLoadUI);
         
         return;
         

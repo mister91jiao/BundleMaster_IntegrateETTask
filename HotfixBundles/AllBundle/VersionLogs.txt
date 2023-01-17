@@ -1,0 +1,14 @@
+2023/1/18 5:47:40|1|False
+allbundle_assets_bundles_atlas_uispriteatlas_spriteatlas.bundle|958304|1676091697
+allbundle_assets_bundles_car_mp4.bundle|4053642|2455607307
+allbundle_assets_bundles_groupbundle.bundle|1636610|1099937232
+allbundle_assets_bundles_loginui_prefab.bundle|9745|3244467617
+allbundle_assets_bundles_resetui_prefab.bundle|9543|3689768748
+allbundle_assets_bundles_subbundleassets_mister91jiao_prefab.bundle|114743|2031352474
+allbundle_assets_bundles_subbundleassets_subui_copy_prefab.bundle|3748|1662491636
+allbundle_assets_bundles_subui_prefab.bundle|3726|3400842303
+allbundle_assets_res_ui.bundle|3597|3294171982
+allbundle_assets_scenes_game_unity.bundle|2380371|319310462
+shader_allbundle|135188|468004778
+
+
