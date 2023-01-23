@@ -119,16 +119,18 @@ namespace BM
                     }
                 }
 
+                string[] remoteVersionData = remoteVersionLog.Split('\n');
+                string[] localVersionData = localVersionLog.Split('\n');
                 if (bundlePackageInfo.Value)
                 {
-                    await CalcNeedUpdateBundleFileCRC(updateBundleDataInfo, bundlePackageName, remoteVersionLog, localVersionLog);
+                    await CalcNeedUpdateBundleFileCRC(updateBundleDataInfo, bundlePackageName, remoteVersionData, localVersionData);
                 }
                 else
                 {
-                    await CalcNeedUpdateBundle(updateBundleDataInfo, bundlePackageName, remoteVersionLog, localVersionLog);
+                    await CalcNeedUpdateBundle(updateBundleDataInfo, bundlePackageName, remoteVersionData, localVersionData);
                 }
             }
-            if (updateBundleDataInfo.NeedUpdateSize > 0)
+            if (updateBundleDataInfo.PackageNeedUpdateBundlesInfos.Count > 0)
             {
                 updateBundleDataInfo.NeedUpdate = true;
             }
@@ -148,10 +150,8 @@ namespace BM
         /// <summary>
         /// 获取所哟需要更新的Bundle的文件(不检查文件CRC)
         /// </summary>
-        private static async ETTask CalcNeedUpdateBundle(UpdateBundleDataInfo updateBundleDataInfo, string bundlePackageName, string remoteVersionLog, string localVersionLog)
+        private static async ETTask CalcNeedUpdateBundle(UpdateBundleDataInfo updateBundleDataInfo, string bundlePackageName, string[] remoteVersionData, string[] localVersionData)
         {
-            string[] remoteVersionData = remoteVersionLog.Split('\n');
-            string[] localVersionData = localVersionLog.Split('\n');
             string[] remoteVersionDataSplits = remoteVersionData[0].Split('|');
             int remoteVersion = int.Parse(remoteVersionDataSplits[1]);
             int localVersion = int.Parse(localVersionData[0].Split('|')[1]);
@@ -276,6 +276,11 @@ namespace BM
                     needUpdateBundles.Add(info[0], long.Parse(info[1]));
                 }
             }
+            if (!(needUpdateBundles.Count > 0 || remoteVersionData[0] != localVersionData[0]))
+            {
+                //说明这个分包不需要更新
+                return;
+            }
             updateBundleDataInfo.PackageNeedUpdateBundlesInfos.Add(bundlePackageName, needUpdateBundles);
             foreach (long needUpdateBundleSize in needUpdateBundles.Values)
             {
@@ -287,10 +292,8 @@ namespace BM
         /// <summary>
         /// 获取所有需要更新的Bundle的文件(计算文件CRC)
         /// </summary>
-        private static async ETTask CalcNeedUpdateBundleFileCRC(UpdateBundleDataInfo updateBundleDataInfo, string bundlePackageName, string remoteVersionLog, string localVersionLog)
+        private static async ETTask CalcNeedUpdateBundleFileCRC(UpdateBundleDataInfo updateBundleDataInfo, string bundlePackageName, string[] remoteVersionData, string[] localVersionData)
         {
-            string[] remoteVersionData = remoteVersionLog.Split('\n');
-            string[] localVersionData = localVersionLog.Split('\n');
             string[] remoteVersionDataSplits = remoteVersionData[0].Split('|');
             int remoteVersion = int.Parse(remoteVersionDataSplits[1]);
             int localVersion = int.Parse(localVersionData[0].Split('|')[1]);
@@ -343,6 +346,12 @@ namespace BM
                 }
                 await finishTcs;
                 _checkCount = 0;
+            }
+            
+            if (!(needUpdateBundles.Count > 0 || remoteVersionData[0] != localVersionData[0]))
+            {
+                //说明这个分包不需要更新
+                return;
             }
             updateBundleDataInfo.PackageNeedUpdateBundlesInfos.Add(bundlePackageName, needUpdateBundles);
             foreach (long needUpdateBundleSize in needUpdateBundles.Values)
