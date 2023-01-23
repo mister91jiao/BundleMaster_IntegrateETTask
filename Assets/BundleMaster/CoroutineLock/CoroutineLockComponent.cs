@@ -8,7 +8,7 @@ namespace BM
         /// <summary>
         /// 协程锁类型以及对应的协程锁队列
         /// </summary>
-        private static readonly Dictionary<int, CoroutineLockQueue> CoroutineLockTypeToQueue = new Dictionary<int, CoroutineLockQueue>();
+        private static readonly Dictionary<CoroutineLockType, CoroutineLockQueue> CoroutineLockTypeToQueue = new Dictionary<CoroutineLockType, CoroutineLockQueue>();
         
         /// <summary>
         /// 没有用到的CoroutineLock池
@@ -20,7 +20,7 @@ namespace BM
         /// </summary>
         internal static readonly Queue<Queue<CoroutineLock>> CoroutineLockQueuePool = new Queue<Queue<CoroutineLock>>();
 
-        public static async ETTask<CoroutineLock> Wait(int coroutineLockType, long key)
+        public static async ETTask<CoroutineLock> Wait(CoroutineLockType coroutineLockType, long key)
         {
             if (!CoroutineLockTypeToQueue.TryGetValue(coroutineLockType, out CoroutineLockQueue coroutineLockQueue))
             {

@@ -110,6 +110,14 @@ namespace BM
                 tcs.SetResult();
                 return;
             }
+            
+            
+            string path = AssetComponent.BundleFileExistPath(bundlePackageName, AssetBundleName, true);
+            CoroutineLock coroutineLock = await CoroutineLockComponent.Wait(CoroutineLockType.BundleMaster, LoadPathConvertHelper.LoadPathConvert(path));
+            
+            coroutineLock.Dispose();
+            
+            
             if (_loadState == LoadState.Loading)
             {
                 _loadFinishTasks.Add(tcs);

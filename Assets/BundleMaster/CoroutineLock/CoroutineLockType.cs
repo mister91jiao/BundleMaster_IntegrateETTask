@@ -1,7 +1,8 @@
 ﻿namespace BM
 {
-    public static class CoroutineLockType
+    public enum CoroutineLockType
     {
-        public const int BundleMaster = 0;
+        BundleMaster = 0,
+        
     }
 }
