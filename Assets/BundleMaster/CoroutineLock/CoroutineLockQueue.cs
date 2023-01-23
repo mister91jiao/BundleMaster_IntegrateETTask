@@ -4,17 +4,17 @@ namespace BM
 {
     internal class CoroutineLockQueue
     {
-        private int coroutineLockType;
-        private readonly Dictionary<long, Queue<CoroutineLock>> coroutineLockKeyToQueue = new Dictionary<long, Queue<CoroutineLock>>();
+        private CoroutineLockType _coroutineLockType;
+        private readonly Dictionary<long, Queue<CoroutineLock>> _coroutineLockKeyToQueue = new Dictionary<long, Queue<CoroutineLock>>();
         
-        internal CoroutineLockQueue(int coroutineLockType)
+        internal CoroutineLockQueue(CoroutineLockType coroutineLockType)
         {
-            this.coroutineLockType = coroutineLockType;
+            this._coroutineLockType = coroutineLockType;
         }
         
         internal void CoroutineLockDispose(CoroutineLock coroutineLock)
         {
-            Queue<CoroutineLock> keyToQueue = coroutineLockKeyToQueue[coroutineLock.Key];
+            Queue<CoroutineLock> keyToQueue = _coroutineLockKeyToQueue[coroutineLock.Key];
             if (keyToQueue.Count > 0)
             {
                 CoroutineLock nextCoroutineLock = keyToQueue.Dequeue();
@@ -23,7 +23,7 @@ namespace BM
             }
             keyToQueue.Clear();
             CoroutineLockComponent.CoroutineLockQueuePool.Enqueue(keyToQueue);
-            coroutineLockKeyToQueue.Remove(coroutineLock.Key);
+            _coroutineLockKeyToQueue.Remove(coroutineLock.Key);
         }
         
         internal CoroutineLock GetCoroutineLock(long key)
@@ -38,7 +38,7 @@ namespace BM
                 coroutineLock = new CoroutineLock();
             }
             coroutineLock.Init(key, this);
-            if (!coroutineLockKeyToQueue.ContainsKey(key))
+            if (!_coroutineLockKeyToQueue.ContainsKey(key))
             {
                 Queue<CoroutineLock> coroutineLockQueue;
                 if (CoroutineLockComponent.CoroutineLockQueuePool.Count > 0)
@@ -49,12 +49,12 @@ namespace BM
                 {
                     coroutineLockQueue = new Queue<CoroutineLock>();
                 }
-                coroutineLockKeyToQueue.Add(key, coroutineLockQueue);
+                _coroutineLockKeyToQueue.Add(key, coroutineLockQueue);
                 coroutineLock.Enable();
             }
             else
             {
-                coroutineLockKeyToQueue[key].Enqueue(coroutineLock);
+                _coroutineLockKeyToQueue[key].Enqueue(coroutineLock);
             }
             return coroutineLock;
         }
