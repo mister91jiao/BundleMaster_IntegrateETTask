@@ -37,12 +37,6 @@ namespace BM
         /// 加载的状态
         /// </summary>
         internal LoadState LoadState = LoadState.NoLoad;
-        
-        /// <summary>
-        /// 异步等待加载的Task
-        /// </summary>
-        internal List<ETTask> AwaitEtTasks = new List<ETTask>();
-
 
         internal LoadHandler(bool isPool)
         {
