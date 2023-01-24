@@ -420,6 +420,8 @@ namespace BM
                     downLoadTaskQueue.Enqueue(downLoadTask);
                 }
             }
+            //最初开始的下载任务数量
+            int firstDownLoadTask = 0;
             //开启下载
             for (int i = 0; i < AssetComponentConfig.MaxDownLoadCount; i++)
             {
@@ -429,14 +431,19 @@ namespace BM
                     {
                         //downLoadTaskQueue.Dequeue().DownLoad().Coroutine();
                         downLoadTaskQueue.Dequeue().ThreadDownLoad().Coroutine();
+                        firstDownLoadTask++;
                         break;
                     }
                 }
             }
             //将下载进度更新添加到帧循环
             DownLoadAction += updateBundleDataInfo.UpdateProgressAndSpeedCallBack;
+            //说明没有ab需要更新
+            if (firstDownLoadTask == 0)
+            {
+                downLoading.SetResult();
+            }
             await downLoading;
-            
             //下载完成关闭CRCLog文件
             foreach (StreamWriter sw in updateBundleDataInfo.PackageCRCFile.Values)
             {

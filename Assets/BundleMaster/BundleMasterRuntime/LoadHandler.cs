@@ -165,7 +165,7 @@ namespace BM
                 LoadAsyncLoader(LoadDependGroups[i], tcs).Coroutine();
             }
             await tcs;
-            if (LoadState != LoadState.Finish)
+            if (LoadState == LoadState.Finish)
             {
                 AssetLogHelper.Log("此资源异步加载时触发了强制加载: " + AssetPath);
             }

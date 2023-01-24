@@ -216,10 +216,13 @@ namespace BM
             {
                 await loadHandler.LoadAsync();
                 AssetBundleRequest loadAssetAsync = loadHandler.FileAssetBundle.LoadAssetAsync<T>(assetPath);
+                ETTask tcs = ETTask.Create(true);
                 loadAssetAsync.completed += operation =>
                 {
                     loadHandler.Asset = loadAssetAsync.asset;
+                    tcs.SetResult();
                 };
+                await tcs;
             }
             coroutineLock.Dispose();
             return (T)loadHandler.Asset;
@@ -297,10 +300,13 @@ namespace BM
             {
                 await loadHandler.LoadAsync();
                 AssetBundleRequest loadAssetAsync = loadHandler.FileAssetBundle.LoadAssetAsync(assetPath);
+                ETTask tcs = ETTask.Create(true);
                 loadAssetAsync.completed += operation =>
                 {
                     loadHandler.Asset = loadAssetAsync.asset;
+                    tcs.SetResult();
                 };
+                await tcs;
             }
             coroutineLock.Dispose();
             return loadHandler.Asset;

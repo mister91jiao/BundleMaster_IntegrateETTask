@@ -1,4 +1,0 @@
-<Assets/Bundles/SubBundleAssets/mister91jiao.prefab|subbundle_assets_bundles_subbundleassets_mister91jiao_prefab.bundle>
-<Assets/Bundles/SubBundleAssets/SubUI_Copy.prefab|subbundle_assets_bundles_subbundleassets_subui_copy_prefab.bundle>
-
-
