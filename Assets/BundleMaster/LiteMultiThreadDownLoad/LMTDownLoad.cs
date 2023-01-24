@@ -9,26 +9,26 @@ namespace LMTD
     {
         private static readonly Queue<LMTDownLoad> LmtDownLoadQueue = new Queue<LMTDownLoad>();
         
-        private Action<LmtDownloadInfo> completeCallback;
+        private Action<LmtDownloadInfo> _completeCallback;
         
         /// <summary>
         /// 下载完成后的回调
         /// </summary>
         public event Action<LmtDownloadInfo> Completed
         {
-            add => completeCallback += value;
-            remove => this.completeCallback -= value;
+            add => _completeCallback += value;
+            remove => this._completeCallback -= value;
         }
         
-        private Action upDateInfoCallback;
+        private Action _upDateInfoCallback;
         
         /// <summary>
         /// 下载更新循环
         /// </summary>
         public event Action UpDateInfo
         {
-            add => upDateInfoCallback += value;
-            remove => this.upDateInfoCallback -= value;
+            add => _upDateInfoCallback += value;
+            remove => this._upDateInfoCallback -= value;
         }
 
         /// <summary>
@@ -125,7 +125,7 @@ namespace LMTD
                         LmtDownloadInfo.DownLoadFileCRC = (LmtDownloadInfo.DownLoadFileCRC << 8) ^ LmtdTable.CRCTable[(LmtDownloadInfo.DownLoadFileCRC >> 24) ^ blockBytes[i]];
                     }
                     LmtDownloadInfo.downLoadSizeValue += blockSize;
-                    upDateInfoCallback?.Invoke();
+                    _upDateInfoCallback?.Invoke();
                     //循环写入读取数据
                     fileStream.Write(blockBytes, 0, blockSize);
                     blockSize = receiveStream.Read(blockBytes, 0, blockBytes.Length);
@@ -155,7 +155,7 @@ namespace LMTD
         public void Logic()
         {
             LmtDownloadInfo lmtDownloadInfo = DownLoad();
-            completeCallback?.Invoke(lmtDownloadInfo);
+            _completeCallback?.Invoke(lmtDownloadInfo);
         }
 
         public void Dispose()
@@ -163,8 +163,8 @@ namespace LMTD
             CancelLock = false;
             url = null;
             filePath = null;
-            completeCallback = null;
-            upDateInfoCallback = null;
+            _completeCallback = null;
+            _upDateInfoCallback = null;
             lock (LmtDownLoadQueue)
             {
                 LmtDownLoadQueue.Enqueue(this);

@@ -429,7 +429,7 @@ namespace BM
                 {
                     if (downLoadTaskQueue.Count > 0)
                     {
-                        //downLoadTaskQueue.Dequeue().DownLoad().Coroutine();
+                        //downLoadTaskQueue.Dequeue().DownLoad().Coroutine();       //webGL 不可以用多线程下载器
                         downLoadTaskQueue.Dequeue().ThreadDownLoad().Coroutine();
                         firstDownLoadTask++;
                         break;
