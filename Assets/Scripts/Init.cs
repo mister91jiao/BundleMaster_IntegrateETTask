@@ -33,19 +33,19 @@ public class Init : MonoBehaviour
     
     void OnLowMemory()
     {
-        AssetComponent.ForceUnLoadAll();
+        //AssetComponent.ForceUnLoadAll();
     }
     
     void OnDestroy()
     {
         _updateBundleDataInfo?.CancelUpdate();
-        LMTD.ThreadFactory.Destroy();
+        AssetComponent.Destroy();
     }
 
     private void Initialization()
     {
         //重新配置热更路径(开发方便用, 打包移动端需要注释注释)
-        AssetComponentConfig.HotfixPath = Application.dataPath + "/../HotfixBundles/";
+        //AssetComponentConfig.HotfixPath = Application.dataPath + "/../HotfixBundles/";
         _uiManagerTf = gameObject.transform.Find("UIManager");
         AssetComponentConfig.DefaultBundlePackageName = "AllBundle";
         //创建下载UI
@@ -115,7 +115,7 @@ public class Init : MonoBehaviour
         await AssetComponent.Initialize("SubBundle");
         await InitUI();
     }
-
+    
     private async ETTask InitUI()
     {
         //加载图集
@@ -141,8 +141,10 @@ public class Init : MonoBehaviour
     {
         LoadSceneHandler loadSceneHandler = await AssetComponent.LoadSceneAsync(BPath.Assets_Scenes_Game__unity);
         //如果需要获取场景加载进度, 用这种加载方式 loadSceneHandler2.GetProgress() , 注意进度不是线性的
-        // ETTask loadSceneHandlerTask = AssetComponent.LoadSceneAsync(out LoadSceneHandler loadSceneHandler2, "Assets/Scenes/Game.unity");
-        // await loadSceneHandlerTask;
+        //ETTask loadSceneHandlerTask = AssetComponent.LoadSceneAsync(out LoadSceneHandler loadSceneHandler2, "Assets/Scenes/Game.unity");
+        //await loadSceneHandlerTask;
+        
+        
         AsyncOperation operation = SceneManager.LoadSceneAsync("Game");
         operation.completed += asyncOperation =>
         {
@@ -164,7 +166,7 @@ public class Init : MonoBehaviour
             //LoadGroupTest().Coroutine();
         };
     } 
-
+    
     private async ETTask LoadGroupTest()
     {
         Texture zfnp = await AssetComponent.LoadAsync<Texture>(out LoadHandler handler, BPath.Assets_Bundles_GroupBundle_bds__png);

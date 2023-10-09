@@ -1,12 +1,12 @@
 ManifestFileVersion: 0
-CRC: 2421853389
+CRC: 2105867013
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 3e53677439ede5126527ba163a8ce4ce
+    Hash: e775c6df6244d912ac1bb383ed41d4b7
   TypeTreeHash:
     serializedVersion: 2
-    Hash: 3dbb92f992534c06c4e322444b68580f
+    Hash: c29c357128feff56790ec9816c4fc93d
 HashAppended: 0
 ClassTypes:
 - Class: 28
@@ -19,4 +19,4 @@ SerializeReferenceClassIdentifiers: []
 Assets:
 - Assets/Bundles/Atlas/UISpriteAtlas.spriteatlas
 Dependencies:
-- D:/_UnityProject/BundleMaster_IntegrateETTask/BuildBundles/AllBundle/allbundle_assets_res_ui.bundle
+- D:/_GitHubProject/BundleMaster_IntegrateETTask/BuildBundles/AllBundle/allbundle_assets_res_ui.bundle

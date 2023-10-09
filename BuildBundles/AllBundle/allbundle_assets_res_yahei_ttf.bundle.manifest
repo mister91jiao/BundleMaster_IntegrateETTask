@@ -1,0 +1,23 @@
+ManifestFileVersion: 0
+CRC: 220418591
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 71b3cfaa278fa883f3bc83145fb9d209
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 90a3e6db3cc3c61292f168c6c2a93115
+HashAppended: 0
+ClassTypes:
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 128
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/Res/yahei.ttf
+Dependencies: []

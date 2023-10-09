@@ -1,21 +1,17 @@
 ManifestFileVersion: 0
-CRC: 2533346109
+CRC: 494784313
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: ece5af21e1ef4bba9682d6ff58fbba70
+    Hash: 74b13c75e1c6c187bc39e226dda8031b
   TypeTreeHash:
     serializedVersion: 2
-    Hash: 6b44d2f0e304c8b3b55fd4f232b53c06
+    Hash: 313ea4b148bdb5d16092958ffd9fa9fb
 HashAppended: 0
 ClassTypes:
 - Class: 1
   Script: {instanceID: 0}
-- Class: 21
-  Script: {instanceID: 0}
 - Class: 28
-  Script: {instanceID: 0}
-- Class: 48
   Script: {instanceID: 0}
 - Class: 114
   Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
@@ -52,4 +48,5 @@ SerializeReferenceClassIdentifiers:
   ClassName: UnityEngine.UI.SpriteState
 Assets:
 - Assets/Bundles/ResetUI.prefab
-Dependencies: []
+Dependencies:
+- D:/_GitHubProject/BundleMaster_IntegrateETTask/BuildBundles/AllBundle/allbundle_assets_res_yahei_ttf.bundle

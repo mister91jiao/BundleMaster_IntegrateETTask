@@ -1,3 +1,17 @@
 {
-	"name": "BundleMaster"
+    "name": "BundleMaster",
+    "rootNamespace": "",
+    "references": [
+        "GUID:3bc86b810ed97834e8d5d8df82632a59",
+        "GUID:cf72940284cbbb5479c28a3e039c34f6"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
 }

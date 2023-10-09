@@ -1,12 +1,12 @@
 ManifestFileVersion: 0
-CRC: 3649079496
+CRC: 1698330976
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: a9d40c7f57c7a9b317d1183551ef0902
+    Hash: 75246402e9e5611dc937ea2327b4c95b
   TypeTreeHash:
     serializedVersion: 2
-    Hash: cc2d326784bcb9f70acbc398f2920225
+    Hash: a19026f6017a19b21fe32ccd031aaa87
 HashAppended: 0
 ClassTypes:
 - Class: 1
@@ -57,4 +57,4 @@ SerializeReferenceClassIdentifiers: []
 Assets:
 - Assets/Scenes/Game.unity
 Dependencies:
-- D:/_UnityProject/BundleMaster_IntegrateETTask/BuildBundles/AllBundle/shader_allbundle
+- D:/_GitHubProject/BundleMaster_IntegrateETTask/BuildBundles/AllBundle/shader_allbundle

@@ -46,10 +46,10 @@ public static class InstallHelper
         
         return;
         
-        string path = Path.Combine(Application.persistentDataPath, "APK", "test.apk");
-        //调用Java更新安装接口
-        AndroidJavaClass androidJavaClass = new AndroidJavaClass("com.unity3d.player.InstallApkHelper");
-        androidJavaClass.CallStatic("InstallApk", path);
+        // string path = Path.Combine(Application.persistentDataPath, "APK", "test.apk");
+        // //调用Java更新安装接口
+        // AndroidJavaClass androidJavaClass = new AndroidJavaClass("com.unity3d.player.InstallApkHelper");
+        // androidJavaClass.CallStatic("InstallApk", path);
         
     }
 }

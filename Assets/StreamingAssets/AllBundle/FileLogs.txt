@@ -1,6 +1,6 @@
 <Assets/Bundles/car.mp4|allbundle_assets_bundles_car_mp4.bundle>
-<Assets/Bundles/LoginUI.prefab|allbundle_assets_bundles_loginui_prefab.bundle|Assets/Res/UI|Assets/Bundles/SubUI.prefab>
-<Assets/Bundles/ResetUI.prefab|allbundle_assets_bundles_resetui_prefab.bundle>
+<Assets/Bundles/LoginUI.prefab|allbundle_assets_bundles_loginui_prefab.bundle|Assets/Res/UI|Assets/Bundles/SubUI.prefab|Assets/Res/yahei.ttf>
+<Assets/Bundles/ResetUI.prefab|allbundle_assets_bundles_resetui_prefab.bundle|Assets/Res/yahei.ttf>
 <Assets/Bundles/SubUI.prefab|allbundle_assets_bundles_subui_prefab.bundle|Assets/Res/UI>
 <Assets/Bundles/Atlas/UISpriteAtlas.spriteatlas|allbundle_assets_bundles_atlas_uispriteatlas_spriteatlas.bundle|Assets/Res/UI>
 <Assets/Bundles/SubBundleAssets/mister91jiao.prefab|allbundle_assets_bundles_subbundleassets_mister91jiao_prefab.bundle|Assets/Res/UI>

@@ -1,5 +1,5 @@
-2023/1/24 7:57:04|1|False
-shader_subbundle|235729|39961991
-subbundle_assets_bundles_subbundleassets_mister91jiao_prefab.bundle|1716247|3680700019
-subbundle_assets_bundles_subbundleassets_subui_copy_prefab.bundle|4217380|1530244085
+2023/10/9 20:54:25|1|False
+shader_subbundle|359232|920533198
+subbundle_assets_bundles_subbundleassets_mister91jiao_prefab.bundle|1716960|2127372666
+subbundle_assets_bundles_subbundleassets_subui_copy_prefab.bundle|4217600|4286029225
 

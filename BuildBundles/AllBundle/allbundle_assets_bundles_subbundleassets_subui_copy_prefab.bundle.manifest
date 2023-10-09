@@ -1,12 +1,12 @@
 ManifestFileVersion: 0
-CRC: 3506844188
+CRC: 2519182579
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 32ac7562de513986e1bf38341863f268
+    Hash: 402d872c957e6a1db2132c0746545cf2
   TypeTreeHash:
     serializedVersion: 2
-    Hash: dda481f9c8e84683649c3a3d73eb91cb
+    Hash: 7e709fe5f7b675169b925dd84be8594a
 HashAppended: 0
 ClassTypes:
 - Class: 1
@@ -29,4 +29,4 @@ SerializeReferenceClassIdentifiers:
 Assets:
 - Assets/Bundles/SubBundleAssets/SubUI_Copy.prefab
 Dependencies:
-- D:/_UnityProject/BundleMaster_IntegrateETTask/BuildBundles/AllBundle/allbundle_assets_res_ui.bundle
+- D:/_GitHubProject/BundleMaster_IntegrateETTask/BuildBundles/AllBundle/allbundle_assets_res_ui.bundle

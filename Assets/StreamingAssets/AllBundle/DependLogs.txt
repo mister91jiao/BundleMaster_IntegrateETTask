@@ -1,1 +1,2 @@
+<Assets/Res/yahei.ttf|allbundle_assets_res_yahei_ttf.bundle>
 
