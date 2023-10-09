@@ -13,7 +13,7 @@
 <br/>WebGL 平台需要加上 BMWebGL 宏，部署使用 Local 模式运行(网页直接刷新就行所以不需要更新)</br>
 <br/>Switch 平台需要加上 Nintendo_Switch 宏，理论上可以进行热更但因为政策原因所以没有对更新功能进行适配，因此部署依然需要在 Local 模式 下运行，除此之外还要加上 NintendoSDKPlugin，不然会报错，政策原因不上传这部分内容，有需要switch开发需要可以找我联系</br>
 
-<br/>在 OriginTestAssets 文件夹下有 WebGL构建好的Demo以及 Switch运行的适配</br>
+<br/>在 OriginTestAssets 文件夹下有 WebGL构建好的Demo以及 Switch运行的视频</br>
 
 <br/>友情链接: </br>
 <br/>JEngine 一款不错的客户端框架: https://github.com/JasonXuDeveloper/JEngine</br>
