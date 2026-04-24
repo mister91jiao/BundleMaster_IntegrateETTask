@@ -1,12 +1,12 @@
 ManifestFileVersion: 0
-CRC: 2129279498
+CRC: 2134254441
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 21efa0c9146c6af6ba52f9fdfd913cda
+    Hash: 1d320bb31e51669071c835d1fc60f79d
   TypeTreeHash:
     serializedVersion: 2
-    Hash: 313ea4b148bdb5d16092958ffd9fa9fb
+    Hash: f1ffe93dd0612ee262efd1271f9fd7de
 HashAppended: 0
 ClassTypes:
 - Class: 1
@@ -16,9 +16,9 @@ ClassTypes:
 - Class: 114
   Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
 - Class: 114
-  Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-- Class: 114
   Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
 - Class: 115
   Script: {instanceID: 0}
 - Class: 128
@@ -49,6 +49,5 @@ SerializeReferenceClassIdentifiers:
 Assets:
 - Assets/Bundles/LoginUI.prefab
 Dependencies:
-- D:/_GitHubProject/BundleMaster_IntegrateETTask/BuildBundles/AllBundle/allbundle_assets_bundles_subui_prefab.bundle
 - D:/_GitHubProject/BundleMaster_IntegrateETTask/BuildBundles/AllBundle/allbundle_assets_res_ui.bundle
 - D:/_GitHubProject/BundleMaster_IntegrateETTask/BuildBundles/AllBundle/allbundle_assets_res_yahei_ttf.bundle

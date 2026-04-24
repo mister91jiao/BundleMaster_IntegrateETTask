@@ -1,5 +1,5 @@
 ManifestFileVersion: 0
-CRC: 4110509591
+CRC: 2881014355
 AssetBundleManifest:
   AssetBundleInfos:
     Info_0:
@@ -11,9 +11,8 @@ AssetBundleManifest:
     Info_2:
       Name: allbundle_assets_bundles_loginui_prefab.bundle
       Dependencies:
-        Dependency_0: allbundle_assets_bundles_subui_prefab.bundle
-        Dependency_1: allbundle_assets_res_yahei_ttf.bundle
-        Dependency_2: allbundle_assets_res_ui.bundle
+        Dependency_0: allbundle_assets_res_yahei_ttf.bundle
+        Dependency_1: allbundle_assets_res_ui.bundle
     Info_3:
       Name: allbundle_assets_bundles_resetui_prefab.bundle
       Dependencies:
